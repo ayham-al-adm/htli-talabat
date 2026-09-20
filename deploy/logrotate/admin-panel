@@ -1,0 +1,16 @@
+# Install: sudo cp deploy/logrotate/admin-panel /etc/logrotate.d/admin-panel
+#          sudo logrotate -d /etc/logrotate.d/admin-panel    # dry run
+#
+# copytruncate (not create) because the systemd queue workers hold worker.log
+# open -- renaming it would leave them writing to an unlinked inode.
+
+/var/www/admin-panel/storage/logs/*.log {
+    daily
+    rotate 14
+    missingok
+    notifempty
+    compress
+    delaycompress
+    copytruncate
+    su www-data www-data
+}

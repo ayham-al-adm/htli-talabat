@@ -1,0 +1,38 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Baseline security headers for files Apache serves directly.
+#
+# Static assets under public/ never enter PHP, so App\Http\Middleware\SecurityHeaders
+# cannot reach them. "setifempty" only fills a header that is not already set,
+# so dynamic responses keep the values the middleware chose -- config/security.php
+# stays the single source of truth for those.
+#
+# Content-Security-Policy and Permissions-Policy are deliberately NOT set here:
+# they govern documents, and every document on this site is rendered by PHP.
+<IfModule mod_headers.c>
+    Header always setifempty X-Content-Type-Options "nosniff"
+    Header always setifempty X-Frame-Options "DENY"
+    Header always setifempty Referrer-Policy "strict-origin-when-cross-origin"
+    Header always setifempty X-Permitted-Cross-Domain-Policies "none"
+    Header always unset X-Powered-By
+</IfModule>

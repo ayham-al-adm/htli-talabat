@@ -1,0 +1,28 @@
+/.phpunit.cache
+/node_modules
+/public/hot
+/public/build
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+
+# package-lock.json is deliberately TRACKED: `npm ci` on the deploy server needs
+# it, and ~45 caret-ranged deps (firebase ^10, bootstrap-vue-next pre-1.0, the
+# @fullcalendar set) make unlocked installs non-reproducible.
+
+# Vite scratch files
+/.vite
+vite.config.js.timestamp-*.mjs
+

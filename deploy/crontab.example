@@ -1,0 +1,22 @@
+# Install with:  sudo crontab -u www-data -e
+# Verify with:   sudo crontab -u www-data -l
+#
+# THIS IS NOT OPTIONAL. app/Console/Kernel.php schedules, every minute:
+#   drivers:totrip, assign_drivers:for_regular_rides, cancel:request
+# and every five minutes:
+#   assign_drivers:for_schedule_rides, offline:drivers, expire:subscription,
+#   clear:otp
+# plus notify:document:expires daily.
+#
+# Without this line drivers are never assigned to rides and the app looks
+# broken while throwing no errors at all.
+#
+# All schedule times are UTC -- config/app.php hardcodes 'timezone' => 'UTC'
+# (it is not env-driven), so keep the server on UTC too.
+
+* * * * * cd /var/www/admin-panel && /usr/bin/php artisan schedule:run >> /var/www/admin-panel/storage/logs/schedule.log 2>&1
+
+# Nightly database + uploads backup. The DB is the ONLY copy of the schema --
+# the repo has 381 migrations and no .sql dump -- and storage/app/public/uploads
+# is user data that exists nowhere else. Copy /var/backups OFF this box too.
+# 15 3 * * * /usr/local/bin/admin-panel-backup.sh

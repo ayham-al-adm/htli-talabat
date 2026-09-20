@@ -1,0 +1,42 @@
+# Queue worker for Admin-Panel-2.2 (systemd template -- one unit per worker)
+#
+# Install:
+#   sudo cp deploy/systemd/admin-panel-worker@.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now admin-panel-worker@1 admin-panel-worker@2
+#
+# A worker is NOT optional. There are ~30 ShouldQueue classes in app/Jobs/ and
+# app/Mail/ -- ride dispatch, FCM pushes, invoice PDFs, ~17 mail jobs. With
+# QUEUE_CONNECTION=sync they would all run inline inside the HTTP request.
+
+[Unit]
+Description=Admin Panel queue worker %i
+After=network.target mysql.service php8.3-fpm.service
+Requires=mysql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/admin-panel
+Restart=always
+RestartSec=5
+
+# --max-time=3600 recycles the worker hourly to cap memory growth.
+# --timeout=120 bounds a single job (DriverImportedFilesJob and the ZIP addon
+# jobs are the long ones); raise it if those start getting killed.
+ExecStart=/usr/bin/php /var/www/admin-panel/artisan queue:work \
+  --sleep=3 \
+  --tries=3 \
+  --backoff=10 \
+  --max-time=3600 \
+  --timeout=120
+
+StandardOutput=append:/var/www/admin-panel/storage/logs/worker.log
+StandardError=append:/var/www/admin-panel/storage/logs/worker.log
+
+# `php artisan queue:restart` signals workers to exit after the current job;
+# systemd then restarts them with the new code. deploy.sh does this.
+
+[Install]
+WantedBy=multi-user.target
