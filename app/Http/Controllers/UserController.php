@@ -517,12 +517,15 @@ class UserController extends BaseController
 
         $user = auth()->user()->update(['password'=>$password]);
 
-        // AuthenticateSession already drops every other session for this
-        // account on its next request, because they still hold the old hash.
-        // This call is what keeps THIS device usable: it re-issues the
-        // "remember me" cookie against the new hash, which would otherwise be
-        // stale and log the user out the next time they returned via it.
-        Auth::logoutOtherDevices($validated['password']);
+        // Pinned to the web guard on purpose. Auth::logoutOtherDevices() would
+        // resolve the DEFAULT guard, and this route sits behind auth:sanctum,
+        // which calls shouldUse('sanctum') -- making the default a
+        // RequestGuard, which has no logoutOtherDevices() at all.
+        //
+        // This rotates the password hash the session and the remember-me cookie
+        // are validated against, so this device stays usable and stale
+        // remember-me cookies elsewhere stop working.
+        Auth::guard('web')->logoutOtherDevices($validated['password']);
 
         $request->session()->regenerate();
 
