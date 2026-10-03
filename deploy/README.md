@@ -259,7 +259,11 @@ Most runtime credentials live in the DB `settings` tables and are edited through
 
 - **Map settings** — Google Maps API key. Nothing geographic works without it.
 - **Payment gateways**, **SMS gateway**, **Mail configuration**, **reCAPTCHA**.
-- **Firebase / FCM** — `public/push-configurations/firebase.json`, `public/firebase-database.json`, and `FCM_SERVER_KEY` in `.env`.
+- **Firebase / FCM** — `FCM_SERVER_KEY` in `.env`, plus the service-account key at
+  `public/push-configurations/firebase.json`. **That file is gitignored**, so a clone
+  does not bring it: upload it through the panel's Firebase settings page, or scp it
+  into place. Without it the Firebase Admin SDK throws on first use. nginx denies
+  `/push-configurations/` over HTTP — only PHP reads it off disk.
 
 ## Backups
 

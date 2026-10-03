@@ -26,3 +26,10 @@ yarn-error.log
 /.vite
 vite.config.js.timestamp-*.mjs
 
+
+# Firebase service-account private key (type/private_key/client_email).
+# app/Providers/AppServiceProvider.php:58 and FirebaseController hardcode this
+# path, so the file must exist on the server -- place it there by hand, or
+# re-upload it through the admin panel's Firebase settings page. It is NOT
+# carried by git clone.
+/public/push-configurations/firebase.json
