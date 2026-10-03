@@ -45,6 +45,16 @@
         window.headers = @json($headers);
         window.recaptchaKey = @json(config('services.recaptcha.site_key'));
         window.enablerecaptcha = @json(config('services.recaptcha.enable_recapcha'));
+        // Authoritative flag for the login/signup captcha, resolved from the very
+        // same config App\Http\Middleware\VerifyCaptcha enforces on -- including
+        // the "web" channel switch -- so the widget can never be hidden while the
+        // server is still demanding a token (which would lock everyone out).
+        window.authCaptcha = @json([
+            'enabled'  => (bool) config('security.captcha.enabled')
+                          && (bool) config('security.captcha.channels.web')
+                          && !empty(config('security.captcha.site_key')),
+            'site_key' => (string) config('security.captcha.site_key'),
+        ]);
         window.logo =  @json($logo);
         window.favicon =  @json($favicon);
         window.footer_content1 = @json($footer_content1);

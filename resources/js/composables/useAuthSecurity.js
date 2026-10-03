@@ -2,6 +2,35 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 const RECAPTCHA_SRC = 'https://www.google.com/recaptcha/api.js?render=explicit';
 
+/**
+ * Read an on/off flag the same way PHP's FILTER_VALIDATE_BOOLEAN does.
+ *
+ * The value reaches us through env() -> config() -> @json(), and what lands in
+ * the browser depends on how it was written: the Admin > reCAPTCHA screen saves
+ * "1"/"0" (strings), while a hand-edited .env with ENABLE_RECAPTCHA=true gives a
+ * real boolean. The server parses all of those with FILTER_VALIDATE_BOOLEAN, so
+ * anything stricter here lets the widget vanish while the server still demands a
+ * token -- which locks every operator out of the panel.
+ *
+ * @param {*} value
+ * @returns {boolean}
+ */
+function isTruthyFlag(value) {
+    if (typeof value === 'boolean') {
+        return value;
+    }
+
+    if (typeof value === 'number') {
+        return value === 1;
+    }
+
+    if (typeof value === 'string') {
+        return ['1', 'true', 'on', 'yes'].includes(value.trim().toLowerCase());
+    }
+
+    return false;
+}
+
 let scriptPromise = null;
 
 /**
@@ -60,8 +89,26 @@ function loadRecaptcha() {
  * @returns {{enabled: boolean, siteKey: string, container: object, token: object, reset: Function, payload: Function}}
  */
 export function useLoginCaptcha() {
-    const siteKey = window.recaptchaKey || '';
-    const enabled = String(window.enablerecaptcha) === '1' && siteKey !== '';
+    // Prefer window.authCaptcha, which app.blade.php resolves from the exact
+    // config VerifyCaptcha enforces on. Fall back to the older globals so the
+    // page still works if the blade has not been updated.
+    const settings = window.authCaptcha || {
+        enabled: window.enablerecaptcha,
+        site_key: window.recaptchaKey,
+    };
+
+    const siteKey = settings.site_key || window.recaptchaKey || '';
+    const enabled = isTruthyFlag(settings.enabled) && siteKey !== '';
+
+    if (isTruthyFlag(settings.enabled) && siteKey === '') {
+        // The server will reject every login with "Please complete the CAPTCHA
+        // challenge" while we have no key to render a challenge with. Say so
+        // loudly rather than showing a form that cannot succeed.
+        console.error(
+            'reCAPTCHA is enabled but no site key is configured. '
+            + 'Set REACPTCHA_SITE_KEY (Admin > reCAPTCHA) or set ENABLE_RECAPTCHA=0.'
+        );
+    }
 
     const container = ref(null);
     const token = ref('');
