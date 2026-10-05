@@ -404,7 +404,7 @@ export default {
                             <option value="all">{{$t("all")}}</option>
                             <option value="taxi">{{$t("taxi")}}</option>
                             <option value="delivery">{{$t("delivery")}}</option>
-                            <option value="food">{{$t("food")}}</option>
+                            <!-- <option value="food">{{$t("food")}}</option> -->
                         </select>
                     </div>
 

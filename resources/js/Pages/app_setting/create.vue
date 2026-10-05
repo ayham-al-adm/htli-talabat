@@ -29,7 +29,7 @@
                           <option value="normal">{{$t("normal")}}</option>
                           <option value="rental">{{$t("rental")}}</option>
                           <option value="outstation">{{$t("outstation")}}</option>
-                          <option value="food">{{$t("food")}}</option>
+                          <!-- <option value="food">{{$t("food")}}</option> -->
                         </select>
                         <span v-for="(error, index) in errors.service_type" :key="index" class="text-danger">{{ error }}</span>
                       </div>
@@ -43,7 +43,7 @@
                           <option disabled value="">{{$t("choose_transport_type")}}</option>
                           <option value="taxi">{{$t("taxi")}}</option>
                           <option value="delivery">{{$t("delivery")}}</option>
-                          <option value="food">{{$t("food")}}</option>
+                          <!-- <option value="food">{{$t("food")}}</option> -->
                         </select>
                         <span v-for="(error, index) in errors.transport_type" :key="index" class="text-danger">{{ error }}</span>
                       </div>

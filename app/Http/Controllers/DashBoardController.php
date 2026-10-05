@@ -326,7 +326,7 @@ class DashBoardController extends BaseController
         // Food drivers count (drivers who can handle food deliveries)
         // For now, we'll count all approved drivers as potential food drivers
         // You can modify this logic based on your specific requirements
-        $food_drivers_count = Driver::whereHas('user', function($query) {
+        /* $food_drivers_count = Driver::whereHas('user', function($query) {
                 $query->whereHas('roles', function($roleQuery) {
                     $roleQuery->where('name', 'driver');
                 });
@@ -339,13 +339,13 @@ class DashBoardController extends BaseController
             $food_drivers_count = $food_drivers_count->where('service_location_id',$service_location_id);
         }
 
-        $food_drivers_count = $food_drivers_count->count();
+        $food_drivers_count = $food_drivers_count->count(); */
 
         return  response()->json([
             'totalDrivers' => $total_drivers,
             'totalUsers' => $total_users,
             'currencySymbol' => $currency_symbol,
-            'foodDriversCount' => $food_drivers_count,
+            'foodDriversCount' => 0,
         ],200);
     }
     public function agentEarnings(HttpRequest $request)
@@ -449,7 +449,7 @@ class DashBoardController extends BaseController
         return response()->json($earningsData);
     }
 
-    public function foodStatistics(HttpRequest $request)
+    /* public function foodStatistics(HttpRequest $request)
     {
         $service_location_id = $request->service_location_id;
         $today = now()->toDateString();
@@ -564,7 +564,7 @@ class DashBoardController extends BaseController
         ];
 
         return response()->json($data);
-    }
+    } */
 
     public function popularDropAddresses(HttpRequest $request)
     {

@@ -686,7 +686,7 @@ export default {
                         <select class="form-control" data-choices data-choices-search-false name="choices-select-status"
                             id="choices-select-status" v-model="filter.transport_type">
                             <option value="all">{{$t("all")}}</option>
-                            <option value="food">{{$t("food")}}</option>
+                            <!-- <option value="food">{{$t("food")}}</option> -->
                             <option value="taxi">{{$t("taxi")}}</option>
                             <option value="delivery">{{$t("delivery")}}</option>
                         </select>

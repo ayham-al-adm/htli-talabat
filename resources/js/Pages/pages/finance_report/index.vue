@@ -187,7 +187,7 @@ const handleTransportTypeChange = async () => {
                         <option selected disabled value="">{{$t("select")}}</option>
                         <option value="taxi">{{$t("taxi")}}</option>
                         <option value="delivery">{{$t("delivery")}}</option>
-                        <option value="food">{{$t("food")}}</option>
+                        <!-- <option value="food">{{$t("food")}}</option> -->
                         <option value="all">{{$t("all")}}</option>
                       </select>
                       <span v-for="(error, index) in errors.select_transport_type" :key="index" class="text-danger">{{ error }}</span>

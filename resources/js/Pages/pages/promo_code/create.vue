@@ -224,7 +224,7 @@ export default {
                         <option disabled value="">{{ $t("select") }}</option>
                         <option value="taxi">{{ $t("taxi") }}</option>
                         <option value="delivery">{{ $t("delivery") }}</option>
-                        <option value="food">{{ $t("food") }}</option>
+                        <!-- <option value="food">{{ $t("food") }}</option> -->
                         <option value="both">{{ $t("all") }}</option>
                       </select>
                       <span v-for="(error, index) in errors.transport_type" :key="index" class="text-danger">{{ error }}</span>

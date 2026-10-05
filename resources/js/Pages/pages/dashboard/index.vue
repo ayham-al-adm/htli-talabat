@@ -489,7 +489,7 @@ export default {
         await fetchOverallEarnings();
         await fetchCancellationData();
         await fetchAgentEarnings();
-        await fetchFoodStatistics();
+        // await fetchFoodStatistics();
         await fetchPopularDropAddresses();
     }
     // Call APIs on component mount
@@ -1193,7 +1193,7 @@ export default {
               </BCard>
             </BCol> -->
 
-            <BCol xl="3" md="12">
+            <!-- <BCol xl="3" md="12">
               <BCard no-body class="card-animate">
                 <BCardBody>
                   <div class="d-flex align-items-center">
@@ -1224,7 +1224,7 @@ export default {
                   </div>
                 </BCardBody>
               </BCard>
-            </BCol>
+            </BCol> -->
 
             <BCol xl="3" md="12">
               <BCard no-body class="card-animate">
@@ -1320,7 +1320,7 @@ export default {
           </BRow> -->
 
 <!-- Food Request Statistics -->
-<BRow class="mt-4">
+<!-- <BRow class="mt-4">
     <BCol xl="12">
       <h5 class="mb-3">{{ $t("food_request_statistics") }}</h5>
     </BCol>
@@ -1376,12 +1376,7 @@ export default {
                       </div>
                       </div>
                   </div>
-              </div><!-- end card body -->
-          </div> <!-- end card-->
-      </div> <!-- end col-->
-
-      <div class="col-md-12">
-          <div class="card card-animate">
+              </div>
               <div class="card-body">
                   <div class="d-flex justify-content-between">
                       <div>
@@ -1398,38 +1393,15 @@ export default {
                       </div>
                       </div>
                   </div>
-              </div><!-- end card body -->
-          </div> <!-- end card-->
-      </div> <!-- end col-->
-  </div>
-  <!-- <div class="row">
-      <div class="col-md-12">
-          <div class="card card-animate">
-              <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p class="fw-medium text-muted mb-0">{{ $t("food_requests_by_wallet") }}</p>
-                          <h2 class="mt-4 ff-secondary fw-semibold">
-                              <span class="counter-value" data-target="97.66">{{currencySymbol}}</span>
-                             {{ foodTodayEarnings.wallet.toFixed(2) }} </h2>
-                      </div>
-                      <div>
-                        <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-warning-subtle rounded-circle fs-2">
-                          <i class="bx bx-money text-warning icon-lg"></i>
-                        </span>
-                      </div>
-                      </div>
-                  </div>
               </div>
           </div>
       </div>
-  </div> -->
+  </div>
 </BCol>
-</BRow>
+</BRow> -->
 
 <!-- Overall Food Requests Chart -->
-<BRow>
+<!-- <BRow>
   <BCol xl="12" md="12">
     <BCard no-body class="card-height-100">
       <BCardHeader class="align-items-center d-flex py-0">
@@ -1460,74 +1432,9 @@ export default {
       </BCardBody>
     </BCard>
   </BCol>
-</BRow>
+</BRow> -->
 
 <!-- Food Earnings Chart -->
-<BRow>
-  <BCol xl="6" md="12" lg="12">
-    <BCard no-body>
-    <BCardBody class="p-0">
-      <BRow class="g-0">
-        <BCol xxl="12">
-          <div class="">
-            <BCardHeader class="align-items-center d-flex">
-              <BCardTitle class="mb-0 flex-grow-1">{{ $t("food_earnings") }}</BCardTitle>
-            </BCardHeader>
-            <apexchart class="apex-charts" height="350" dir="ltr" :series="foodOverall" :options="foodEarningsChartOptions"></apexchart>
-          </div>
-        </BCol>
-      </BRow>
-    </BCardBody>
-  </BCard>
-  </BCol>
-  <BCol xl="6" md="12" lg="12">
-<div class="row">
-      <div class="col-md-12">
-          <div class="card card-animate">
-              <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p class="fw-medium text-muted mb-0">{{ $t("overall_food_earnings") }}</p>
-                         <h2 class="mt-4 ff-secondary fw-semibold">
-                              <span class="counter-value" data-target="97.66">{{currencySymbol}}</span>
-                             {{ foodOverallEarnings.total.toFixed(2) }} </h2>
-                            </div>
-                      <div>
-                      <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-warning-subtle rounded-circle fs-2">
-                          <i class="bx bx-food-menu text-warning icon-lg"></i>
-                        </span>
-                      </div>
-                      </div>
-                  </div>
-              </div><!-- end card body -->
-          </div> <!-- end card-->
-      </div> <!-- end col-->
-
-      <div class="col-md-12">
-          <div class="card card-animate">
-              <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p class="fw-medium text-muted mb-0">{{ $t("food_earnings_by_cash") }}</p>
-                          <h2 class="mt-4 ff-secondary fw-semibold">
-                          <span class="counter-value" data-target="97.66">{{currencySymbol}}</span>
-                             {{ foodOverallEarnings.cash.toFixed(2) }} </h2>
-                           </div>
-                      <div>
-                        <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-warning-subtle rounded-circle fs-2">
-                          <i class="bx bx-money text-warning icon-lg"></i>
-                        </span>
-                      </div>
-                      </div>
-                  </div>
-              </div><!-- end card body -->
-          </div> <!-- end card-->
-      </div> <!-- end col-->
-  </div>
-</BCol>
-</BRow>
   <BRow>
     <BCol xl="6" md="12" lg="12">
           <BCard no-body class="card-height-100">

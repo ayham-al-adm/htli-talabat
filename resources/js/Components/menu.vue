@@ -217,11 +217,11 @@ export default {
             </a>
             <div class="collapse menu-dropdown" id="vehiclemanage">
               <ul class="nav nav-sm flex-column">
-                <!-- <li class="nav-item" v-if="permissions.includes('service-location')">
+                <li class="nav-item" v-if="permissions.includes('service-location')">
                   <Link class="nav-link" href="/service-locations" data-key="t-service-location">
                       {{ $t("service_location") }}
                   </Link>
-                </li> -->
+                </li>
                 <li class="nav-item" v-if="permissions.includes('view-zone')">
                   <Link class="nav-link" href="/zones" data-key="t-zone" >
                     {{ $t("zone") }}
@@ -298,12 +298,12 @@ export default {
             <span data-key="t-delivery-requests">{{ $t("delivery-requests") }}</span>
           </Link>
         </li>
-        <li class="nav-item" v-if="permissions.includes('manage-food-request')">
+        <!-- <li class="nav-item" v-if="permissions.includes('manage-food-request')">
           <Link href="/food-rides-request" class="nav-link menu-link" data-key="t-food-rides-request">
             <i class=" bx bx-restaurant"></i>
             <span data-key="t-food-requests">{{ $t("food-requests") }}</span>
           </Link>
-        </li>
+        </li> -->
           <li class="nav-item" v-if="permissions.includes('ongoing-request-view')">
             <Link href="/ongoing-rides" class="nav-link menu-link" data-key="t-ongoing-rides">
               <i class=" ri-taxi-fill"></i>
