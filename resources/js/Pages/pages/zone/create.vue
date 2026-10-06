@@ -240,7 +240,7 @@
 
 
 <script>
-import { Head, useForm, router } from '@inertiajs/vue3';
+import { Head, useForm, router, route } from '@inertiajs/vue3';
 import Layout from "@/Layouts/main.vue";
 import PageHeader from "@/Components/page-header.vue";
 import { ref, onMounted,computed } from "vue";
@@ -365,7 +365,7 @@ export default {
         }
 
         const fetchServiceLocations = async () => {
-            const response = await axios.get('/service-locations/list');
+            const response = await axios.get(route('service-location-list'));
             serviceLocations.value = response.data.results;
         };
 
