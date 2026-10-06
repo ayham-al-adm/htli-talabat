@@ -184,6 +184,11 @@
                             </div>
                             <div class=" d-flex align-items-center">
                                 <div class="card-body">
+                                    <BButton @click="finishPolygon" class="align-center btn-success border border-light" data-bs-toggle="tooltip" data-bs-placement="right" title="Finish polygon"> <i class="bx bx-check fs-16"></i> </BButton>
+                                </div>
+                            </div>
+                            <div class=" d-flex align-items-center">
+                                <div class="card-body">
                                     <BButton @click="removeSelectedPolygon" class="align-center btn-dark border border-light" data-bs-toggle="tooltip" data-bs-placement="right" title="Remove selected polygon"> <i class="bx bx-x fs-16"></i> </BButton>
                                 </div>
                             </div>
@@ -196,7 +201,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="alert alert-warning f-18" role="alert">
-                            <strong>Avoid drawing multiple zones that overlap with each other.</strong>
+                            <strong>Avoid drawing multiple zones that overlap with each other.</strong><br>
+                            <small>To draw: Click the + button, click on map to add points, double-click on last point or right-click to finish.</small>
                         </div>
                     </div>
                 </div>
@@ -287,8 +293,11 @@ export default {
         const suggestions = ref([]);
         const map = ref(null);
         let polygons = [];
-        const drawingManager = ref(null);
         const selectedPolygon = ref(null);
+        const isDrawingMode = ref(false);
+        let currentDrawingPolygon = null;
+        let drawingMarkers = [];
+        let drawingPolyline = null;
 
         const handleInput = () =>{
 
@@ -365,7 +374,7 @@ export default {
         }
 
         const fetchServiceLocations = async () => {
-            const response = await axios.get(window.route('service-location-list'));
+            const response = await axios.get('service-location-list');
             serviceLocations.value = response.data.results;
         };
 
@@ -386,32 +395,75 @@ export default {
         };
 
         const initializeDrawingManager = () => {
-            drawingManager.value = new google.maps.drawing.DrawingManager({
-                drawingMode: google.maps.drawing.OverlayType.POLYGON,
-                drawingControl: false,
-                drawingControlOptions: {
-                    position: google.maps.ControlPosition.TOP_CENTER,
-                    drawingModes: [google.maps.drawing.OverlayType.POLYGON],
-                },
-                polygonOptions: {
-                    fillColor: "#0000FF",
-                    fillOpacity: 0.3,
-                    strokeWeight: 1,
-                    clickable: true,
-                    editable: false,
-                    zIndex: 1,
-                },
+            // Custom polygon drawing implementation
+            google.maps.event.addListener(map.value, 'click', function(event) {
+                if (!isDrawingMode.value) return;
+
+                const marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map.value,
+                    draggable: true
+                });
+
+                drawingMarkers.push(marker);
+
+                // Update polyline
+                const path = drawingPolyline ? drawingPolyline.getPath() : new google.maps.MVCArray();
+                path.push(event.latLng);
+
+                if (!drawingPolyline) {
+                    drawingPolyline = new google.maps.Polyline({
+                        path: path,
+                        map: map.value,
+                        strokeColor: '#0000FF',
+                        strokeWeight: 2,
+                        editable: true
+                    });
+                }
+
+                // Double-click to finish polygon
+                google.maps.event.addListener(marker, 'dblclick', function() {
+                    finishPolygon();
+                });
             });
-            drawingManager.value.setMap(map.value);
 
-            google.maps.event.addListener(drawingManager.value, 'overlaycomplete', function(event) {
-                if (event.type === google.maps.drawing.OverlayType.POLYGON) {
-
-                    polygons.push(event.overlay);
-
-                    attachClickListener(event.overlay);
+            // Right-click to finish polygon
+            google.maps.event.addListener(map.value, 'rightclick', function() {
+                if (isDrawingMode.value && drawingMarkers.length >= 3) {
+                    finishPolygon();
                 }
             });
+        };
+
+        const finishPolygon = () => {
+            if (drawingMarkers.length < 3) {
+                alert('At least 3 points are required to create a polygon');
+                return;
+            }
+
+            const path = drawingPolyline.getPath();
+            const polygon = new google.maps.Polygon({
+                paths: path,
+                fillColor: "#0000FF",
+                fillOpacity: 0.3,
+                strokeWeight: 1,
+                clickable: true,
+                editable: false,
+                zIndex: 1,
+                map: map.value
+            });
+
+            polygons.push(polygon);
+            attachClickListener(polygon);
+
+            // Clear drawing state
+            drawingMarkers.forEach(marker => marker.setMap(null));
+            drawingMarkers = [];
+            if (drawingPolyline) {
+                drawingPolyline.setMap(null);
+                drawingPolyline = null;
+            }
+            isDrawingMode.value = false;
         };
 
         const initializeMap = () => {
@@ -439,9 +491,17 @@ export default {
         };
 
         const changeDrawingMode = (option) => {
-            if(drawingManager.value){
-                let mode = option == 'draw' ? google.maps.drawing.OverlayType.POLYGON : null;
-                drawingManager.value.setDrawingMode(mode);
+            if (option === 'draw') {
+                isDrawingMode.value = true;
+            } else {
+                isDrawingMode.value = false;
+                // Clear any incomplete drawing
+                drawingMarkers.forEach(marker => marker.setMap(null));
+                drawingMarkers = [];
+                if (drawingPolyline) {
+                    drawingPolyline.setMap(null);
+                    drawingPolyline = null;
+                }
             }
         }
 
@@ -564,7 +624,7 @@ export default {
 
             // Load Google Maps API script dynamically
             const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places,drawing`;
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places`;
             script.onload = () => {
                 initializeMap();
                 fetchServiceLocations();
@@ -589,6 +649,7 @@ export default {
             activeTab,
             languages,
             enable_peak_zone_feature,
+            finishPolygon,
         };
     },
     computed: {

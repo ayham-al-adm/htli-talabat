@@ -71,6 +71,11 @@
                             </div>
                             <div class=" d-flex align-items-center">
                                 <div class="card-body">
+                                    <BButton @click="finishPolygon" class="align-center btn-success"> <i class="bx bx-check fs-16"></i> </BButton>
+                                </div>
+                            </div>
+                            <div class=" d-flex align-items-center">
+                                <div class="card-body">
                                     <BButton @click="removeSelectedPolygon" class="align-center"> <i class="bx bx-x fs-16"></i> </BButton>
                                 </div>
                             </div>
@@ -83,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
         <div class="alert-content">
@@ -147,11 +152,14 @@ export default {
         const suggestions = ref([]);
         const map = ref(null);
         let polygons = [];
-        const drawingManager = ref(null);
         const selectedPolygon = ref(null);
+        const isDrawingMode = ref(false);
+        let currentDrawingPolygon = null;
+        let drawingMarkers = [];
+        let drawingPolyline = null;
 
         const handleInput = () =>{
-            
+
             if (search.value.length < 3) {
                 suggestions.value = [];
                 }else{
@@ -205,7 +213,7 @@ export default {
                 suggestions.value = [];
 
                 const position = new google.maps.LatLng(data.location.latitude, data.location.longitude );
-                
+
                 map.value.setCenter(position);
 
                 if (data.viewport && data.viewport.high && data.viewport.low) {
@@ -213,7 +221,7 @@ export default {
                         new google.maps.LatLng(data.viewport.low.latitude, data.viewport.low.longitude),
                         new google.maps.LatLng(data.viewport.high.latitude, data.viewport.high.longitude),
                     );
-                    
+
                     map.value.fitBounds(bounds);
                 }else{
                     map.value.setZoom(15);
@@ -229,55 +237,106 @@ export default {
             serviceLocations.value = response.data.results;
         };
 
+        const attachClickListener = (polygon) => {
+            google.maps.event.addListener(polygon, 'click', () => {
+                if (selectedPolygon.value === polygon) return;
+
+                polygons.forEach((poly) => {
+                    poly.setOptions({ fillColor: "#0000FF", editable: false });
+                });
+
+                polygon.setOptions({ fillColor: "#00FF00", editable: true });
+                selectedPolygon.value = polygon;
+            });
+        };
+
         const initializeMap = () => {
             map.value = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: parseFloat(props.default_lat), lng: parseFloat(props.default_lng) },
                 zoom: 10,
             });
 
-            drawingManager.value = new google.maps.drawing.DrawingManager({
-                drawingMode: google.maps.drawing.OverlayType.POLYGON,
-                drawingControl: false,
-                drawingControlOptions: {
-                    position: google.maps.ControlPosition.TOP_CENTER,
-                    drawingModes: [google.maps.drawing.OverlayType.POLYGON],
-                },
-                polygonOptions: {
-                    fillColor: "#0000FF",
-                    fillOpacity: 0.3,
-                    strokeWeight: 1,
-                    clickable: true,
-                    editable: false,
-                    zIndex: 1,
-                },
-            });
-            drawingManager.value.setMap(map.value);
+            initializeDrawingManager();
+        };
 
-            google.maps.event.addListener(drawingManager.value, 'overlaycomplete', (event) => {
-                if (event.type === google.maps.drawing.OverlayType.POLYGON) {
+        const initializeDrawingManager = () => {
+            google.maps.event.addListener(map.value, 'click', function(event) {
+                if (!isDrawingMode.value) return;
 
-                    google.maps.event.addListener(event.overlay, 'click', () => {
-                        if (selectedPolygon.value === event.overlay) {
-                            return;
-                        }
-                        selectedPolygon.value = event.overlay;
-                        polygons.forEach((poly) => {
-                            poly.setOptions({ fillColor: "#0000FF" , editable: false, });
-                        });
+                const marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map.value,
+                    draggable: true
+                });
 
-                        event.overlay.setOptions({ fillColor: "#00FF00" , editable: true, });
+                drawingMarkers.push(marker);
+
+                const path = drawingPolyline ? drawingPolyline.getPath() : new google.maps.MVCArray();
+                path.push(event.latLng);
+
+                if (!drawingPolyline) {
+                    drawingPolyline = new google.maps.Polyline({
+                        path: path,
+                        map: map.value,
+                        strokeColor: '#0000FF',
+                        strokeWeight: 2,
+                        editable: true
                     });
+                }
 
-                    polygons.push(event.overlay);
+                google.maps.event.addListener(marker, 'dblclick', function() {
+                    finishPolygon();
+                });
+            });
+
+            google.maps.event.addListener(map.value, 'rightclick', function() {
+                if (isDrawingMode.value && drawingMarkers.length >= 3) {
+                    finishPolygon();
                 }
             });
+        };
 
+        const finishPolygon = () => {
+            if (drawingMarkers.length < 3) {
+                alert('At least 3 points are required to create a polygon');
+                return;
+            }
+
+            const path = drawingPolyline.getPath();
+            const polygon = new google.maps.Polygon({
+                paths: path,
+                fillColor: "#0000FF",
+                fillOpacity: 0.3,
+                strokeWeight: 1,
+                clickable: true,
+                editable: false,
+                zIndex: 1,
+                map: map.value
+            });
+
+            polygons.push(polygon);
+            attachClickListener(polygon);
+
+            drawingMarkers.forEach(marker => marker.setMap(null));
+            drawingMarkers = [];
+            if (drawingPolyline) {
+                drawingPolyline.setMap(null);
+                drawingPolyline = null;
+            }
+            isDrawingMode.value = false;
         };
 
         const changeDrawingMode = (option) => {
-            if(drawingManager.value){
-                let mode = option == 'draw' ? google.maps.drawing.OverlayType.POLYGON : null;
-                drawingManager.value.setDrawingMode(mode);
+            if (option === 'draw') {
+                isDrawingMode.value = true;
+            } else {
+                isDrawingMode.value = false;
+                drawingMarkers.forEach(marker => marker.setMap(null));
+                drawingMarkers = [];
+                if (drawingPolyline) {
+                    drawingPolyline.setMap(null);
+                    drawingPolyline = null;
+                }
             }
         }
 
@@ -383,13 +442,13 @@ export default {
 
             // Load Google Maps API script dynamically
             const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places,drawing`;
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places`;
             script.onload = () => {
                 initializeMap();
                 fetchServiceLocations();
             };
             document.head.appendChild(script);
-            
+
         });
 
         return {
@@ -408,6 +467,7 @@ export default {
             changeDrawingMode,
             activeTab,
             languages,
+            finishPolygon,
         };
     },
 };

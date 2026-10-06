@@ -11,7 +11,7 @@ export default {
     setup(props) {
         const { airport, googleMapKey } = props;
         const { t } = useI18n();
-        let map, drawingManager, currentPolygon;
+        let map, currentPolygon;
 
         let polygons = [];
 
@@ -45,26 +45,7 @@ export default {
                 currentPolygon.getPath().forEach(coord => bounds.extend(coord));
                 })
                 map.fitBounds(bounds);
-
-                initializeDrawingManager();
             }
-        };
-
-        const initializeDrawingManager = () => {
-            drawingManager = new google.maps.drawing.DrawingManager({
-                drawingMode: null,
-                drawingControl: false,
-                drawingControlOptions: {
-                    position: google.maps.ControlPosition.TOP_CENTER,
-                    drawingModes: [google.maps.drawing.OverlayType.POLYGON],
-                },
-                polygonOptions: {
-                    editable: false,
-                    draggable: false,
-                },
-            });
-
-            drawingManager.setMap(map);
         };
 
         onMounted(() => {
@@ -76,7 +57,7 @@ export default {
 
 
             const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places,drawing`;
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places`;
             script.onload = () => {
                 initializeMap();
             };

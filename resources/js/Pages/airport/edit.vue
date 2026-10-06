@@ -39,8 +39,11 @@ export default {
         const serviceLocations = ref([]);
         let map, currentPolygon;
         let polygons = [];
-        const drawingManager = ref(null);
         const selectedPolygon = ref(null);
+        const isDrawingMode = ref(false);
+        let currentDrawingPolygon = null;
+        let drawingMarkers = [];
+        let drawingPolyline = null;
 
         const fetchServiceLocations = async () => {
             const response = await axios.get('/airport/list');
@@ -51,7 +54,7 @@ export default {
         const search = ref('');
         const suggestions = ref([]);
         const handleInput = () =>{
-            
+
             if (search.value.length < 3) {
                 suggestions.value = [];
                 }else{
@@ -105,7 +108,7 @@ export default {
                 suggestions.value = [];
 
                 const position = new google.maps.LatLng(data.location.latitude, data.location.longitude );
-                
+
                 map.setCenter(position);
 
                 if (data.viewport && data.viewport.high && data.viewport.low) {
@@ -113,7 +116,7 @@ export default {
                         new google.maps.LatLng(data.viewport.low.latitude, data.viewport.low.longitude),
                         new google.maps.LatLng(data.viewport.high.latitude, data.viewport.high.longitude),
                     );
-                    
+
                     map.fitBounds(bounds);
                 }else{
                     map.setZoom(15);
@@ -163,7 +166,7 @@ export default {
             }
 
         };
-        
+
         const attachClickListener = (polygon) => {
             google.maps.event.addListener(polygon, 'click', () => {
                 if (selectedPolygon.value === polygon) return;
@@ -180,9 +183,16 @@ export default {
         };
 
         const changeDrawingMode = (option) => {
-            if(drawingManager.value){
-                let mode = option == 'draw' ? google.maps.drawing.OverlayType.POLYGON : null;
-                drawingManager.value.setDrawingMode(mode);
+            if (option === 'draw') {
+                isDrawingMode.value = true;
+            } else {
+                isDrawingMode.value = false;
+                drawingMarkers.forEach(marker => marker.setMap(null));
+                drawingMarkers = [];
+                if (drawingPolyline) {
+                    drawingPolyline.setMap(null);
+                    drawingPolyline = null;
+                }
             }
         }
 
@@ -225,29 +235,70 @@ export default {
             return -1; // Not found
         };
         const initializeDrawingManager = () => {
-            drawingManager.value = new google.maps.drawing.DrawingManager({
-                drawingMode: null,
-                drawingControl: false,
-                polygonOptions: {
-                    fillColor: "#0000FF",
-                    fillOpacity: 0.3,
-                    strokeWeight: 1,
-                    clickable: true,
-                    editable: false,
-                    zIndex: 1,
-                },
+            google.maps.event.addListener(map, 'click', function(event) {
+                if (!isDrawingMode.value) return;
+
+                const marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map,
+                    draggable: true
+                });
+
+                drawingMarkers.push(marker);
+
+                const path = drawingPolyline ? drawingPolyline.getPath() : new google.maps.MVCArray();
+                path.push(event.latLng);
+
+                if (!drawingPolyline) {
+                    drawingPolyline = new google.maps.Polyline({
+                        path: path,
+                        map: map,
+                        strokeColor: '#0000FF',
+                        strokeWeight: 2,
+                        editable: true
+                    });
+                }
+
+                google.maps.event.addListener(marker, 'dblclick', function() {
+                    finishPolygon();
+                });
             });
 
-            drawingManager.value.setMap(map);
-
-            google.maps.event.addListener(drawingManager.value, 'overlaycomplete', function(event) {
-                if (event.type === google.maps.drawing.OverlayType.POLYGON) {
-                    
-                    polygons.push(event.overlay);
-
-                    attachClickListener(event.overlay);
+            google.maps.event.addListener(map, 'rightclick', function() {
+                if (isDrawingMode.value && drawingMarkers.length >= 3) {
+                    finishPolygon();
                 }
             });
+        };
+
+        const finishPolygon = () => {
+            if (drawingMarkers.length < 3) {
+                alert('At least 3 points are required to create a polygon');
+                return;
+            }
+
+            const path = drawingPolyline.getPath();
+            const polygon = new google.maps.Polygon({
+                paths: path,
+                fillColor: "#0000FF",
+                fillOpacity: 0.3,
+                strokeWeight: 1,
+                clickable: true,
+                editable: false,
+                zIndex: 1,
+                map: map
+            });
+
+            polygons.push(polygon);
+            attachClickListener(polygon);
+
+            drawingMarkers.forEach(marker => marker.setMap(null));
+            drawingMarkers = [];
+            if (drawingPolyline) {
+                drawingPolyline.setMap(null);
+                drawingPolyline = null;
+            }
+            isDrawingMode.value = false;
         };
 
         const handleSubmit = async () => {
@@ -341,9 +392,9 @@ export default {
                 await fetchData();
             }
 
-            if (!document.querySelector(`script[src="https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places,drawing"]`)) {
+            if (!document.querySelector(`script[src="https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places"]`)) {
                 const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places,drawing`;
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places`;
                 script.onload = () => {
                     if (!mapInitialized) {
                         initializeMap();
@@ -357,7 +408,7 @@ export default {
                 fetchServiceLocations();
                 mapInitialized = true;
             }
-            
+
         });
 
         return {
@@ -377,6 +428,7 @@ export default {
             removeSelectedPolygon,
             changeDrawingMode,
             activeTab,
+            finishPolygon,
         };
     },
 };
@@ -404,7 +456,7 @@ export default {
                                 <input type="text" class="form-control" :placeholder="`Enter Name`"
                                     :id="`name`" v-model="form.name"
                                     required >
-                            </div>                                          
+                            </div>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary" :disabled="app_for === 'demo'">{{$t("update")}}</button>
                             </div>
@@ -451,6 +503,11 @@ export default {
                             <div class=" d-flex align-items-center">
                                 <div class="card-body">
                                     <BButton @click="changeDrawingMode('draw')" class="align-center"> <i class="bx bx-plus fs-16"></i> </BButton>
+                                </div>
+                            </div>
+                            <div class=" d-flex align-items-center">
+                                <div class="card-body">
+                                    <BButton @click="finishPolygon" class="align-center btn-success"> <i class="bx bx-check fs-16"></i> </BButton>
                                 </div>
                             </div>
                             <div class=" d-flex align-items-center">

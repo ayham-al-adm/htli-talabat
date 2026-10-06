@@ -51,8 +51,11 @@ export default {
         const serviceLocations = ref([]);
         let map, currentPolygon;
         let polygons = [];
-        const drawingManager = ref(null);
         const selectedPolygon = ref(null);
+        const isDrawingMode = ref(false);
+        let currentDrawingPolygon = null;
+        let drawingMarkers = [];
+        let drawingPolyline = null;
 
         const fetchServiceLocations = async () => {
             const response = await axios.get('/zones/list');
@@ -63,7 +66,7 @@ export default {
         const search = ref('');
         const suggestions = ref([]);
         const handleInput = () =>{
-            
+
             if (search.value.length < 3) {
                 suggestions.value = [];
                 }else{
@@ -117,7 +120,7 @@ export default {
                 suggestions.value = [];
 
                 const position = new google.maps.LatLng(data.location.latitude, data.location.longitude );
-                
+
                 map.setCenter(position);
 
                 if (data.viewport && data.viewport.high && data.viewport.low) {
@@ -125,7 +128,7 @@ export default {
                         new google.maps.LatLng(data.viewport.low.latitude, data.viewport.low.longitude),
                         new google.maps.LatLng(data.viewport.high.latitude, data.viewport.high.longitude),
                     );
-                    
+
                     map.fitBounds(bounds);
                 }else{
                     map.setZoom(15);
@@ -190,7 +193,7 @@ export default {
             }
 
         };
-        
+
         const attachClickListener = (polygon) => {
             google.maps.event.addListener(polygon, 'click', () => {
                 if (selectedPolygon.value === polygon) return;
@@ -207,9 +210,16 @@ export default {
         };
 
         const changeDrawingMode = (option) => {
-            if(drawingManager.value){
-                let mode = option == 'draw' ? google.maps.drawing.OverlayType.POLYGON : null;
-                drawingManager.value.setDrawingMode(mode);
+            if (option === 'draw') {
+                isDrawingMode.value = true;
+            } else {
+                isDrawingMode.value = false;
+                drawingMarkers.forEach(marker => marker.setMap(null));
+                drawingMarkers = [];
+                if (drawingPolyline) {
+                    drawingPolyline.setMap(null);
+                    drawingPolyline = null;
+                }
             }
         }
 
@@ -252,29 +262,70 @@ export default {
             return -1; // Not found
         };
         const initializeDrawingManager = () => {
-            drawingManager.value = new google.maps.drawing.DrawingManager({
-                drawingMode: null,
-                drawingControl: false,
-                polygonOptions: {
-                    fillColor: "#0000FF",
-                    fillOpacity: 0.5,
-                    strokeWeight: 1,
-                    clickable: true,
-                    editable: false,
-                    zIndex: 1,
-                },
+            google.maps.event.addListener(map, 'click', function(event) {
+                if (!isDrawingMode.value) return;
+
+                const marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map,
+                    draggable: true
+                });
+
+                drawingMarkers.push(marker);
+
+                const path = drawingPolyline ? drawingPolyline.getPath() : new google.maps.MVCArray();
+                path.push(event.latLng);
+
+                if (!drawingPolyline) {
+                    drawingPolyline = new google.maps.Polyline({
+                        path: path,
+                        map: map,
+                        strokeColor: '#0000FF',
+                        strokeWeight: 2,
+                        editable: true
+                    });
+                }
+
+                google.maps.event.addListener(marker, 'dblclick', function() {
+                    finishPolygon();
+                });
             });
 
-            drawingManager.value.setMap(map);
-
-            google.maps.event.addListener(drawingManager.value, 'overlaycomplete', function(event) {
-                if (event.type === google.maps.drawing.OverlayType.POLYGON) {
-                    
-                    polygons.push(event.overlay);
-
-                    attachClickListener(event.overlay);
+            google.maps.event.addListener(map, 'rightclick', function() {
+                if (isDrawingMode.value && drawingMarkers.length >= 3) {
+                    finishPolygon();
                 }
             });
+        };
+
+        const finishPolygon = () => {
+            if (drawingMarkers.length < 3) {
+                alert('At least 3 points are required to create a polygon');
+                return;
+            }
+
+            const path = drawingPolyline.getPath();
+            const polygon = new google.maps.Polygon({
+                paths: path,
+                fillColor: "#0000FF",
+                fillOpacity: 0.3,
+                strokeWeight: 1,
+                clickable: true,
+                editable: false,
+                zIndex: 1,
+                map: map
+            });
+
+            polygons.push(polygon);
+            attachClickListener(polygon);
+
+            drawingMarkers.forEach(marker => marker.setMap(null));
+            drawingMarkers = [];
+            if (drawingPolyline) {
+                drawingPolyline.setMap(null);
+                drawingPolyline = null;
+            }
+            isDrawingMode.value = false;
         };
 
         const handleSubmit = async () => {
@@ -385,9 +436,9 @@ export default {
                 await fetchData();
             }
 
-            if (!document.querySelector(`script[src="https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places,drawing"]`)) {
+            if (!document.querySelector(`script[src="https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places"]`)) {
                 const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places,drawing`;
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}&libraries=places`;
                 script.onload = () => {
                     if (!mapInitialized) {
                         initializeMap();
@@ -401,7 +452,7 @@ export default {
                 fetchServiceLocations();
                 mapInitialized = true;
             }
-            
+
         });
 
         return {
@@ -422,6 +473,7 @@ export default {
             changeDrawingMode,
             activeTab,
             enable_peak_zone_feature,
+            finishPolygon,
         };
     },
     computed: {
@@ -506,7 +558,7 @@ export default {
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group">
-                                        <input type="number" :readonly="app_for === 'demo'" class="form-control" 
+                                        <input type="number" :readonly="app_for === 'demo'" class="form-control"
                                         :placeholder="$t('enter_peak_zone_ride_count')" id="peak_zone_ride_count"
                                         v-model="form.peak_zone_ride_count"/>
                                         <span v-if="form.errors.peak_zone_ride_count" class="text-danger">{{ form.errors.peak_zone_ride_count }}</span>
@@ -519,21 +571,21 @@ export default {
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group">
-                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_radius')" id="peak_zone_radius" 
+                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_radius')" id="peak_zone_radius"
                                     v-model="form.peak_zone_radius"
                                     />
                                     <span v-if="form.errors.peak_zone_radius" class="text-danger">{{ form.errors.peak_zone_radius }}</span>
                                     </div>
                                 </div>
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
                             <div class="row" v-if="enable_peak_zone_feature">
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                 <label for="peak_zone_history_duration" class="form-label">{{$t("peak_zone_history_duration")}}
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_history_duration')" id="peak_zone_history_duration" 
+                                <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_history_duration')" id="peak_zone_history_duration"
                                 v-model="form.peak_zone_history_duration"
                                 />
                                 <span v-if="form.errors.peak_zone_history_duration" class="text-danger">{{ form.errors.peak_zone_history_duration }}</span>
@@ -545,13 +597,13 @@ export default {
                                     <span class="text-danger">*</span>
                                     </label>
                                 <div class="input-group">
-                                <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_duration')" id="peak_zone_duration" 
+                                <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_duration')" id="peak_zone_duration"
                                 v-model="form.peak_zone_duration"
                                 />
                                 <span v-if="form.errors.peak_zone_duration" class="text-danger">{{ form.errors.peak_zone_duration }}</span>
                                 </div>
                             </div>
-                            </div> 
+                            </div>
                             <div class="row" v-if="enable_peak_zone_feature">
 
                             <div class="col-sm-6">
@@ -561,13 +613,13 @@ export default {
                                     <a href="" class="text-success" data-bs-toggle="modal" data-bs-target="#surge">{{$t("how_it_works")}}</a>
                                 </label>
                                 <div class="input-group">
-                                <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_distance_price_percentage')" id="distance_price_percentage" 
+                                <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_distance_price_percentage')" id="distance_price_percentage"
                                 v-model="form.distance_price_percentage"
                                 />
                                 <span v-if="form.errors.distance_price_percentage" class="text-danger">{{ form.errors.distance_price_percentage }}</span>
                                 </div>
                             </div>
-                            </div> 
+                            </div>
                             </div>
                             </div>
                             <div class="text-end">
@@ -616,6 +668,11 @@ export default {
                             <div class=" d-flex align-items-center">
                                 <div class="card-body">
                                     <BButton @click="changeDrawingMode('draw')" class="align-center btn-dark border border-light" data-bs-toggle="tooltip" data-bs-placement="right" title="Add"> <i class="bx bx-plus fs-16"></i> </BButton>
+                                </div>
+                            </div>
+                            <div class=" d-flex align-items-center">
+                                <div class="card-body">
+                                    <BButton @click="finishPolygon" class="align-center btn-success border border-light" data-bs-toggle="tooltip" data-bs-placement="right" title="Finish polygon"> <i class="bx bx-check fs-16"></i> </BButton>
                                 </div>
                             </div>
                             <div class=" d-flex align-items-center">
