@@ -374,7 +374,7 @@ export default {
         }
 
         const fetchServiceLocations = async () => {
-            const response = await axios.get('service-location-list');
+            const response = await axios.get('list');
             serviceLocations.value = response.data.results;
         };
 
