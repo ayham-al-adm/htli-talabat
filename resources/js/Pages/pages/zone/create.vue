@@ -70,7 +70,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group">
-                                        <input type="number" :readonly="app_for === 'demo'" class="form-control" 
+                                        <input type="number" :readonly="app_for === 'demo'" class="form-control"
                                         :placeholder="$t('enter_peak_zone_ride_count')" id="peak_zone_ride_count"
                                         v-model="form.peak_zone_ride_count"/>
                                         <span v-if="form.errors.peak_zone_ride_count" class="text-danger">{{ form.errors.peak_zone_ride_count }}</span>
@@ -83,21 +83,21 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group">
-                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_radius')" id="peak_zone_radius" 
+                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_radius')" id="peak_zone_radius"
                                     v-model="form.peak_zone_radius"
                                     />
                                     <span v-if="form.errors.peak_zone_radius" class="text-danger">{{ form.errors.peak_zone_radius }}</span>
                                     </div>
                                 </div>
-                                </div> 
-                                </div> 
+                                </div>
+                                </div>
                                 <div class="row" v-if="enable_peak_zone_feature">
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                     <label for="peak_zone_history_duration" class="form-label">{{$t("peak_zone_history_duration")}}
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_history_duration')" id="peak_zone_history_duration" 
+                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_history_duration')" id="peak_zone_history_duration"
                                     v-model="form.peak_zone_history_duration"
                                     />
                                     <span v-if="form.errors.peak_zone_history_duration" class="text-danger">{{ form.errors.peak_zone_history_duration }}</span>
@@ -109,13 +109,13 @@
                                         <span class="text-danger">*</span>
                                         </label>
                                     <div class="input-group">
-                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_duration')" id="peak_zone_duration" 
+                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_peak_zone_duration')" id="peak_zone_duration"
                                     v-model="form.peak_zone_duration"
                                     />
                                     <span v-if="form.errors.peak_zone_duration" class="text-danger">{{ form.errors.peak_zone_duration }}</span>
                                     </div>
                                 </div>
-                                </div> 
+                                </div>
                                 <div class="row" v-if="enable_peak_zone_feature">
 
                                 <div class="col-sm-6">
@@ -125,13 +125,13 @@
                                         <a href="" class="text-success" data-bs-toggle="modal" data-bs-target="#surge">{{$t("how_it_works")}}</a>
                                     </label>
                                     <div class="input-group">
-                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_distance_price_percentage')" id="distance_price_percentage" 
+                                    <input type="number" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_distance_price_percentage')" id="distance_price_percentage"
                                     v-model="form.distance_price_percentage"
                                     />
                                     <span v-if="form.errors.distance_price_percentage" class="text-danger">{{ form.errors.distance_price_percentage }}</span>
                                     </div>
                                 </div>
-                                </div> 
+                                </div>
                                 </div>
                                 </div>
                             <div class="text-end">
@@ -201,7 +201,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
         <div class="alert-content">
@@ -291,7 +291,7 @@ export default {
         const selectedPolygon = ref(null);
 
         const handleInput = () =>{
-            
+
             if (search.value.length < 3) {
                 suggestions.value = [];
                 }else{
@@ -345,7 +345,7 @@ export default {
                 suggestions.value = [];
 
                 const position = new google.maps.LatLng(data.location.latitude, data.location.longitude );
-                
+
                 map.value.setCenter(position);
 
                 if (data.viewport && data.viewport.high && data.viewport.low) {
@@ -353,7 +353,7 @@ export default {
                         new google.maps.LatLng(data.viewport.low.latitude, data.viewport.low.longitude),
                         new google.maps.LatLng(data.viewport.high.latitude, data.viewport.high.longitude),
                     );
-                    
+
                     map.value.fitBounds(bounds);
                 }else{
                     map.value.setZoom(15);
@@ -365,11 +365,11 @@ export default {
         }
 
         const fetchServiceLocations = async () => {
-            const response = await axios.get('list');
+            const response = await axios.get('/service-locations/list');
             serviceLocations.value = response.data.results;
         };
 
-        
+
         const attachClickListener = (polygon) => {
             google.maps.event.addListener(polygon, 'click', () => {
                 if (selectedPolygon.value === polygon) return;
@@ -406,7 +406,7 @@ export default {
 
             google.maps.event.addListener(drawingManager.value, 'overlaycomplete', function(event) {
                 if (event.type === google.maps.drawing.OverlayType.POLYGON) {
-                    
+
                     polygons.push(event.overlay);
 
                     attachClickListener(event.overlay);
@@ -570,7 +570,7 @@ export default {
                 fetchServiceLocations();
             };
             document.head.appendChild(script);
-            
+
         });
         return {
             form,
