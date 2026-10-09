@@ -14,6 +14,7 @@ import { mapGetters } from "vuex";
 import { useI18n } from "vue-i18n";
 import googleMap from '@/Components/googleMap.vue';
 import Multiselect from "@vueform/multiselect";
+import { i18nT } from '@/i18n';
 
 export default {
     data() {
@@ -94,7 +95,7 @@ export default {
         timer() {
             let timerInterval;
             Swal.fire({
-                title: "Booking alert!",
+                title: i18nT('booking_alert'),
                 html: "Your Ride has been Booked <b></b> Successfully.",
                 timer: 2000,
                 timerProgressBar: true,
@@ -1336,7 +1337,7 @@ export default {
                 if (response.data.success === true) {
                     let timerInterval;
                     Swal.fire({
-                        title: "Booking Successfull",
+                        title: i18nT('booking_successful'),
                         html: "Your Ride has been Booked Successfully.",
                         timer: 2000,
                         timerProgressBar: true,
@@ -1510,7 +1511,7 @@ export default {
 
 <template>
     <Layout>
-        <Head title="Taxi Ride" />
+        <Head :title="$t('taxi_ride')" />
         <PageHeader :title="$t('book')" :pageTitle="$t('dispatch')" />
         <BRow>
             <BCol lg="12">
@@ -1992,7 +1993,7 @@ export default {
                                         <div class="row" v-if="preferences?.length">
                                             <div class="col-6">
                                             <div class="mb-3">
-                                                <label for="preferences" class="form-label">{{$t("preferences_for_user ")}}</label>
+                                                <label for="preferences" class="form-label">{{$t("preferences_for_user")}}</label>
                                                 <div class="col-sm-auto">
                                                     <div class="avatar-group">
                                                         <div class="avatar-group-item" v-for="pref in  form.preferences">

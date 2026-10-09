@@ -124,7 +124,7 @@ getFullImageUrl(filename) {
 </div>
 
 <div v-if="showToast" id="toast">
-Delete
+{{ $t('delete') }}
 </div>
 </div>
 </template>

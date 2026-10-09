@@ -74,7 +74,7 @@ class MobileAppSettingController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $created_params = $request->only(['name','service_type','order_by','short_description','description','transport_type',]);
@@ -106,7 +106,7 @@ class MobileAppSettingController extends BaseController
         $mobile_menu = MobileAppSetting::create($created_params);
 
         return response()->json([
-            'successMessage' => 'mobile_menu created successfully.',
+            'successMessage' => __('mobile_menu created successfully.'),
             'mobile_menu' => $mobile_menu,
         ], 201);
     }
@@ -119,7 +119,7 @@ class MobileAppSettingController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -145,7 +145,7 @@ class MobileAppSettingController extends BaseController
         $mobile_menu = $setting->update($updated_params);
 
         return response()->json([
-            'successMessage' => 'mobile_menu updated successfully.',
+            'successMessage' => __('mobile_menu updated successfully.'),
             'mobile_menu' => $mobile_menu,
         ], 201);
     }
@@ -153,7 +153,7 @@ class MobileAppSettingController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -167,7 +167,7 @@ class MobileAppSettingController extends BaseController
 
 
         return response()->json([
-            'successMessage' => 'Mobile Setting updated successfully',
+            'successMessage' => __('Mobile Setting updated successfully'),
         ]);
     }
     public function delete(MobileAppSetting $setting)
@@ -175,12 +175,12 @@ class MobileAppSettingController extends BaseController
 
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $setting->delete();
         return response()->json([
-            'successMessage' => 'Mobile Setting deleted successfully',
+            'successMessage' => __('Mobile Setting deleted successfully'),
         ]);
     }
 }

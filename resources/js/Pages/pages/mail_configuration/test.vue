@@ -166,7 +166,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Mail Configuration" />
+        <Head :title="$t('mail-configuration')" />
         <PageHeader :title="$t('mail-configuration')" :pageTitle="$t('mail-configuration')" />
         <BRow>
         <BCard v-if="app_for === 'demo'" no-body id="tasksList">
@@ -378,7 +378,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -388,15 +388,15 @@ export default {
 <!-- modal -->
     <BModal v-model="priceperdistance" hide-footer :title="$t('email_preview')" class="v-modal-custom fadeInUp" size="lg">
       <div class="modal-body">
-          <h4>Mail Configuration Prerequisite</h4>
-          <p><b>Queue Connection</b> must be set to database in the env file</p>
+          <h4>{{ $t('mail_configuration_prerequisite') }}</h4>
+          <p><b>{{ $t('queue_connection') }}</b> {{ $t('must_be_set_to_database_in_the_env_file') }}</p>
           <p>QUEUE_CONNECTION=database
             <button @click="copyText(`QUEUE_CONNECTION=database`, 0)" class="btn btn-light btn-sm ms-2">
                 <i :class="copiedIndex === 0 ? 'bx bxs-check-circle text-success' : 'bx bx-copy'"></i>
             </button>
           </p>
-          <p><b>Laravel supervisor</b> must be installed and set up properly</p>
-          <p><em>If there are any changes made with mail configurations, Supervisor needs to be restarted to load the changes</em></p>
+          <p><b>{{ $t('laravel_supervisor') }}</b> {{ $t('must_be_installed_and_set_up_properly') }}</p>
+          <p><em>{{ $t('if_there_are_any_changes_made_with_mail_configurations_super') }}</em></p>
           <p>sudo supervisorctl stop laravel-worker:*
             <button @click="copyText(`sudo supervisorctl stop laravel-worker:*`, 1)" class="btn btn-light btn-sm ms-2">
                 <i :class="copiedIndex === 1 ? 'bx bxs-check-circle text-success' : 'bx bx-copy'"></i>
@@ -420,7 +420,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

@@ -98,7 +98,7 @@ class DriverEndRequestController extends StripeController
             return $this->respondSuccess($request_result, 'request_ended');
         }
         if ($request_detail->is_cancelled) {
-            $this->throwCustomException('request cancelled');
+            $this->throwCustomException(__('request cancelled'));
         }
 
 
@@ -658,7 +658,7 @@ $bill->save();
 
             if($request_detail->ride_otp != $request->ride_otp){
 
-                $this->throwCustomException('provided otp is invalid');
+                $this->throwCustomException(__('provided otp is invalid'));
             }
 
             return $this->respondSuccess();
@@ -678,7 +678,7 @@ $bill->save();
 
         if($request_stop->request->ride_otp != $request->ride_otp){
 
-            $this->throwCustomException('provided otp is invalid');
+            $this->throwCustomException(__('provided otp is invalid'));
         }
 
 

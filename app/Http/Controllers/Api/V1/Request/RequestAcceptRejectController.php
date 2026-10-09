@@ -279,24 +279,24 @@ class RequestAcceptRejectController extends StripeController
         $driver = auth()->user()->driver;
         if($driver->requestDetail()->where('is_cancelled', false)->where('is_completed', false)->where('is_driver_started',true)->exists() && get_settings('enable_second_ride_for_driver') == 0){
             RequestMeta::where('driver_id', $driver->id)->delete();
-            $this->throwCustomException('driver accepted another request');
+            $this->throwCustomException(__('driver accepted another request'));
         }
 
         if ($request_detail->driver_id && $request_detail->driver_id!=auth()->user()->driver->id) {
             
             RequestMeta::where('request_id', $request_detail->id)->delete();
 
-            $this->throwCustomException('request accepted by another driver');
+            $this->throwCustomException(__('request accepted by another driver'));
         }
 
         if ($request_detail->is_completed) {
-            $this->throwCustomException('request completed already');
+            $this->throwCustomException(__('request completed already'));
         }
         if ($request_detail->is_cancelled) {
 
             RequestMeta::where('request_id', $request_detail->id)->delete();
 
-            $this->throwCustomException('request already cancelled');
+            $this->throwCustomException(__('request already cancelled'));
         }
     }
 

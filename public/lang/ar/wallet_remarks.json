@@ -5,13 +5,16 @@
     "trip_commission": "عمولة الرحلة",
     "cancellation_Fee": "رسوم الإلغاء",
     "referral_commission": "لجنة الإحالة",
-    "spent_for_trip_rRequest": "Spent For Trip Request",
+    "spent_for_trip_rRequest": "مبلغ مدفوع لطلب رحلة",
     "withdrawn_from_wallet": "تم سحبها من المحفظة",
     "daily_incentive_amount": "مبلغ الحافز اليومي",
-    "weekly_incentive_amount": "Weekly Incentive Amount",
+    "weekly_incentive_amount": "مبلغ الحافز الأسبوعي",
     "subscription_fee": "رسوم الاشتراك",
     "driver_level_Up_bonus_reward": "مكافأة رفع مستوى السائق",
-    "driver_level_up_reward": "Driver Level Up Reward",
+    "driver_level_up_reward": "مكافأة ترقية مستوى السائق",
     "discounted_amount_for_trip": "المبلغ المخفض للرحلة",
-    "add-wallet-payment": "إضافة مبلغ إلى المحفظة"
+    "add-wallet-payment": "إضافة مبلغ إلى المحفظة",
+    "user_cancellation_fee": "رسوم إلغاء المستخدم",
+    "additional_charge_amount": "مبلغ الرسوم الإضافية",
+    "agent_commission_for_trip": "عمولة الوكيل عن الرحلة"
 }

@@ -31,7 +31,7 @@ class OwnerManagementController extends Controller
     {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         // dd($request->all());
@@ -56,7 +56,7 @@ class OwnerManagementController extends Controller
 
         $document = OwnerNeededDocument::create($validated);
         return response()->json([
-            'successMessage' => 'Document created successfully.',
+            'successMessage' => __('Document created successfully.'),
             'result' => $document,
         ],201);
 
@@ -69,7 +69,7 @@ class OwnerManagementController extends Controller
     {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         // dd($request->all());
@@ -91,31 +91,31 @@ class OwnerManagementController extends Controller
         }
         $document->update($validated);
         return response()->json([
-            'successMessage' => 'Document Updated successfully.',
+            'successMessage' => __('Document Updated successfully.'),
             'result' => $document,
         ],201);
     }
     public function ownerNeededDocumentToggle(Request $request) {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         OwnerNeededDocument::where('id',$request->id)->update(['active'=>$request->status]);
         return response()->json([
-            'successMessage' => 'Document Status updated successfully.',
+            'successMessage' => __('Document Status updated successfully.'),
         ],201);
     }
     public function ownerNeededDocumentDelete(OwnerNeededDocument $document) {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         // dd($document);
         $document->delete();
         return response()->json([
-            'successMessage' => 'Document Deleted successfully.',
+            'successMessage' => __('Document Deleted successfully.'),
         ],201);
     }
 }

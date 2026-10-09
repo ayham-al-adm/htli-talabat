@@ -12,6 +12,7 @@ import FormValidation from "@/Components/FormValidation.vue";
 import { useI18n } from 'vue-i18n';
 import Swal from "sweetalert2";
 import { BCardHeader } from 'bootstrap-vue-next';
+import { i18nT } from '@/i18n';
 
 export default {
   components: {
@@ -63,8 +64,8 @@ export default {
           // text: value ? placeholderText : offPlaceholderText,
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes, proceed',
-          cancelButtonText: 'Cancel'
+          confirmButtonText: i18nT('yes_proceed'),
+          cancelButtonText: i18nT('cancel')
         });
 
         if (result.isConfirmed) {
@@ -149,7 +150,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="Tip Settings" />
+    <Head :title="$t('tip-settings')" />
     <PageHeader :title="$t('tip-settings')" :pageTitle="$t('tip-settings')" />
     <BRow>
       <BCard class="p-0">
@@ -265,7 +266,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -275,7 +276,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

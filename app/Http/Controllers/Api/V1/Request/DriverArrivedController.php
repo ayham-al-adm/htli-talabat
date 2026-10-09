@@ -116,14 +116,14 @@ class DriverArrivedController extends BaseController
         }
 
         if ($request_detail->is_driver_arrived) {
-            $this->throwCustomException('arrived already');
+            $this->throwCustomException(__('arrived already'));
         }
 
         if ($request_detail->is_completed) {
-            $this->throwCustomException('request completed already');
+            $this->throwCustomException(__('request completed already'));
         }
         if ($request_detail->is_cancelled) {
-            $this->throwCustomException('request cancelled');
+            $this->throwCustomException(__('request cancelled'));
         }
     }
 }

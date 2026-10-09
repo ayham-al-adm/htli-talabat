@@ -32,7 +32,7 @@ class ComplaintController extends Controller
         $complaint->update(['status'=>request()->status]);
 
         return response()->json([
-            'successMessage' => 'user created successfully.',
+            'successMessage' => __('user created successfully.'),
         ], 201);
     }
     public function userRequestComplaint() {

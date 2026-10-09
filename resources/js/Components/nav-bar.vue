@@ -10,6 +10,7 @@ import store from '/resources/js/state/store.js';
 import axios from 'axios';
 import { formatDistanceToNowStrict } from 'date-fns'; // Importing the correct function from date-fns
 import Swal from "sweetalert2";
+import { switchLocale } from '@/common/locale';
 import { usePage } from '@inertiajs/vue3'
 
 const page = usePage()
@@ -101,30 +102,10 @@ const setLocation = async (location) => {
     }
 }
 
-const setLanguage = async (locale) => {
-  await loadLocaleMessages(locale);
-  i18n.global.locale = locale;
+const setLanguage = (locale) => {
   selectedLanguageCode.value = locale;
-  localStorage.setItem('locale', locale);
-
-  const selectedLanguage = languages.value.find(lang => lang.code === locale);
-
-  if (selectedLanguage) {
-    const direction = selectedLanguage.direction;
-    const body = document.body;
-
-    if (direction === 'rtl') {
-      window.location.reload();
-      localStorage.setItem('toggleDirection', true);
-      body.classList.add('rtl');
-      body.classList.remove('ltr');
-    } else {
-      window.location.reload();
-      localStorage.setItem('toggleDirection', false);
-      body.classList.add('ltr');
-      body.classList.remove('rtl');
-    }
-  }
+  // Reload so the server renders with the new locale (cookie) and direction.
+  switchLocale(locale);
 };
 
 const handleChatClick = (chat_id) => {
@@ -346,7 +327,7 @@ export default {
                          <div class="mb-2">
                           <div class="" style="margin-right: -20px;" v-if="appFor == 'demo'">
                             <a type="button" href="https://codecanyon.net/item/restart-perfect-taxi-solution-with-parcel-delivery/55733584" target="_blank" class="btn btn-danger btn-label waves-effect waves-light">
-                              <i class="ri-shopping-cart-fill label-icon align-middle me-2"></i> Buy On Envato
+                              <i class="ri-shopping-cart-fill label-icon align-middle me-2"></i> {{ $t('buy_on_envato') }}
                             </a>
                           </div>
                         </div>
@@ -595,7 +576,7 @@ export default {
                           </div>
 
                         <BTabs nav-class="dropdown-tabs nav-tab-custom bg-primary px-2 pt-2">
-                          <BTab title="Notification" class="tab-pane fade py-2 ps-2" id="notifications-tab" role="tabpanel" aria-labelledby="notifications-tab">
+                          <BTab :title="$t('notification')" class="tab-pane fade py-2 ps-2" id="notifications-tab" role="tabpanel" aria-labelledby="notifications-tab">
                             <simplebar data-simplebar style="max-height: 300px" class="pe-2">
                               <div v-for="notification in notifications" :key="notification.id" class="text-reset notification-item d-block dropdown-item">
                                 <div class="d-flex">
@@ -625,7 +606,7 @@ export default {
                                 </div>
                               </simplebar>
                             </BTab>
-                          <BTab title="Chat" class="tab-pane fade py-2 ps-2" id="chats-tab" role="tabpanel" aria-labelledby="chats-tab">
+                          <BTab :title="$t('chat')" class="tab-pane fade py-2 ps-2" id="chats-tab" role="tabpanel" aria-labelledby="chats-tab">
                             <simplebar data-simplebar style="max-height: 300px" class="pe-2">
                               <div v-for="chat in chats" :key="chat.id" class="text-reset notification-item d-block dropdown-item">
                                 <div class="d-flex align-items-center">

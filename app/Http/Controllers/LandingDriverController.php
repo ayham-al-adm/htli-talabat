@@ -19,6 +19,7 @@ use App\Base\Services\ImageUploader\ImageUploader;
 use Illuminate\Support\Str;
 use App\Models\Admin\Setting;
 use App\Models\Languages;
+use App\Support\Locale;
 
 
 class LandingDriverController extends BaseController
@@ -171,7 +172,7 @@ class LandingDriverController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Landing Driver created successfully.'
+            'successMessage' => __('Landing Driver created successfully.')
         ], 201);
     }
     public function edit($id)
@@ -297,7 +298,7 @@ class LandingDriverController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver updated successfully.',
+            'successMessage' => __('Driver updated successfully.'),
             'landingDriver' => $landingDriver,
         ], 201);
 
@@ -307,7 +308,7 @@ class LandingDriverController extends BaseController
         $landingDriver->delete();
 
         return response()->json([
-            'successMessage' => 'Driver deleted successfully',
+            'successMessage' => __('Driver deleted successfully'),
         ]);
     }  
 
@@ -317,16 +318,13 @@ class LandingDriverController extends BaseController
     {
 
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingDriver = LandingDriver::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
-        $landingHeader = LandingHeader::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingDriver = Locale::pick(LandingDriver::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingDriver);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
            // Check the customization settings toggle status
            $enableLandingSite = Setting::where('category', 'customization_settings')

@@ -75,7 +75,7 @@ class ServiceLocationController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $toggle['active'] = !$location->active;
@@ -83,7 +83,7 @@ class ServiceLocationController extends Controller
         $serviceLocation = $location->fresh();
 
         return response()->json([
-            'successMessage' => 'Service location updated successfully.',
+            'successMessage' => __('Service location updated successfully.'),
             'serviceLocation' => $serviceLocation,
         ], 201);
     }
@@ -93,7 +93,7 @@ class ServiceLocationController extends Controller
         
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // Validate incoming request
@@ -152,7 +152,7 @@ class ServiceLocationController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Service location created successfully.',
+            'successMessage' => __('Service location created successfully.'),
             'serviceLocation' => $serviceLocation,
         ], 201);
     }
@@ -160,7 +160,7 @@ class ServiceLocationController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -201,18 +201,18 @@ class ServiceLocationController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Service location updated successfully.',
+            'successMessage' => __('Service location updated successfully.'),
             'serviceLocation' => $location,
         ], 201);
     }
     public function delete(ServiceLocation $location){
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         ServiceLocationTranslation::where('service_location_id',$location->id)->delete();
         $location->delete();
-        return response()->json(['successMessage' => 'Service Location deleted successfully']);
+        return response()->json(['successMessage' => __('Service Location deleted successfully')]);
     }
 }

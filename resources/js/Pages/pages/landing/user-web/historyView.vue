@@ -13,6 +13,7 @@ import Pagination from "@/Components/Pagination.vue";
 import { useI18n } from 'vue-i18n';
 import  { initI18n } from "@/i18n";
 import Swal from "sweetalert2";
+import { i18nT } from '@/i18n';
 
 export default {
   props: {
@@ -314,14 +315,14 @@ return { lat: lat, lon: lon };
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You want to be cancel this ride!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_want_to_cancel_this_ride'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, Cancel it!",
-                cancelButtonText: "Close",
+                confirmButtonText: i18nT('yes_cancel_it'),
+                cancelButtonText: i18nT('close'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -514,7 +515,7 @@ return { lat: lat, lon: lon };
 
 <template>
     <BCard>
-        <Head title="Taxi Ride" />
+        <Head :title="$t('taxi_ride')" />
             <BCardHeader class="border-0">
             <!-- menu Offcanvas -->
                 <UserWebMenu :user="user" />

@@ -315,9 +315,9 @@ export default {
                                                 <h6 class="fs-15 mb-1 fw-normal">{{ driver.rating }} <i class="ri-star-fill text-warning align-bottom me-1" /></h6>
                                             </div>
                                             <div class="text-end ms-5 d-block">
-                                                <h4 v-if="driver.status == 'offline'" class="fs-15 mb-1 fw-semibold text-danger">{{ driver.status }}</h4>
-                                                <h4 v-if="driver.status == 'online'" class="fs-15 mb-1 fw-semibold text-success">{{ driver.status }}</h4>
-                                                <h4 v-if="driver.status == 'onride'" class="fs-15 mb-1 fw-semibold text-primary">{{ driver.status }}</h4>
+                                                <h4 v-if="driver.status == 'offline'" class="fs-15 mb-1 fw-semibold text-danger">{{ $st(driver.status) }}</h4>
+                                                <h4 v-if="driver.status == 'online'" class="fs-15 mb-1 fw-semibold text-success">{{ $st(driver.status) }}</h4>
+                                                <h4 v-if="driver.status == 'onride'" class="fs-15 mb-1 fw-semibold text-primary">{{ $st(driver.status) }}</h4>
                                                 <p class="flex-grow-1 fs-15 mb-1 text-muted mt-5">{{ driver.last_seen }}</p>
                                             </div>
                                             </div>

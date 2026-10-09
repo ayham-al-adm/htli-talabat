@@ -101,7 +101,7 @@ class DriverSignupBackupController extends LoginController
         $country_code = $this->country->where('dial_code', $request->input('country'))->exists();
 
         if (!$country_code) {
-            $this->throwCustomException('unable to find country');
+            $this->throwCustomException(__('unable to find country'));
         }
         $country_id = $this->country->where('dial_code', $request->input('country'))->pluck('id')->first();
 
@@ -233,7 +233,7 @@ class DriverSignupBackupController extends LoginController
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     Log::error('Error while Registering a driver account. Input params : ' . json_encode($request->all()));
-        //     return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+        //     return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         // }
         // DB::commit();
         return $this->authenticateAndRespond($user, $request, $needsToken=true);
@@ -280,7 +280,7 @@ class DriverSignupBackupController extends LoginController
         }
 
         if ($validate_exists_email) {
-            $this->throwCustomException('Provided email has already been taken');
+            $this->throwCustomException(__('Provided email has already been taken'));
         }
 
         }
@@ -546,7 +546,7 @@ if ($request->has('mobile') && $request->has('email')) {
             DB::rollBack();
             Log::error($e);
             Log::error('Error while Registering a owner account. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
         DB::commit();
         return $this->authenticateAndRespond($user, $request, $needsToken=true);

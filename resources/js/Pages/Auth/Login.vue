@@ -77,7 +77,7 @@ export default {
 
 <template>
 
-    <Head title="Log in" />
+    <Head :title="$t('log_in')" />
 
     <body id="bodyContainer">
         <div class="bg-overlay"></div>
@@ -87,8 +87,8 @@ export default {
                     <div class="form_field text-white">
                         <Bcard>
                             <BCardBody class="BcardBody" >
-                                <h1 class="display-6" style="color: white;"><b>Admin Signin</b></h1>
-                                <p class="">Welcome back login to your panel.</p>
+                                <h1 class="display-6" style="color: white;"><b>{{ $t('admin_signin') }}</b></h1>
+                                <p class="">{{ $t('welcome_back_login_to_your_panel') }}</p>
                                 <div class="mt-5">
                                     <form @submit.prevent="submit">
 
@@ -96,7 +96,7 @@ export default {
                                     <div class="mb-3">
                                         <InputLabel for="email" value="Email" />
                                         <TextInput id="email-input" v-model="form.email" type="email"
-                                            class="form-control p-3" autofocus placeholder="Please enter email"
+                                            class="form-control p-3" autofocus :placeholder="$t('please_enter_email')"
                                             autocomplete="email"
                                             required :class="{ 'is-invalid': form.errors.email }" />
                                         <InputError :message="form.errors.email" />
@@ -107,7 +107,7 @@ export default {
                                         <InputLabel for="password" value="Password" />
                                         <div class="position-relative auth-pass-inputgroup mb-3">
                                             <input :type="togglePassword ? 'text' : 'password'" class="form-control pe-5 p-3"
-                                                placeholder="Enter password" id="password-input" v-model="form.password"
+                                                :placeholder="$t('enter_password')" id="password-input" v-model="form.password"
                                                 autocomplete="password" required :class="{ 'is-invalid': form.errors.password }"
                                             />
                                             <BButton
@@ -124,7 +124,7 @@ export default {
                                     </div>
                                         <div class="float-end " >
                                             <Link v-if="canResetPassword" :href="route('password.request')"
-                                                class="text-white">Forgot password?
+                                                class="text-white">{{ $t('forgot_password') }}
                                         </Link>
                                         </div>
                                        
@@ -133,19 +133,19 @@ export default {
                                             <!-- Email row -->
                                             <div class="col">
                                                 <div class="credential-item">
-                                                    <span class="label">Email:</span>
+                                                    <span class="label">{{ $t('email_text') }}</span>
                                                     <span class="value" id="display-email">admin@admin.com</span>
                                                 </div>
                                             </div>
                                             <!-- Password row -->
                                             <div class="col">
                                                 <div class="credential-item">
-                                                    <span class="label1">Password:</span>
+                                                    <span class="label1">{{ $t('password_text') }}</span>
                                                     <span class="value" id="display-password">123456789</span>
                                                 </div>
                                             </div>
                                             <!-- Copy icon button -->
-                                            <button class="copy-btn" id="fillBtn" title="Fill form" type="button">
+                                            <button class="copy-btn" id="fillBtn" :title="$t('fill_form')" type="button">
                                                 <i class="ri-file-copy-line icon text-muted"></i>
                                             </button>
                                         </div>
@@ -155,8 +155,7 @@ export default {
                                         <div class="form-check form-check-success mt-3">
                                             <Checkbox v-model:checked="form.remember" name="remember" class="form-check-input"
                                                 id="auth-remember-check" />
-                                            <label class="form-check-label" for="auth-remember-check">Remember
-                                                me</label>
+                                            <label class="form-check-label" for="auth-remember-check">{{ $t('remember_me') }}</label>
                                         </div>
 
                                         <div v-if="captcha.enabled" class="mt-3">
@@ -166,7 +165,7 @@ export default {
                                         <div class="mt-3">
                                             <BButton variant="success" class="w-100 mt-3" type="submit"
                                                 :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                                style="height: 45px; border-radius: 10px;">Login</BButton>
+                                                style="height: 45px; border-radius: 10px;">{{ $t('login') }}</BButton>
                                         </div>
 
                                     </form>

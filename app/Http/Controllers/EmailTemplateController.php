@@ -104,7 +104,7 @@ class EmailTemplateController extends Controller
     
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Mail Template created successfully.'
+            'successMessage' => __('Mail Template created successfully.')
         ], 201);
     }
     public function edit($id)
@@ -170,7 +170,7 @@ class EmailTemplateController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Mail Template updated successfully.',
+            'successMessage' => __('Mail Template updated successfully.'),
             'emails' => $emails,
         ], 201);
 
@@ -180,7 +180,7 @@ class EmailTemplateController extends Controller
         $emails->delete();
 
         return response()->json([
-            'successMessage' => 'Mail Template deleted successfully',
+            'successMessage' => __('Mail Template deleted successfully'),
         ]);
     }  
 

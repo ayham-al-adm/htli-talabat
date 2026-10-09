@@ -14,6 +14,7 @@ import { mapGetters } from "vuex";
 import { useI18n } from "vue-i18n";
 import { polyline } from "leaflet";
 import search from "@/Components/widgets/search.vue";
+import { i18nT } from '@/i18n';
 
 export default {
     data() {
@@ -100,7 +101,7 @@ export default {
         timer() {
             let timerInterval;
             Swal.fire({
-                title: "Booking alert!",
+                title: i18nT('booking_alert'),
                 html: "Your Ride has been Booked <b></b> Successfully.",
                 timer: 2000,
                 timerProgressBar: true,
@@ -1496,7 +1497,7 @@ export default {
                 if (response.data.success === true) {
                     let timerInterval;
                     Swal.fire({
-                        title: "Booking Successfull",
+                        title: i18nT('booking_successful'),
                         html: "Your Ride has been Booked Successfully.",
                         timer: 2000,
                         timerProgressBar: true,
@@ -2417,14 +2418,14 @@ export default {
                                                                         'text-bg-danger': rideStatus(result) === 'Cancelled',
                                                                         'text-bg-info': rideStatus(result) === 'On Trip',
                                                                         'text-bg-warning': rideStatus(result) === 'Upcoming' || rideStatus(result) === 'Driver Arrived' || rideStatus(result) === 'Searching',
-                                                                    }">{{ rideStatus(result) }} </BBadge>
+                                                                    }">{{ $st(rideStatus(result)) }} </BBadge>
                                                                 </td> 
                                                                 <td>
                                                                     <BBadge :class="{
                                                                         'text-uppercase':true,
                                                                         'text-bg-success': result.is_paid,
                                                                         'text-bg-danger': !result.is_paid,
-                                                                        }">{{ result.payment_opt == 1 ? 'Cash' : (result.payment_opt == 2 ? 'Wallet' : 'Card') }} </BBadge>
+                                                                        }">{{ $t(result.payment_opt == 1 ? 'cash' : (result.payment_opt == 2 ? 'wallet' : 'card')) }} </BBadge>
                                                                 </td>                             
                                                                 <td>
                                                                     <div class="dropdown">

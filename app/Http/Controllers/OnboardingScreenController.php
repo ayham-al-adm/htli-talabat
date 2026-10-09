@@ -111,7 +111,7 @@ class OnboardingScreenController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Onboarding created  updated successfully.',
+            'successMessage' => __('Onboarding created  updated successfully.'),
             'onboarding' => $onboarding,
         ], 201);
     }
@@ -122,7 +122,7 @@ class OnboardingScreenController extends Controller
         Onboarding::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Onboarding status updated successfully',
+            'successMessage' => __('Onboarding status updated successfully'),
         ]);
     }
 }

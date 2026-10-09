@@ -57,7 +57,7 @@ class SupportTicketTitleController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -90,7 +90,7 @@ class SupportTicketTitleController extends BaseController
         $ticket_title->save();
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Title created successfully.',
+            'successMessage' => __('Title created successfully.'),
             'ticket_title' => $ticket_title,
         ], 201);
     }
@@ -117,7 +117,7 @@ class SupportTicketTitleController extends BaseController
 
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -150,7 +150,7 @@ class SupportTicketTitleController extends BaseController
         $title->save();
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Title created successfully.',
+            'successMessage' => __('Title created successfully.'),
             'title' => $title,
         ], 201);
 
@@ -160,7 +160,7 @@ class SupportTicketTitleController extends BaseController
     {
         $title->delete();
         return response()->json([
-            'successMessage' => 'Title deleted successfully',
+            'successMessage' => __('Title deleted successfully'),
         ]);
     }   
 
@@ -168,14 +168,14 @@ class SupportTicketTitleController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
         SupportTicketTitle::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Title status updated successfully',
+            'successMessage' => __('Title status updated successfully'),
         ]);
 
 

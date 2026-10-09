@@ -199,8 +199,8 @@ export default {
 <div class="text-center">
 <div class="row justify-content-center">
     <div class="col-lg-12">
-        <h4 class="mt-3 fw-semibold">Restart Purchase verfication</h4>
-        <p class="text-muted mt-3">Please complete the form</p>
+        <h4 class="mt-3 fw-semibold">{{ $t('restart_purchase_verfication') }}</h4>
+        <p class="text-muted mt-3">{{ $t('please_complete_the_form_text') }}</p>
     </div>
 </div>
 
@@ -221,7 +221,7 @@ export default {
                     </div>
                 </div>
                 <div class="flex-grow-0">
-                    <p class="mb-0">.env File 777 permission</p>
+                    <p class="mb-0">{{ $t('env_file_777_permission') }}</p>
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-center">
@@ -250,7 +250,7 @@ export default {
 <!-- Checkbox with conditional class for red border -->
   <div :class="['form-check', 'form-check-inline', 'mt-1']">
     <input :class="[ checkboxError ? 'border border-danger' : '']" class="form-check-input" type="checkbox" id="inlineCheckbox3" v-model="checkboxChecked">
-    <label class="form-check-label" for="inlineCheckbox3">Please check above access are granted <span class="text-danger">*</span></label>
+    <label class="form-check-label" for="inlineCheckbox3">{{ $t('please_check_above_access_are_granted') }} <span class="text-danger">*</span></label>
     
     <br>
     <span v-if="errors.checkbox" class="text-danger">{{ errors.checkbox }}</span>
@@ -268,8 +268,8 @@ export default {
                     <div class="row g-3">
                         <div class="col-lg-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="name" placeholder="Enter your name" v-model="form.name">
-                                <label for="name">Name
+                                <input type="text" class="form-control" id="name" :placeholder="$t('enter_your_name')" v-model="form.name">
+                                <label for="name">{{ $t('name') }}
                                   <span class="text-danger">*</span>
                                 </label>
                                 <span v-for="(error, index) in errors.name" :key="index" class="text-danger">{{ error }}</span>
@@ -278,8 +278,8 @@ export default {
                         <div class="col-lg-6">
                             <div class="form-floating">
                               <input :class="{ 'border-success': isValidEmail, 'border-danger': errors.email }" type="email" class="form-control" id="email" v-model="form.email"
-                                placeholder="Enter your email" >
-                                <label for="email">Email
+                                :placeholder="$t('enter_your_email')" >
+                                <label for="email">{{ $t('email') }}
                                   <span class="text-danger">*</span>
                                 </label>
                                 <span v-for="(error, index) in errors.email"
@@ -294,8 +294,8 @@ export default {
                         </div>
                         <div class="col-lg-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="user_name" placeholder="Enter your user name" v-model="form.user_name">
-                                <label for="username">User name
+                                <input type="text" class="form-control" id="user_name" :placeholder="$t('enter_your_user_name')" v-model="form.user_name">
+                                <label for="username">{{ $t('user_name') }}
                                   <span class="text-danger">*</span>
                                 </label>
                                 <span v-for="(error, index) in errors.user_name" :key="index" class="text-danger">{{ error }}</span>
@@ -303,8 +303,8 @@ export default {
                         </div>
                         <div class="col-lg-6">
                             <div class="form-floating">
-                                <input :class="{ 'border-success': isValidCode, 'border-danger': errors.purchase_code }" type="text" class="form-control" id="purchase_code" v-model="form.purchase_code" placeholder="Enter your purchase code">
-                                <label for="purchase_code">Purchase Code
+                                <input :class="{ 'border-success': isValidCode, 'border-danger': errors.purchase_code }" type="text" class="form-control" id="purchase_code" v-model="form.purchase_code" :placeholder="$t('enter_your_purchase_code')">
+                                <label for="purchase_code">{{ $t('purchase_code') }}
                                   <span class="text-danger">*</span>
                                 </label>
                                 <span v-for="(error, index) in errors.purchase_code"
@@ -321,19 +321,19 @@ export default {
                         </div>
                         <div class="col-lg-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="domain_name" placeholder="Enter your Domain" v-model="form.domain_name">
-                                <label for="domain name">Domain
+                                <input type="text" class="form-control" id="domain_name" :placeholder="$t('enter_your_domain')" v-model="form.domain_name">
+                                <label for="domain name">{{ $t('domain') }}
                                   <span class="text-danger">*</span>
                                 </label>
                                 <span v-for="(error, index) in errors.domain_name" :key="index" class="text-danger">{{ error }}</span>
                             </div>
                         </div>
                         <div class="col-lg-12 flex-shrink-0">
-                            <a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank" class="text-reset text-decoration-underline"><b>Where to get Purchase code?</b></a>
+                            <a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank" class="text-reset text-decoration-underline"><b>{{ $t('where_to_get_purchase_code') }}</b></a>
                         </div>
                         <div class="col-lg-12">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-primary">Verify</button>
+                                <button type="submit" class="btn btn-primary">{{ $t('verify') }}</button>
                             </div>
                         </div>
                     </div>
@@ -363,7 +363,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -373,7 +373,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

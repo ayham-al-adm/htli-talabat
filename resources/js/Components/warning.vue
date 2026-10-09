@@ -59,15 +59,15 @@ export default {
       <div class="modal-body text-center p-5">
         <img src="@assets/images/warning.gif" class="img-fluid" style="width:55px;height:55px">
         <div class="mt-4 pt-4">
-          <h4 class="text-danger fw-bold">Important Notice!</h4>
+          <h4 class="text-danger fw-bold">{{ $t('important_notice') }}</h4>
           <p class="text-muted mt-3">
-            ⚠️ Please <strong>do not purchase nulled or pirated source code</strong> from unknown websites. It may contain harmful code, and <strong>we will not provide support</strong> for such copies.
+            {{ $t('please') }} <strong>{{ $t('do_not_purchase_nulled_or_pirated_source_code') }}</strong> {{ $t('from_unknown_websites_it_may_contain_harmful_code_and') }} <strong>{{ $t('we_will_not_provide_support') }}</strong> {{ $t('for_such_copies') }}
           </p>
           <p class="text-muted">
-            For full support and updates, always <strong>purchase from the official source</strong> below.
+            {{ $t('for_full_support_and_updates_always') }} <strong>{{ $t('purchase_from_the_official_source') }}</strong> {{ $t('below') }}
           </p>
           <a href="https://codecanyon.net/item/restart-perfect-taxi-solution-with-parcel-delivery/55733584" target="_blank" class="btn btn-success mt-3">
-            Buy Official Version
+            {{ $t('buy_official_version') }}
           </a>
         </div>
       </div>

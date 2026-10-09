@@ -73,11 +73,11 @@ class FleetDriversController extends BaseController
         $validate_exists_email = User::belongsTorole(Role::DRIVER)->where('email', $request->email)->exists();
 
         if ($validate_exists_mobile) {
-            $this->throwCustomException('Provided mobile has already been taken');
+            $this->throwCustomException(__('Provided mobile has already been taken'));
         }
 
         if ($validate_exists_email) {
-            $this->throwCustomException('Provided email has already been taken');
+            $this->throwCustomException(__('Provided email has already been taken'));
         }
 
         $profile_picture = null;
@@ -120,7 +120,7 @@ class FleetDriversController extends BaseController
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error while Registering a driver account. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
         DB::commit();
 

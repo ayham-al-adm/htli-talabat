@@ -483,7 +483,7 @@ class DriverDocumentController extends OnlineOfflineController
 
                     
             }
-            return $this->respondSuccess(['message' => 'Driver Bank information updated successfully.']);          
+            return $this->respondSuccess(['message' => __('Driver Bank information updated successfully.')]);          
 
         }else{
            
@@ -532,7 +532,7 @@ class DriverDocumentController extends OnlineOfflineController
                 }
     
     
-            return $this->respondSuccess(['message' => 'Owner bank information updated successfully.']);
+            return $this->respondSuccess(['message' => __('Owner bank information updated successfully.')]);
         }
             
 

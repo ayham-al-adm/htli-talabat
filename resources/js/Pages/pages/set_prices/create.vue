@@ -290,7 +290,7 @@ const fetchVehicleTypes = async () => {
 
 <template>
   <Layout>
-    <Head title="Set Prices" />
+    <Head :title="$t('set_prices')" />
     <PageHeader :title="zoneTypePrice ? $t('edit') : $t('create')"  :pageTitle="$t('set_prices')"  pageLink="/set-prices" />
     <BRow>
       <BCol lg="12">
@@ -725,7 +725,7 @@ const fetchVehicleTypes = async () => {
                             </label>
                             <BButton class="btn btn-soft-danger btn-sm m-2" size="sm"
                                 type="button" @click="deletePreferencePrice(price.preference_id)"
-                                data-bs-toggle="tooltip" v-b-tooltip.hover :disabled="app_for === 'demo'" title="Delete">
+                                data-bs-toggle="tooltip" v-b-tooltip.hover :disabled="app_for === 'demo'" :title="$t('delete')">
                                 <i class='bx bx-trash bx-xs'></i>
                             </BButton>
                           <div class="input-group">
@@ -835,14 +835,14 @@ const fetchVehicleTypes = async () => {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
             <div class="alert-content">
               <i class="ri-notification-off-line me-3 align-middle"></i>
-              <strong>Success</strong> - {{ successMessage }}
+              <strong>{{ $t('success') }}</strong> - {{ successMessage }}
               <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
             </div>
           </div>
           <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert" id="alertMsg">
             <div class="alert-content">
               <i class="ri-notification-off-line me-3 align-middle"></i>
-              <strong>Alert</strong> - {{ alertMessage }}
+              <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
               <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
             </div>
           </div>
@@ -858,15 +858,15 @@ const fetchVehicleTypes = async () => {
       :pagination="{ clickable: true, el: '.swiper-pagination', dynamicBullets: true }"
       :modules="[Pagination]">
         <swiper-slide>
-          <p class="text-muted mb-0"><strong>Here's a simplified explanation of how pricing works:</strong></p>
-          <h5 class="text-muted mb-2 mt-3">How the pricing is calculated:</h5>
+          <p class="text-muted mb-0"><strong>{{ $t('here_s_a_simplified_explanation_of_how_pricing_works') }}</strong></p>
+          <h5 class="text-muted mb-2 mt-3">{{ $t('how_the_pricing_is_calculated') }}</h5>
           <div class="d-flex mt-3">
               <div class="flex-shrink-0">
                   <i class="ri-checkbox-circle-fill text-success"></i>
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    The base price applies until you reach the base distance.
+                    {{ $t('the_base_price_applies_until_you_reach_the_base_distance') }}
                   </p>
               </div>
           </div>
@@ -876,7 +876,7 @@ const fetchVehicleTypes = async () => {
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    After the base distance, an additional distance price is charged for every kilometer or mile.
+                    {{ $t('after_the_base_distance_an_additional_distance_price_is_char') }}
                   </p>
               </div>
           </div>
@@ -886,7 +886,7 @@ const fetchVehicleTypes = async () => {
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    The time price is calculated based on how long the ride lasts.
+                    {{ $t('the_time_price_is_calculated_based_on_how_long_the_ride_last') }}
                   </p>
               </div>
           </div>
@@ -896,14 +896,13 @@ const fetchVehicleTypes = async () => {
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    If there is waiting time during the trip, the waiting charge applies,
-                    except for the free waiting time which is subtracted from the total waiting time.
+                    {{ $t('if_there_is_waiting_time_during_the_trip_the_waiting_charge_') }}
                   </p>
               </div>
           </div>
         </swiper-slide>
         <swiper-slide>
-          <h5 class="text-muted mb-0">Sample Calculation:</h5>
+          <h5 class="text-muted mb-0">{{ $t('sample_calculation') }}</h5>
           <div class="d-flex mt-2">
               <div class="flex-shrink-0">
                   <i class="ri-checkbox-circle-fill text-success"></i>
@@ -917,9 +916,9 @@ const fetchVehicleTypes = async () => {
                   <i class="ri-checkbox-circle-fill text-success"></i>
               </div>
               <div class="flex-grow-1 ms-2">
-                  <p class="text-muted mb-0">Distance Price:
+                  <p class="text-muted mb-0">{{ $t('distance_price_text') }}
                     <ul class="mt-2">
-                      <li>Calculate the chargeable distance: `total distance - base distance`.</li>
+                      <li>{{ $t('calculate_the_chargeable_distance_total_distance_base_distan') }}</li>
                       <li>Distance price = chargeable distance × price per distance.</li>
                     </ul>
                   </p>
@@ -930,7 +929,7 @@ const fetchVehicleTypes = async () => {
                   <i class="ri-checkbox-circle-fill text-success"></i>
               </div>
               <div class="flex-grow-1 ms-2">
-                  <p class="text-muted mb-0">Time Price:
+                  <p class="text-muted mb-0">{{ $t('time_price_text') }}
                     <ul class="mt-2">
                       <li>Time price = total ride duration (in minutes) × time price per minute.</li>
                     </ul>
@@ -950,7 +949,7 @@ const fetchVehicleTypes = async () => {
                   <i class="ri-checkbox-circle-fill text-success"></i>
               </div>
               <div class="flex-grow-1 ms-2">
-                  <p class="text-muted mb-0">Admin Commission:
+                  <p class="text-muted mb-0">{{ $t('admin_commission_text') }}
                     <ul class="mt-2">
                       <li>Admin commission = Subtotal × (admin commission percentage / 100).</li>
                     </ul>
@@ -979,15 +978,15 @@ const fetchVehicleTypes = async () => {
           </div>
         </swiper-slide>
         <swiper-slide>
-          <h5 class="text-muted mb-0">How Cancellation Fee Works?</h5>
-          <p class="text-muted mb-2 mt-2"><strong>Here's a simplified version of that text:</strong> </p>
+          <h5 class="text-muted mb-0">{{ $t('how_cancellation_fee_works') }}</h5>
+          <p class="text-muted mb-2 mt-2"><strong>{{ $t('here_s_a_simplified_version_of_that_text') }}</strong> </p>
           <div class="d-flex mt-3">
               <div class="flex-shrink-0">
                   <i class="ri-checkbox-circle-fill text-success"></i>
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    The cancellation fee can be set for each vehicle type in the set price menu.
+                    {{ $t('the_cancellation_fee_can_be_set_for_each_vehicle_type_in_the') }}
                   </p>
               </div>
           </div>
@@ -997,9 +996,7 @@ const fetchVehicleTypes = async () => {
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    A cancellation fee will be charged based on the reason the customer gives for canceling.
-                    If the reason is one that should have a fee, the system will
-                    apply the charge for the canceled ride.
+                    {{ $t('a_cancellation_fee_will_be_charged_based_on_the_reason_the_c') }}
                   </p>
               </div>
           </div>
@@ -1009,9 +1006,7 @@ const fetchVehicleTypes = async () => {
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    If the payment method for the canceled ride is "cash," the cancellation fee will be
-                     collected on the customer's next ride. So, if the customer cancels the first ride
-                     and completes the second ride, the fee will be charged at the end of the second ride.
+                    {{ $t('if_the_payment_method_for_the_canceled_ride_is_cash_the_canc') }}
                   </p>
               </div>
           </div>
@@ -1021,8 +1016,7 @@ const fetchVehicleTypes = async () => {
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    If the payment method is the wallet, the cancellation fee will be taken from the
-                    customer's wallet, as long as they have enough money in it.
+                    {{ $t('if_the_payment_method_is_the_wallet_the_cancellation_fee_wil') }}
                   </p>
               </div>
           </div>
@@ -1032,9 +1026,7 @@ const fetchVehicleTypes = async () => {
               </div>
               <div class="flex-grow-1 ms-2">
                   <p class="text-muted mb-0">
-                    The cancellation fee goes to the admin, not the driver.
-                    It will be deducted from the driver's earnings for the current ride,
-                    including the admin's commission.
+                    {{ $t('the_cancellation_fee_goes_to_the_admin_not_the_driver_it_wil') }}
                   </p>
               </div>
           </div>

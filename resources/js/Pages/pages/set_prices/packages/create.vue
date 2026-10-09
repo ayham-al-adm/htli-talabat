@@ -1,6 +1,6 @@
 <template>
     <Layout>
-      <Head title="Set Prices" />
+      <Head :title="$t('set_prices')" />
       <PageHeader :title="zoneTypePackage ? $t('edit') : $t('create')" :pageTitle="$t('set_prices')" pageLink="/set-prices"/>
       <BRow>
         <BCol lg="12">
@@ -209,14 +209,14 @@
               <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
                 <div class="alert-content">
                   <i class="ri-notification-off-line me-3 align-middle"></i>
-                  <strong>Success</strong> - {{ successMessage }}
+                  <strong>{{ $t('success') }}</strong> - {{ successMessage }}
                   <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
                 </div>
               </div>
               <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert" id="alertMsg">
                 <div class="alert-content">
                   <i class="ri-notification-off-line me-3 align-middle"></i>
-                  <strong>Alert</strong> - {{ alertMessage }}
+                  <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
                   <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
                 </div>
               </div>
@@ -230,12 +230,12 @@
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="myModalLabel">Rental Commission</h5>
+                      <h5 class="modal-title" id="myModalLabel">{{ $t('rental_commission') }}</h5>
                       <button type="button" @click="showCommission = false" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                   </div>
                   <div class="modal-body">
                       <h5 class="fs-15">
-                        Rental Commission Calculation
+                        {{ $t('rental_commission_calculation') }}
                       </h5>
                       <p class="text-muted"> Subtotal = <strong>150</strong>
                         <span  v-if="showCommission"> <strong> = {{ calculatedPrice?.subtotal ?? 0 }}</strong></span>
@@ -258,9 +258,9 @@
                       </div>
                   </div>
                   <div class="modal-footer">
-                      <button type="button" @click="showCommission = false" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                      <button type="button" v-if="showCommission" class="btn btn-info" @click="showCommission = false">Hide</button>
-                      <button type="button" class="btn btn-info" @click="calculateRentalPrice">Calculate</button>
+                      <button type="button" @click="showCommission = false" class="btn btn-light" data-bs-dismiss="modal">{{ $t('close') }}</button>
+                      <button type="button" v-if="showCommission" class="btn btn-info" @click="showCommission = false">{{ $t('hide') }}</button>
+                      <button type="button" class="btn btn-info" @click="calculateRentalPrice">{{ $t('calculate') }}</button>
                   </div>
 
               </div><!-- /.modal-content -->

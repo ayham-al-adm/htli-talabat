@@ -51,7 +51,7 @@ class PromoCodeController extends Controller
         ]);
         if($validatedData['user_specific']){
             if(count($request->user_id) == 0){
-                return response()->json(['message'=>'User must be selected'],422);
+                return response()->json(['message'=>__('User must be selected')],422);
             }
         }
 
@@ -85,7 +85,7 @@ class PromoCodeController extends Controller
         }
 
         // Optionally, you can return a response
-        return response()->json(['message' => 'Promo code created successfully.'], 201);
+        return response()->json(['message' => __('Promo code created successfully.')], 201);
     }   
     
     public function list(QueryFilterContract $queryFilter, Request $request)
@@ -144,7 +144,7 @@ class PromoCodeController extends Controller
         ]);
         if($validatedData['user_specific']){
             if(count($request->user_id) == 0){
-                return response()->json(['message'=>'User must be selected'],422);
+                return response()->json(['message'=>__('User must be selected')],422);
             }
         }
 
@@ -182,7 +182,7 @@ class PromoCodeController extends Controller
             PromoCodeUser::create($promo_user_params);
         }
 
-        return response()->json(['message' => 'Promo code updated successfully.'], 200);
+        return response()->json(['message' => __('Promo code updated successfully.')], 200);
     }
     public function destroy(Promo $promo)
     {
@@ -191,7 +191,7 @@ class PromoCodeController extends Controller
         $promo->delete();
 
         return response()->json([
-            'successMessage' => 'Promo Code deleted successfully',
+            'successMessage' => __('Promo Code deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
@@ -200,7 +200,7 @@ class PromoCodeController extends Controller
         Promo::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Promo Code Status status updated successfully',
+            'successMessage' => __('Promo Code Status status updated successfully'),
         ]);
 
 

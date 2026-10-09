@@ -18,8 +18,11 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import store from "./state/store";
+import axios from 'axios';
 import i18n, { initI18n } from './i18n';
+import { getStoredLocale, hasLocaleCookie, persistLocale, storeLocale } from './common/locale';
 import CookieConsent from './Components/CookieConsent.vue';
+import statusLabels from './common/status';
 
 AOS.init({
     easing: 'ease-out-back',
@@ -29,11 +32,35 @@ AOS.init({
 
 async function bootstrap() {
 
-    const selectedLanguageCode = ref(i18n.global.locale);
-    const currentLocale = localStorage.getItem('locale') || window.defaultLocale;
-    selectedLanguageCode.value = currentLocale;
-    localStorage.setItem('locale', currentLocale);
-    
+    const serverLocale = window.appLocale || window.defaultLocale || 'en';
+    const storedLocale = getStoredLocale();
+
+    // Visitors who chose a language before the locale cookie existed: hand that
+    // choice to the server once so server-rendered content uses it as well.
+    if (storedLocale && storedLocale !== serverLocale && !hasLocaleCookie()) {
+        let alreadySynced = true;
+        try {
+            alreadySynced = sessionStorage.getItem('localeSynced') === '1';
+            sessionStorage.setItem('localeSynced', '1');
+        } catch (e) {
+            // no sessionStorage: skip the reload rather than risk a reload loop
+        }
+        if (!alreadySynced) {
+            persistLocale(storedLocale);
+            window.location.reload();
+            return;
+        }
+    }
+
+    // vue-i18n always follows the locale the server rendered this page with.
+    const currentLocale = serverLocale;
+    if (!hasLocaleCookie()) {
+        persistLocale(currentLocale);
+    } else {
+        storeLocale(currentLocale);
+    }
+    axios.defaults.headers.common['X-Locale'] = currentLocale;
+
     const body = document.body;
 
     // Fetch permissions before initializing the app
@@ -48,6 +75,7 @@ async function bootstrap() {
                 .use(plugin)
                 .use(store)
                 .use(i18n)
+                .use(statusLabels)
                 .use(ZiggyVue)
                 .use(BootstrapVueNext)
                 .use(VueApexCharts)

@@ -166,7 +166,7 @@ const handleTransportTypeChange = async () => {
 <template>
   <Layout>
 
-    <Head title="Finance Report" />
+    <Head :title="$t('finance-report')" />
     <PageHeader :title="$t('finance_report')" :pageTitle="$t('finance_report')" />
     <BRow>
       <BCol lg="12">
@@ -318,7 +318,7 @@ const handleTransportTypeChange = async () => {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -328,7 +328,7 @@ const handleTransportTypeChange = async () => {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

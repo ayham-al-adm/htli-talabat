@@ -236,10 +236,7 @@ class AppServiceProvider extends ServiceProvider
             View::share('headers', $defaultHeaders);
             View::share('locales', $defaultHeaders->pluck('locale', 'id'));
         }
-        // Set the locale from the session or default to 'en'
-    $selectedLocale = session('selectedLocale', 'en');
-    app()->setLocale($selectedLocale);
-
+        // The request locale is resolved per request by App\Http\Middleware\SetLocale.
     }
 
     /**

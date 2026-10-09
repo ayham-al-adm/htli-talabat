@@ -232,7 +232,7 @@ class UserRegistrationController extends ApiController
                 return $this->authenticateAndRespond($user, $request, $needsToken=true);
 
             }
-            $this->throwCustomException('Provided email has already been taken');
+            $this->throwCustomException(__('Provided email has already been taken'));
         }
 
 
@@ -258,7 +258,7 @@ class UserRegistrationController extends ApiController
         }
 
         if (!$country_data) {
-            $this->throwCustomException('unable to find country');
+            $this->throwCustomException(__('unable to find country'));
         }
         $country_id = $country_data->id;
 
@@ -267,7 +267,7 @@ class UserRegistrationController extends ApiController
             // Validate Referral code
             $referred_user_record = $this->user->belongsTorole(Role::USER)->where('refferal_code', $request->refferal_code)->first();
             if (!$referred_user_record) {
-                $this->throwCustomException('Provided Referral code is not valid', 'refferal_code');
+                $this->throwCustomException(__('Provided Referral code is not valid'), 'refferal_code');
             }
             // Add referral commission to the referred user
             $this->addCommissionToRefferedUser($referred_user_record);
@@ -345,7 +345,7 @@ class UserRegistrationController extends ApiController
         //     DB::rollBack();
         //     Log::error($e);
         //     Log::error('Error while Registering a user account. Input params : ' . json_encode($request->all()));
-        //     return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+        //     return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         // }
 
         // $url = env('APP_URL') . "users/view-profile/" . $user->id;
@@ -377,7 +377,7 @@ class UserRegistrationController extends ApiController
 
             return $this->authenticateAndRespond($user, $request, $needsToken=true);
         }
-        return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+        return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
 
         // return $this->respondSuccess();
     }
@@ -618,7 +618,7 @@ class UserRegistrationController extends ApiController
             DB::rollBack();
             Log::error($e);
             Log::error('Error while Registering a user account. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
         DB::commit();
 
@@ -688,7 +688,7 @@ class UserRegistrationController extends ApiController
     if (!$user) {
         return response()->json([
             'success' => false,
-            'message' => 'User not found'
+            'message' => __('User not found')
         ], 404);
     }
 
@@ -698,7 +698,7 @@ class UserRegistrationController extends ApiController
 
     return response()->json([
         'success' => true,
-        'message' => 'Password updated successfully'
+        'message' => __('Password updated successfully')
     ]);
 }
 

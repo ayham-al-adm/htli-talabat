@@ -229,7 +229,7 @@ class DeliveryCreateRequestController extends StripeController
 
             if(!$request->has('contact_no_other') || $request->input('contact_no_other')==null){
 
-                $this->throwCustomException('please provide the valid contact');
+                $this->throwCustomException(__('please provide the valid contact'));
 
             }
             $request_params['book_for_other_contact'] = $request->input('contact_no_other');
@@ -257,7 +257,7 @@ class DeliveryCreateRequestController extends StripeController
                 $request_params['payment_intent_id']=$preAuthorize->id;
                 $request_detail = $this->request->create($request_params);
             }else{
-                $this->throwCustomException('Insufficient Balance Amount');
+                $this->throwCustomException(__('Insufficient Balance Amount'));
             }
         }else{
             $request_detail = $this->request->create($request_params);
@@ -327,7 +327,7 @@ class DeliveryCreateRequestController extends StripeController
         //     DB::rollBack();
         //     Log::error($e);
         //     Log::error('Error while Create new request. Input params : ' . json_encode($request->all()));
-        //     return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+        //     return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         // }
         // DB::commit();
 
@@ -476,7 +476,7 @@ class DeliveryCreateRequestController extends StripeController
                     $request_params['payment_intent_id']=$preAuthorize->id;
                     $request_detail = $this->request->create($request_params);
                 }else{
-                    $this->throwCustomException('Insufficient Balance Amount');
+                    $this->throwCustomException(__('Insufficient Balance Amount'));
                 }
             }else{
                 $request_detail = $this->request->create($request_params);
@@ -532,7 +532,7 @@ class DeliveryCreateRequestController extends StripeController
             DB::rollBack();
             Log::error($e);
             Log::error('Error while Create new schedule request. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
         DB::commit();
 

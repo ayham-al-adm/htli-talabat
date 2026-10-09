@@ -240,45 +240,11 @@ computed: {
                     </BCol>
                 </BRow>
 
-                <BRow class="text-center text-sm-start align-items-center mt-5">
-                    <BCol sm="6">
+                <BRow class="text-center align-items-center mt-5">
+                    <BCol>
 
                         <div>
                             <p class="copy-rights mb-0 currentyear" style="color:var(--landing_footer_text);">{{ headers.copy_rights }}</p>
-                        </div>
-                    </BCol>
-                    <BCol sm="6">
-                        <div class="text-sm-end mt-3 mt-sm-0">
-                            <ul class="list-inline mb-0 footer-social-link">
-                                <li class="list-inline-item">
-                                    <BLink :href= "headers.fb_link" target="_blank" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-facebook-fill"></i>
-                                        </div>
-                                    </BLink>
-                                </li>
-                                <li class="list-inline-item">
-                                    <BLink :href="headers.linkdin_link" target="_blank" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-linkedin-fill"></i>
-                                        </div>
-                                    </BLink>
-                                </li>
-                                <li class="list-inline-item">
-                                    <BLink :href="headers.x_link" target="_blank" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-twitter-line"></i>
-                                        </div>
-                                    </BLink>
-                                </li>
-                                <li class="list-inline-item">
-                                    <BLink :href="headers.insta_link" target="_blank" class="avatar-xs d-block">
-                                        <div class="avatar-title rounded-circle">
-                                            <i class="ri-instagram-line"></i>
-                                        </div>
-                                    </BLink>
-                                </li>
-                            </ul>
                         </div>
                     </BCol>
                 </BRow>

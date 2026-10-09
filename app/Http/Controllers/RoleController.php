@@ -53,7 +53,7 @@ class RoleController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $validatedData = $request->validate([
@@ -69,7 +69,7 @@ class RoleController extends Controller
 
         return response()->json([
             'role' => $role,
-            'successMessage' => 'Role created successfully!',
+            'successMessage' => __('Role created successfully!'),
         ], 201);
     }
 
@@ -89,7 +89,7 @@ public function convertToSnakeCase(string $str): string
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $validatedData = $request->validate([
@@ -101,7 +101,7 @@ public function convertToSnakeCase(string $str): string
 
         return response()->json([
             'role' => $role,
-            'successMessage' => 'Role updated successfully',
+            'successMessage' => __('Role updated successfully'),
         ]);
     }
 

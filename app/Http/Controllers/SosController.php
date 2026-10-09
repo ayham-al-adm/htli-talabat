@@ -44,7 +44,7 @@ class SosController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Sos created successfully.',
+            'successMessage' => __('Sos created successfully.'),
             'sos' => $sos,
         ], 201);
     }
@@ -76,7 +76,7 @@ class SosController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Sos created  updated successfully.',
+            'successMessage' => __('Sos created  updated successfully.'),
             'sos' => $sos,
         ], 201);
 
@@ -86,7 +86,7 @@ class SosController extends Controller
         $sos->delete();
 
         return response()->json([
-            'successMessage' => 'Sos deleted successfully',
+            'successMessage' => __('Sos deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
@@ -95,7 +95,7 @@ class SosController extends Controller
         Sos::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Sos status updated successfully',
+            'successMessage' => __('Sos status updated successfully'),
         ]);
 
 

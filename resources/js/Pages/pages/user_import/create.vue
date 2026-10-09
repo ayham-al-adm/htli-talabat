@@ -10,6 +10,7 @@ import FormValidation from "@/Components/FormValidation.vue";
 import { useI18n } from 'vue-i18n';
 import ImageUpload from '@/Components/ImageUpload.vue';
 import Swal from "sweetalert2";
+import { i18nT } from '@/i18n';
 
 
 export default {
@@ -78,7 +79,7 @@ export default {
         console.log("response",response);
         if (response.status === 201) {
            Swal.fire({
-             title: 'Success!',
+             title: i18nT('success'),
              text: t('files_imported_successfully'),
              icon: 'success',
            }).then(async (result) => {
@@ -92,9 +93,9 @@ export default {
           // router.get('/user-import');
         } else {
            Swal.fire({
-             title: 'Error!',
-             text: t('failed_to_create_user_imported_files.'),
-             icon: t('error'),
+             title: i18nT('error'),
+             text: t('failed_to_create_user_imported_files'),
+             icon: 'error',
            })
           // alertMessage.value = t('failed_to_create_user_imported_files');
         }
@@ -170,7 +171,7 @@ export default {
 <template>
   <Layout>
 
-    <Head title="Banner Image" />
+    <Head :title="$t('banner-image')" />
     <PageHeader :title="bannerimage ? $t('edit') : $t('create')" :pageTitle="$t('user-import')" pageLink="/banner-image"/>
     <BRow>
       <BCol lg="12">
@@ -207,7 +208,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -217,7 +218,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

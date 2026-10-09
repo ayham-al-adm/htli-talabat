@@ -31,7 +31,7 @@ class FaqController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
          // Validate the incoming request
@@ -49,7 +49,7 @@ class FaqController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Faq created successfully.',
+            'successMessage' => __('Faq created successfully.'),
             'faq' => $faq,
         ], 201);
     }
@@ -68,7 +68,7 @@ class FaqController extends Controller
 // dd($request);
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -88,7 +88,7 @@ class FaqController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Faq created  updated successfully.',
+            'successMessage' => __('Faq created  updated successfully.'),
             'faq' => $faq,
         ], 201);
 
@@ -97,27 +97,27 @@ class FaqController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $faq->delete();
 
         return response()->json([
-            'successMessage' => 'Faq deleted successfully',
+            'successMessage' => __('Faq deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
         Faq::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Faq status updated successfully',
+            'successMessage' => __('Faq status updated successfully'),
         ]);
 
 

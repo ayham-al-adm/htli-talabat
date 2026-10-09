@@ -176,7 +176,7 @@ applyFilter() {
 
 <template>
     <BCard>
-        <Head title="Taxi Ride" />
+        <Head :title="$t('taxi_ride')" />
         <BCardHeader class="border-0">
             <!-- menu Offcanvas -->
             <UserWebMenu :user="user" />

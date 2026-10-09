@@ -219,7 +219,7 @@ class OnlineOfflineController extends BaseController
         $route_coordinates = get_line_string($request->current_lat, $request->current_lng, $driver_detail->my_route_lat, $driver_detail->my_route_lng);
 
         if(!$route_coordinates){
-            return $this->throwCustomException('unable to get routes');
+            return $this->throwCustomException(__('unable to get routes'));
         }
         // dd($route_coordinates);
         

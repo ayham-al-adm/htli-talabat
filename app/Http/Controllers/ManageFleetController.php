@@ -146,13 +146,13 @@ class ManageFleetController extends BaseController
         ]);
         $fleet->update($validated);
         return response()->json([
-            'successMessage' => 'Fleet Updated Successfully',
+            'successMessage' => __('Fleet Updated Successfully'),
         ],201);
     }
     public function delete(Fleet $fleet) {
         $fleet->delete();
         return response()->json([
-            'successMessage' => 'Fleet Deleted Successfully',
+            'successMessage' => __('Fleet Deleted Successfully'),
             'serviceLocations' =>ServiceLocation::active()->get(),
         ],201);
     }
@@ -181,7 +181,7 @@ class ManageFleetController extends BaseController
     {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         // dd($request->all());
@@ -205,7 +205,7 @@ class ManageFleetController extends BaseController
         }
         $document = FleetNeededDocument::create($validated);
         return response()->json([
-            'successMessage' => 'Document created successfully.',
+            'successMessage' => __('Document created successfully.'),
             'result' => $document,
         ],201);
 
@@ -219,7 +219,7 @@ class ManageFleetController extends BaseController
         // dd($document);
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         $validated = $request->validate([
@@ -243,7 +243,7 @@ class ManageFleetController extends BaseController
         // dd($validated);
 
         return response()->json([
-            'successMessage' => 'Document Updated successfully.',
+            'successMessage' => __('Document Updated successfully.'),
             'result' => $document,
         ],201);
     }
@@ -251,24 +251,24 @@ class ManageFleetController extends BaseController
     {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         FleetNeededDocument::where('id',$request->id)->update(['active'=>$request->status]);
         return response()->json([
-            'successMessage' => 'Document Status updated successfully.',
+            'successMessage' => __('Document Status updated successfully.'),
         ],201);
     }
     public function fleetNeededDocumentDelete(FleetNeededDocument $document) {
         // dd($document);
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         $document->delete();
         return response()->json([
-            'successMessage' => 'Document Deleted successfully.',
+            'successMessage' => __('Document Deleted successfully.'),
         ],201);
     }
 
@@ -378,7 +378,7 @@ class ManageFleetController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Fleet Document uploaded successfully.',
+            'successMessage' => __('Fleet Document uploaded successfully.'),
                 'fleetId'=>$fleetId,
                 'document'=>$document
                 ], 201);
@@ -397,7 +397,7 @@ class ManageFleetController extends BaseController
             if($neededDoc != $uploadedDoc || $neededDoc = 0){
                 return response()->json([
                     'status' => 'failure',
-                    'message' => 'Driver document Disapproved.',
+                    'message' => __('Driver document Disapproved.'),
                     'data' =>'uploaddocument'
                 ]);
             }
@@ -445,7 +445,7 @@ class ManageFleetController extends BaseController
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Driver document Approved.',
+                'message' => __('Driver document Approved.'),
             ]);
             
     
@@ -467,7 +467,7 @@ class ManageFleetController extends BaseController
         if (!$fleetDoc) {
             return response()->json([
                 'status' => 'failure',
-                'message' => 'Document not found for the given Fleet.'
+                'message' => __('Document not found for the given Fleet.')
             ], 404); // Return a 404 status code for better semantics
         }
 
@@ -530,7 +530,7 @@ class ManageFleetController extends BaseController
                 // return redirect()->route('managefleets.index');
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Fleet document approved successfully.',
+                    'message' => __('Fleet document approved successfully.'),
                     'allDocumentsApproved'=>$allDocumentsApproved,
                 ]);
             }
@@ -579,7 +579,7 @@ class ManageFleetController extends BaseController
                 // return redirect()->route('managefleets.index');
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Fleet document Disapproved.',
+                    'message' => __('Fleet document Disapproved.'),
                     'allDocumentsDisapproved'=>$allDocumentsDisapproved
                 ]);
             }
@@ -589,7 +589,7 @@ class ManageFleetController extends BaseController
     
         // return response()->json([
         //     'status' => 'success',
-        //     'message' => 'Owner document approved successfully.'
+        //     'message' => __('Owner document approved successfully.')
         // ]);
 
 
@@ -601,7 +601,7 @@ class ManageFleetController extends BaseController
         $fleet->update(['approve'=>false,'reason'=>$request->reason,]);
         //  dd($fleet);
         return response()->json([
-            'successMessage' => 'Fleet disapproved successfully',
+            'successMessage' => __('Fleet disapproved successfully'),
             'results' => $fleet,
         ],201);
     }
@@ -613,7 +613,7 @@ class ManageFleetController extends BaseController
 
          // Handle the case where no document statuses exist
          if ($documentStatuses->isEmpty()) {           
-            return response()->json(['message' => 'No documents found. Update not performed.']);
+            return response()->json(['message' => __('No documents found. Update not performed.')]);
         }
        
         $allDocumentsApproved = $documentStatuses->every(function ($value) {
@@ -625,7 +625,7 @@ class ManageFleetController extends BaseController
             $fleetId->update(['approve'=>1,'status'=>1]);
 
             return response()->json([
-                'successMessage' => 'Owner  Approved successfully',
+                'successMessage' => __('Owner  Approved successfully'),
             ]);
 
         }else{
@@ -654,7 +654,7 @@ class ManageFleetController extends BaseController
         $drivers = Driver::where('owner_id', $owner->id)->get();
         // dd($drivers);
         return response()->json([
-            'successMessage' => 'Fleet Drivers Listed Successfully',
+            'successMessage' => __('Fleet Drivers Listed Successfully'),
             'drivers' => $drivers,
         ],201);
     }
@@ -664,7 +664,7 @@ class ManageFleetController extends BaseController
 
         if($fleet->driver_id===$driver->id){
             return response()->json([
-                'successMessage' => 'Driver Assigned Successfully',
+                'successMessage' => __('Driver Assigned Successfully'),
             ],201);
         }
 
@@ -791,7 +791,7 @@ class ManageFleetController extends BaseController
         $this->database->getReference('drivers/driver_'.$driver->id)->update(['fleet_changed'=>1,'updated_at'=> Database::SERVER_TIMESTAMP]);
 
         return response()->json([
-            'successMessage' => 'Driver Assigned Successfully',
+            'successMessage' => __('Driver Assigned Successfully'),
         ],201);
     }
 }

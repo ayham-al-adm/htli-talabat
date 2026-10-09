@@ -124,7 +124,7 @@ class DeliveryRequestController extends Controller
     {
         $request = RequestModel::find($request->request_id);
         return response()->json([
-            'successMessage' => 'Driver Found successfully',
+            'successMessage' => __('Driver Found successfully'),
             'driver' => $driver,
             'current_time' => get_converted_time(now(),$request->timezone),
         ]);
@@ -176,7 +176,7 @@ class DeliveryRequestController extends Controller
         $requestmodel->update($update_parms);
 
         return response()->json([
-            'successMessage' => 'Trip Cancelled successfully',
+            'successMessage' => __('Trip Cancelled successfully'),
             'request' => $requestmodel,
         ]);
     }
@@ -212,10 +212,10 @@ class DeliveryRequestController extends Controller
         }
 
         // Handle invalid invoice type
-        return response()->json(['error' => 'Invalid invoice type'], 400);
+        return response()->json(['error' => __('Invalid invoice type')], 400);
     } catch (\Exception $e) {
         // Handle exceptions
-        return response()->json(['error' => 'Failed to generate invoice: ' . $e->getMessage()], 500);
+        return response()->json(['error' => __('Failed to generate invoice: ') . $e->getMessage()], 500);
     }
 }
 }

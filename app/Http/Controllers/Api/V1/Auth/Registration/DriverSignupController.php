@@ -94,7 +94,7 @@ class DriverSignupController extends LoginController
         $validate_exists_email = $this->user->belongsTorole(Role::DRIVER)->where('email', $email)->exists();
 
         if ($validate_exists_email) {
-            $this->throwCustomException('Provided email has already been taken');
+            $this->throwCustomException(__('Provided email has already been taken'));
         }
 
         if ($validate_exists_mobile) {
@@ -109,7 +109,7 @@ class DriverSignupController extends LoginController
         }
 
         if (!$country_data) {
-            $this->throwCustomException('unable to find country');
+            $this->throwCustomException(__('unable to find country'));
         }
         $country_id = $country_data->id;
 
@@ -244,7 +244,7 @@ class DriverSignupController extends LoginController
         }
 
         if ($validate_exists_email) {
-            $this->throwCustomException('Provided email has already been taken');
+            $this->throwCustomException(__('Provided email has already been taken'));
         }
 
         }
@@ -485,7 +485,7 @@ if ($request->has('mobile') && $request->has('email')) {
         $validate_exists_email = $this->user->belongsTorole(Role::OWNER)->where('email', $email)->exists();
 
         if ($validate_exists_email) {
-            $this->throwCustomException('Provided email has already been taken');
+            $this->throwCustomException(__('Provided email has already been taken'));
         }
 
         if ($validate_exists_mobile) {
@@ -499,7 +499,7 @@ if ($request->has('mobile') && $request->has('email')) {
         }
 
         if (!$country_data) {
-            $this->throwCustomException('unable to find country');
+            $this->throwCustomException(__('unable to find country'));
         }
         $country_id = $country_data->id;
 
@@ -554,7 +554,7 @@ if ($request->has('mobile') && $request->has('email')) {
             DB::rollBack();
             Log::error($e);
             Log::error('Error while Registering a owner account. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
         DB::commit();
         return $this->authenticateAndRespond($user, $request, $needsToken=true);

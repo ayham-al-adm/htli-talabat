@@ -25,7 +25,9 @@ class OwnerWalletHistoryTransformer extends Transformer
     public function transform(OwnerWalletHistory $wallet_history)
     {
         $owner = auth()->user();
-        $remarks = custom_remarks_trans($wallet_history->remarks,[],$owner->lang ?? 'en') ;
+        // Mobile apps get the account's language; the admin panel gets the viewer's locale.
+        $remarksLocale = request()->is('api/*') ? ($owner->lang ?? 'en') : app()->getLocale();
+        $remarks = custom_remarks_trans($wallet_history->remarks, [], $remarksLocale);
         $params = [
             'id' => $wallet_history->id,
             'user_id' => $wallet_history->user_id,

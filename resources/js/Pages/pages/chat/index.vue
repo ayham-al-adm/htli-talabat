@@ -9,6 +9,7 @@ import { useI18n } from 'vue-i18n';
 import avatar2 from "@/assets/images/users/avatar-2.jpg";
 import axios from 'axios'; // Import axios for API requests
 import Swal from "sweetalert2";
+import { i18nT } from '@/i18n';
 
 export default {
   props: {
@@ -192,7 +193,7 @@ export default {
 
       swalWithBootstrapButtons
         .fire({
-          title: "Are you sure?",
+          title: i18nT('are_you_sure'),
           text: "You need to close this chat!",
           icon: "warning",
           confirmButtonText: "Yes, close it!",
@@ -392,7 +393,7 @@ onMounted(async () => {
   validations: {
     form: {
       message: {
-        required: helpers.withMessage("Message is required", required),
+        required: helpers.withMessage(i18nT('message_is_required'), required),
       },
     },
   },
@@ -415,14 +416,14 @@ onMounted(async () => {
           <h5 class="mb-0">{{$t("users")}}</h5>
         </div>
         <div v-if="!userSearch" class="flex-shrink-0">
-          <div v-b-tooltip.hover title="Add Contact">
+          <div v-b-tooltip.hover :title="$t('add_contact')">
             <BButton type="button" @click="toggleSearch" variant="soft-success" size="sm">
               <i class="ri-add-line align-bottom"></i>
             </BButton>
           </div>
         </div>
         <div v-else class="flex-shrink-0">
-          <div v-b-tooltip.hover title="Cancel">
+          <div v-b-tooltip.hover :title="$t('cancel')">
             <BButton type="button" @click="toggleSearch" variant="soft-success" size="sm">
               <i class="ri-close-line align-bottom"></i>
             </BButton>
@@ -432,7 +433,7 @@ onMounted(async () => {
     <div v-if="userSearch" class="dropdown-menu-xl">
 
       <div class="search-box position-relative">
-        <input type="text" class="form-control bg-light border-light" placeholder="Search users..."
+        <input type="text" class="form-control bg-light border-light" :placeholder="$t('search_users')"
           id="searchMessage" v-model="searchQuery" @input="onSearch" />
         <i class="ri-search-2-line search-icon"></i>
         
@@ -572,7 +573,7 @@ onMounted(async () => {
                       <template #button-content><i class="ri-settings-2-fill"></i>
                       </template>
                       <BDropdownItem><i class=" ri-mail-close-fill align-bottom text-danger me-2"></i>
-                        <span class="text-danger" id="sa-params" @click="cancel">Close Chat</span></BDropdownItem>
+                        <span class="text-danger" id="sa-params" @click="cancel">{{ $t('close_chat') }}</span></BDropdownItem>
                     </BDropdown>
                   </li>
                 </ul>

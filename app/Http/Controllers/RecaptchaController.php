@@ -38,7 +38,7 @@ class RecaptchaController extends Controller
         // Update the .env file with the new settings
              $this->updateEnvFile($settings);
              
-        return response()->json(['message' => 'Recaptcha  Destails updated successfully'], 201);
+        return response()->json(['message' => __('Recaptcha  Destails updated successfully')], 201);
 
     }
     /**

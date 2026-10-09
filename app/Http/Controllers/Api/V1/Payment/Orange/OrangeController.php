@@ -140,7 +140,7 @@ private function parseXmlResponse($xmlString)
         libxml_clear_errors();
         return [
             'status' => 500,
-            'message' => 'Invalid XML format',
+            'message' => __('Invalid XML format'),
             'errors' => $errors
         ];
     }

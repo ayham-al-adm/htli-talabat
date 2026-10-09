@@ -164,8 +164,8 @@ export default {
 <template>
     <Layout>
 
-        <Head title="items" />
-        <PageHeader title="countries" pageTitle="Masters" />
+        <Head :title="$t('items')" />
+        <PageHeader :title="$t('countries')" pageTitle="Masters" />
 
         
         <BRow>
@@ -242,25 +242,25 @@ export default {
         </BRow>
 
       
-        <BModal v-model="modalFilter" hide-footer dialog-class="modal-dialog-right" title="Filter"
+        <BModal v-model="modalFilter" hide-footer dialog-class="modal-dialog-right" :title="$t('filter')"
             class="v-modal-custom " size="sm">
             <form >
                 <div class="input-group">
                     <select class="form-select mb-3" aria-label="Default select example" v-model="filter.all">
-                        <option selected>Select Status</option>
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
+                        <option selected>{{ $t('select_status') }}</option>
+                        <option value="1">{{ $t('yes') }}</option>
+                        <option value="0">{{ $t('no') }}</option>
                         
                     </select>
 
                     <select class="form-select mb-3" aria-label="Default select example" v-model="filter.locked">
-                        <option selected>Select Status</option>
-                        <option value="0">Inactive</option>
-                        <option value="1">Active</option>
+                        <option selected>{{ $t('select_status') }}</option>
+                        <option value="0">{{ $t('inactive') }}</option>
+                        <option value="1">{{ $t('active') }}</option>
                     </select>
                 </div>
-                <BButton variant="primary" class="float-end" @click="fetchItems"> Apply</BButton>
-                <BButton variant="outline-primary" class="float-end mx-2" @click="clearFilter">Clear</BButton>
+                <BButton variant="primary" class="float-end" @click="fetchItems"> {{ $t('apply') }}</BButton>
+                <BButton variant="outline-primary" class="float-end mx-2" @click="clearFilter">{{ $t('clear') }}</BButton>
                 
             </form>
         </BModal>

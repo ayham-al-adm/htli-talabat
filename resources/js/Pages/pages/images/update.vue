@@ -8,6 +8,7 @@ import { ref, watch } from "vue";
 import axios from "axios";
 import { debounce } from 'lodash';
 import Multiselect from "@vueform/multiselect";
+import { i18nT } from '@/i18n';
 
 export default {
     components: {
@@ -85,11 +86,11 @@ export default {
             const validationRules = {
                 name: {
                     test: () => !name,
-                    message: 'Role name is required'
+                    message: i18nT('role_name_is_required')
                 },
                 description: {
                     test: () => !description,
-                    message: 'Role description is required'
+                    message: i18nT('role_description_is_required')
                 },
             };
 
@@ -168,13 +169,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -248,8 +249,8 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Vehicle Make" />
-        <PageHeader title="Update" pageTitle="Vehicle Make" />
+        <Head :title="$t('vehicle_make')" />
+        <PageHeader :title="$t('update')" pageTitle="Vehicle Make" />
         <BRow>
             <BCol lg="12">
                 <BCard no-body id="tasksList">
@@ -262,38 +263,38 @@ export default {
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label for="select_country" class="form-label">Transport Type</label>
+                                        <label for="select_country" class="form-label">{{ $t('transport_type') }}</label>
                                         <select id="select_country" class="form-select">
-                                            <option disabled value="">Choose Type...</option>
-                                            <option value="">Taxi</option>
-                                            <option value="">Delivery</option>
-                                            <option value="">Both</option>
+                                            <option disabled value="">{{ $t('choose_type_text') }}</option>
+                                            <option value="">{{ $t('taxi') }}</option>
+                                            <option value="">{{ $t('delivery') }}</option>
+                                            <option value="">{{ $t('both') }}</option>
                                         </select>
                                         <span v-if="form.errors.country" class="text-danger">{{ form.errors.country }}</span>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Vehicle Make Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter Name" id="name" v-model="form.name">
+                                        <label for="name" class="form-label">{{ $t('vehicle_make_name') }}</label>
+                                        <input type="text" class="form-control" :placeholder="$t('enter_name')" id="name" v-model="form.name">
                                         <span v-if="form.errors.name" class="text-danger">{{ form.errors.name }}</span>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label for="select_timezone" class="form-label">Vehicle Make For</label>
+                                        <label for="select_timezone" class="form-label">{{ $t('vehicle_make_for') }}</label>
                                         <select id="select_timezone" class="form-select" >
-                                            <option disabled value="">Choose Make...</option>
-                                            <option value="">Taxi</option>
-                                            <option value="">Bike</option>
-                                            <option value="">Truck</option>
+                                            <option disabled value="">{{ $t('choose_make') }}</option>
+                                            <option value="">{{ $t('taxi') }}</option>
+                                            <option value="">{{ $t('bike') }}</option>
+                                            <option value="">{{ $t('truck') }}</option>
                                         </select>
                                         <span v-if="form.errors.timezone" class="text-danger">{{ form.errors.timezone }}</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        <button type="submit" class="btn btn-primary">{{ $t('update') }}</button>
                                     </div>
                                 </div><!--end col-->
                             </div><!--end row-->
@@ -308,7 +309,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -319,7 +320,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>
@@ -332,13 +333,13 @@ export default {
             class="v-modal-custom">
             <form @submit.prevent="handleSubmit" @keydown="hideError">
                 <div class="form-group mt-3">
-                    <label for="name" class="form-label">Role Name<span class="text-danger">*</span></label>
+                    <label for="name" class="form-label">{{ $t('role_name') }}<span class="text-danger">*</span></label>
                     <input type="text" id="name" v-model="form.name" class="form-control"
                         :class="{ 'is-invalid': form.errors.name }" @focus="hideError('name')" />
                     <div v-if="form.errors.name" class="text-danger">{{ form.errors.name }}</div>
                 </div>
                 <div class="form-group mt-3">
-                    <label for="description" class="form-label">description<span class="text-danger">*</span></label>
+                    <label for="description" class="form-label">{{ $t('description') }}<span class="text-danger">*</span></label>
                     <input type="text" id="description" v-model="form.description" class="form-control"
                         :class="{ 'is-invalid': form.errors.description }" @focus="hideError('description')" />
                     <div v-if="form.errors.description" class="text-danger">{{ form.errors.description }}</div>
@@ -346,29 +347,29 @@ export default {
                 <button type="submit" class="btn btn-success m-2 float-end">{{ selectedRole ? 'Update' : 'Save'
                     }}</button>
                 <button v-if="selectedRole" type="button" @click="cancelEdit"
-                    class="btn btn-secondary m-2 float-end">Cancel</button>
+                    class="btn btn-secondary m-2 float-end">{{ $t('cancel') }}</button>
             </form>
         </BModal>
 
-        <BModal v-model="modalFilter" hide-footer dialog-class="modal-dialog-right" title="Filter"
+        <BModal v-model="modalFilter" hide-footer dialog-class="modal-dialog-right" :title="$t('filter')"
             class="v-modal-custom " size="sm">
             <form>
                 <div class="input-group">
                     <select class="form-select mb-3" aria-label="Default select example" v-model="filter.all">
-                        <option selected>Select Status</option>
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
+                        <option selected>{{ $t('select_status') }}</option>
+                        <option value="1">{{ $t('yes') }}</option>
+                        <option value="0">{{ $t('no') }}</option>
 
                     </select>
 
                     <select class="form-select mb-3" aria-label="Default select example" v-model="filter.locked">
-                        <option selected>Select Status</option>
-                        <option value="0">Inactive</option>
-                        <option value="1">Active</option>
+                        <option selected>{{ $t('select_status') }}</option>
+                        <option value="0">{{ $t('inactive') }}</option>
+                        <option value="1">{{ $t('active') }}</option>
                     </select>
                 </div>
-                <BButton variant="primary" class="float-end" @click="fetchRoles"> Apply</BButton>
-                <BButton variant="outline-primary" class="float-end mx-2" @click="clearFilter">Clear</BButton>
+                <BButton variant="primary" class="float-end" @click="fetchRoles"> {{ $t('apply') }}</BButton>
+                <BButton variant="outline-primary" class="float-end mx-2" @click="clearFilter">{{ $t('clear') }}</BButton>
 
             </form>
         </BModal>

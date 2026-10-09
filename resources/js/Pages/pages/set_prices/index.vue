@@ -176,13 +176,14 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: t('are_you_sure'),
+                text: t('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: t('yes_delete_it'),
+                cancelButtonText: t('cancel'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -316,7 +317,7 @@ export default {
 
 <template>
     <Layout>
-        <Head title="Set Prices" />
+        <Head :title="$t('set_prices')" />
         <PageHeader :title="$t('set_prices')" :pageTitle="$t('set_prices')" />
         <BRow>
             <BCol lg="12">
@@ -389,30 +390,10 @@ export default {
                                                     :title="$t('edit')">
                                                     <i class='bx bxs-edit-alt bx-xs'></i>
                                                 </BButton>
-                                                <BButton @click.prevent="packagesData(result)"
-                                                    class="btn btn-soft-success btn-sm m-2"  v-if="permissions.includes('add-package-price')"
-                                                    data-bs-toggle="tooltip" v-b-tooltip.hover :title="$t('set_package_prices')">
-                                                    <i class='bx bx-gift bx-xs'></i>
-                                                </BButton>
-                                                <BButton @click.prevent="levelUpData(result)"
-                                                    class="btn btn-soft-dark btn-sm m-2"  v-if="permissions.includes('add-package-price') && show_driver_level_feature"
-                                                    data-bs-toggle="tooltip" v-b-tooltip.hover :title="$t('drivers-levelup')">
-                                                    <i class=' ri-medal-fill bx-xs'></i>
-                                                </BButton>
-                                                <BButton @click.prevent="incentiveData(result)"
-                                                    class="btn btn-soft-secondary btn-sm m-2"  v-if="permissions.includes('add-package-price') && show_incentive_feature_for_driver"
-                                                    data-bs-toggle="tooltip" v-b-tooltip.hover :title="$t('incentives')">
-                                                    <i class='ri-coins-line bx-xs'></i>
-                                                </BButton>
-                                                <BButton @click.prevent="surgeData(result)"
-                                                    class="btn btn-soft-danger btn-sm m-2"  v-if="permissions.includes('zone-surge')"
-                                                    data-bs-toggle="tooltip" v-b-tooltip.hover :title="$t('surge')">
-                                                    <i class='ri-flashlight-line bx-xs'></i>
-                                                </BButton>
-                                                <BButton class="btn btn-soft-secondary btn-sm m-2" @click.prevent="fixFareData(result)" v-if="permissions.includes('edit-price') && enable_fixed_fare"
+                                                <BButton class="btn btn-soft-danger btn-sm m-2" @click.prevent="deleteModal(result.id)" v-if="permissions.includes('delete-price')"
                                                     data-bs-toggle="tooltip" v-b-tooltip.hover
-                                                    :title="$t('farefix')">
-                                                    <i class='bx bxs-traffic-cone bx-xs'></i>
+                                                    :title="$t('delete')">
+                                                    <i class='bx bx-trash bx-xs'></i>
                                                 </BButton>
                                             </div>
                                         </td>
@@ -437,7 +418,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -447,7 +428,7 @@ export default {
             <!-- Alert Message -->
         <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert" id="alertMsg">
             <div class="alert-content">
-                <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                 }}
                 <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                     aria-label="Close Alert Message"></button>
@@ -466,13 +447,13 @@ export default {
                         <label class="form-label">{{$t("zone")}}</label>
                         <!-- <Multiselect v-model="zone" :options="zoneOptions" :placeholder="$t('choose_zone')" label="name" /> -->
                         <Multiselect v-model="filter.zone_id" :close-on-select="false" :searchable="true"
-                        multiple placeholder="Select Zone" mode="tags" :options="zoneOptions.map(type => ({value:type.id,label:type.name}))" />
+                        multiple :placeholder="$t('select_zone')" mode="tags" :options="zoneOptions.map(type => ({value:type.id,label:type.name}))" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">{{$t("vehicle_type")}}</label>
                         <!-- <Multiselect v-model="vehicleType" :options="vehicleTypeOptions" :placeholder="$t('choose_vehicle_type')" label="name" /> -->
                         <Multiselect v-model="filter.type_id" :close-on-select="false" :searchable="true"
-                        multiple placeholder="Select Vehicle Type"  mode="tags":options="vehicleTypeOptions.map(type => ({value:type.id,label:type.name}))" />
+                        multiple :placeholder="$t('select_vehicle_type')"  mode="tags":options="vehicleTypeOptions.map(type => ({value:type.id,label:type.name}))" />
                     </div>
                 </div>
                 <div class="offcanvas-footer p-4 text-center hstack gap-2">

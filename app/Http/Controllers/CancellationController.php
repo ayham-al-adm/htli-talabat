@@ -64,7 +64,7 @@ class CancellationController extends BaseController
         $cancellationReason->save();
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Cancellation Reason created successfully.',
+            'successMessage' => __('Cancellation Reason created successfully.'),
             'cancellationReason' => $cancellationReason,
         ], 201);
     }
@@ -114,7 +114,7 @@ class CancellationController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Cancellation Reason updated successfully.',
+            'successMessage' => __('Cancellation Reason updated successfully.'),
             'cancellationReason' => $cancellationReason,
         ], 201);
 
@@ -124,14 +124,14 @@ class CancellationController extends BaseController
     {
         $cancellationReason->delete();
         return response()->json([
-            'successMessage' => 'Cancellation Reason deleted successfully',
+            'successMessage' => __('Cancellation Reason deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
     {
         CancellationReason::where('id', $request->id)->update(['active'=> $request->status]);
         return response()->json([
-            'successMessage' => 'Cancellation Reason status updated successfully',
+            'successMessage' => __('Cancellation Reason status updated successfully'),
         ]);
     }
 }

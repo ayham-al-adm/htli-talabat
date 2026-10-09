@@ -62,7 +62,7 @@ export default {
 
 <template>
     <Layout>
-        <Head title="Sitemap" />
+        <Head :title="$t('sitemap')" />
         <PageHeader :title="$t('menu')" :pageTitle="$t('overall')" />
         <BRow>
             <BCol lg="12">

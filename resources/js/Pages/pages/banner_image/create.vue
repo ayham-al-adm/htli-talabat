@@ -152,7 +152,7 @@ export default {
 <template>
   <Layout>
 
-    <Head title="Banner Image" />
+    <Head :title="$t('banner-image')" />
     <PageHeader :title="bannerimage ? $t('edit') : $t('create')" :pageTitle="$t('banner-image')" pageLink="/banner-image"/>
     <BRow>
       <BCol lg="12">
@@ -185,12 +185,12 @@ export default {
                         v-model="useImageUrl"
                       />
                       <label class="form-check-label" for="useImageUrl">
-                        Use image URL 
+                        {{ $t('use_image_url') }} 
                       </label>
                     </div>
                     
                     <div v-if="useImageUrl" class="mb-3">
-                      <label class="form-label">Image URL</label>
+                      <label class="form-label">{{ $t('image_url') }}</label>
                       <input
                         type="url"
                         class="form-control"
@@ -218,7 +218,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -228,7 +228,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

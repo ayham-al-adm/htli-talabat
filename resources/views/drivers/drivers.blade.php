@@ -1,15 +1,15 @@
    <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Transport Type</th>
-                <th>Vehicle Type</th>
-                <th>Status</th>
-                <th>signup Date</th>
+                <th>{{ __('exports.no') }}</th>
+                <th>{{ __('exports.id') }}</th>
+                <th>{{ __('exports.name') }}</th>
+                <th>{{ __('exports.email') }}</th>
+                <th>{{ __('exports.mobile') }}</th>
+                <th>{{ __('exports.transport_type') }}</th>
+                <th>{{ __('exports.vehicle_type') }}</th>
+                <th>{{ __('exports.status') }}</th>
+                <th>{{ __('exports.signup_date') }}</th>
 
             </tr>
         </thead>
@@ -32,7 +32,7 @@
                     <td>{{ $driver->name }}</td>
                     <td>{{ $email }}</td>
                     <td>{{ $mobile }}</td>
-                    <td>{{ $driver->transport_type }}</td>
+                    <td>{{ trans()->has('exports.'.$driver->transport_type) ? __('exports.'.$driver->transport_type) : $driver->transport_type }}</td>
                     <td>
                         @foreach($driver->driverVehicleTypeDetail as $vehicleType)
                         {{ $vehicleType->vehicleType->name.',' }}
@@ -40,9 +40,9 @@
                     </td>
     
                     @if ($driver->approve)
-                        <td><span class="label label-success">Approved</span></td>
+                        <td><span class="label label-success">{{ __('exports.approved') }}</span></td>
                     @else
-                        <td><span class="label label-danger">Disapproved</span></td>
+                        <td><span class="label label-danger">{{ __('exports.disapproved') }}</span></td>
                     @endif
                     <td>{{ $driver->getConvertedCreatedAtAttribute() }}</td>
 
@@ -50,7 +50,7 @@
                 @empty
                 <tr>
                     <td colspan="11">
-                        <h4 class="text-center" style="color:#333;font-size:25px;">No Data Found</h4>
+                        <h4 class="text-center" style="color:#333;font-size:25px;">{{ __('exports.no_data_found') }}</h4>
                     </td>
                 </tr>
             @endforelse

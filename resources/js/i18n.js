@@ -8,52 +8,48 @@ const i18n = createI18n({
   messages: {}, // Initial empty messages
 });
 
-const files = import.meta.glob('/lang/*/*.json', { eager: false });
+// Translation files the web app uses, merged in this order into one message set.
+const FILES = [
+  'error_messages',
+  'pages_names',
+  'success_messages',
+  'view_pages_1',
+  'view_pages_2',
+  'view_pages_3',
+];
 
 /**
  * Load locale messages dynamically.
  * @param {string} locale - The locale to load messages for.
  */
-
 async function loadLocaleMessages(locale) {
-  try {
-    const errorMessagesResponse = await fetch(`/lang/${locale}/error_messages.json`);
-    const errorMessages = await errorMessagesResponse.json();
-    const pagesNamesResponse = await fetch(`/lang/${locale}/pages_names.json`);
-    const pagesNames = await pagesNamesResponse.json();
-    const successMessagesResponse = await fetch(`/lang/${locale}/success_messages.json`);
-    const successMessages = await successMessagesResponse.json();
-    const viewPages_1Response = await fetch(`/lang/${locale}/view_pages_1.json`);
-    const viewPages_1 = await viewPages_1Response.json();
-    const viewPages_2Response = await fetch(`/lang/${locale}/view_pages_2.json`);
-    const viewPages_2 = await viewPages_2Response.json();
-    const viewPages_3Response = await fetch(`/lang/${locale}/view_pages_3.json`);
-    const viewPages_3 = await viewPages_3Response.json();
+  const parts = await Promise.all(FILES.map(async (file) => {
+    try {
+      const response = await fetch(`/lang/${locale}/${file}.json`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error(`Error loading "${file}" messages for locale "${locale}":`, error);
+      return {};
+    }
+  }));
 
-    // ... fetch other files similarly
-
-    const combinedMessages = {
-      ...errorMessages,
-      ...pagesNames,
-      ...successMessages,
-      ...viewPages_1,
-      ...viewPages_2,
-      ...viewPages_3,
-
-    };
-
-    i18n.global.setLocaleMessage(locale, combinedMessages);
-  } catch (error) {
-    console.error(`Error loading messages for locale "${locale}":`, error);
-  }
+  i18n.global.setLocaleMessage(locale, Object.assign({}, ...parts));
 }
 
 /**
- * Initialize i18n with the specified locale.
+ * Initialize i18n with the specified locale. English is always loaded too, so a
+ * key missing from the active language shows the English text, not the raw key.
  * @param {string} locale - The locale to initialize.
  */
 async function initI18n(locale) {
-  await loadLocaleMessages(locale); // Load the messages
+  const loads = [loadLocaleMessages(locale)];
+  if (locale !== 'en') {
+    loads.push(loadLocaleMessages('en'));
+  }
+  await Promise.all(loads);
   i18n.global.locale.value = locale; // Set the locale
 }
 
@@ -73,5 +69,8 @@ function setupLocaleReactivity() {
 
 setupLocaleReactivity(); // Ensure messages are updated when locale changes dynamically
 
+// Translate outside component setup (e.g. SweetAlert options in Options API code).
+const i18nT = (...args) => i18n.global.t(...args);
+
 export default i18n;
-export { loadLocaleMessages, initI18n };
+export { loadLocaleMessages, initI18n, i18nT };

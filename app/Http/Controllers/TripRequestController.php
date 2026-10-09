@@ -205,7 +205,7 @@ class TripRequestController extends StripeController
     public function assignDriver(RequestModel $requestmodel,Request $request) {
         $assigned = $requestmodel->is_cancelled || $requestmodel->is_completed || $requestmodel->driver_id || $requestmodel->requestMeta()->exists();
         if($assigned) {
-            return response()->json(['status'=>false,'message'=>'Cannot Assign Request']);
+            return response()->json(['status'=>false,'message'=>__('Cannot Assign Request')]);
         }
         $request->validate([
             'driver_id'  => 'required' 
@@ -213,7 +213,7 @@ class TripRequestController extends StripeController
         $driver = Driver::find($request->driver_id);
         
         if(!$driver) {
-            return response()->json(['status'=>false,'message'=>'Cannot Assign Driver']);
+            return response()->json(['status'=>false,'message'=>__('Cannot Assign Driver')]);
         }
         $selected_drivers["user_id"] = $requestmodel->user_id;
         $selected_drivers["driver_id"] = $driver->id;
@@ -279,13 +279,13 @@ class TripRequestController extends StripeController
                     $push_data = ['title' => $title,'message' => $body,'push_type'=>'meta-request'];
                     dispatch(new SendPushNotification($notifable_driver,$title,$body,$push_data));
                 }
-        return response()->json(['status'=>true,'message'=>'Assigned Successfully']);
+        return response()->json(['status'=>true,'message'=>__('Assigned Successfully')]);
     }
     public function driverFind(Driver $driver,Request $request)
     {
         $request = RequestModel::find($request->request_id);
         return response()->json([
-            'successMessage' => 'Driver Found successfully',
+            'successMessage' => __('Driver Found successfully'),
             'driver' => $driver,
             'current_time' => get_converted_time(now(),$request->timezone),
         ]);
@@ -344,18 +344,18 @@ class TripRequestController extends StripeController
         $requestmodel->requestMeta()->delete();
 
         return response()->json([
-            'successMessage' => 'Trip Cancelled successfully',
+            'successMessage' => __('Trip Cancelled successfully'),
             'request' => $requestmodel,
         ]);
     }
     public function sosDetail(RequestModel $request)
     {
         if($request->is_cancelled || $request->is_completed) {
-            return response()->json(['message'=>'Invalid SOS'],422);
+            return response()->json(['message'=>__('Invalid SOS')],422);
         }
         $result = json_decode(fractal($request, new TripRequestTransformer)->parseIncludes(['userDetail','driverDetail'])->toJson());
         return response()->json([
-            'successMessage' => 'Ride Found successfully',
+            'successMessage' => __('Ride Found successfully'),
             'request' => $result->data,
             'current_time' => get_converted_time(now(),$request->timezone),
         ]);
@@ -433,10 +433,10 @@ class TripRequestController extends StripeController
             }
 
             // Handle invalid invoice type
-            return response()->json(['error' => 'Invalid invoice type'], 400);
+            return response()->json(['error' => __('Invalid invoice type')], 400);
         } catch (\Exception $e) {
             // Handle exceptions
-            return response()->json(['error' => 'Failed to generate invoice: ' . $e->getMessage()], 500);
+            return response()->json(['error' => __('Failed to generate invoice: ') . $e->getMessage()], 500);
         }
     }
 
@@ -471,7 +471,7 @@ class TripRequestController extends StripeController
             }
         } catch (\Exception $e) {
             // Handle exceptions
-            return response()->json(['error' => 'Failed to send invoice mail: ' . $e->getMessage()], 500);
+            return response()->json(['error' => __('Failed to send invoice mail: ') . $e->getMessage()], 500);
         }
     }
 
@@ -590,7 +590,7 @@ class TripRequestController extends StripeController
 
                     return response()->json([
                         'success' => true,
-                        'message' => 'Invoice Downloaded Successfully',
+                        'message' => __('Invoice Downloaded Successfully'),
                         'invoice_url' => asset("storage/invoices/$fileName"),
                     ]);
 
@@ -614,17 +614,17 @@ class TripRequestController extends StripeController
 
                     return response()->json([
                         'success' => true,
-                        'message' => 'Invoice Downloaded Successfully',
+                        'message' => __('Invoice Downloaded Successfully'),
                         'invoice_url' => asset("storage/invoices/$fileName"),
                     ]);
 
                 }
 
             // Handle invalid invoice type
-            return response()->json(['error' => 'Invalid invoice type'], 400);
+            return response()->json(['error' => __('Invalid invoice type')], 400);
         } catch (\Exception $e) {
             // Handle exceptions
-            return response()->json(['error' => 'Failed to generate invoice: ' . $e->getMessage()], 500);
+            return response()->json(['error' => __('Failed to generate invoice: ') . $e->getMessage()], 500);
         }
     }
 }

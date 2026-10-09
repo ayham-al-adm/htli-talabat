@@ -10,6 +10,7 @@ import Multiselect from "@vueform/multiselect";
 import FormValidation from "@/Components/FormValidation.vue";
 import { useI18n } from 'vue-i18n';
 import ImageUpload from '@/Components/ImageUpload.vue';
+import { i18nT } from '@/i18n';
 
 export default {
   components: {
@@ -171,7 +172,7 @@ export default {
   methods: {
     validateEmail() {
       if (!this.form.email) {
-        this.errors.email = "Email is required";
+        this.errors.email = i18nT('email_is_required');
       } else if (!this.isValidEmail(this.form.email)) {
         this.errors.email = "Enter a valid email address";
       } else {
@@ -190,7 +191,7 @@ export default {
 <template>
   <Layout>
 
-    <Head title="Admin" />
+    <Head :title="$t('admin')" />
     <PageHeader :title="admin? $t('edit') : $t('create')" :pageTitle="$t('admins')" pageLink="/admins"/>
     <BRow>
       <BCol lg="12">
@@ -382,7 +383,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -392,7 +393,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

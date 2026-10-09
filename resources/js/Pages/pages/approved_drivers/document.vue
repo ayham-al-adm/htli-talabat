@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <Head title="Documents" />
+        <Head :title="$t('documents')" />
         <PageHeader :title="$t('documents')" :pageTitle="$t('documents')" pageLink="/approved-drivers"/>
 
         <div class="row">
@@ -49,11 +49,11 @@
                                         <td>{{ document.comment || 'N/A' }}</td>
                                         <td>
                                             <BButton class="btn btn-soft-info btn-sm m-2" size="sm"data-bs-toggle="tooltip" v-b-tooltip.hover
-                                            title="view" @click="viewDocument(document)">
+                                            :title="$t('view')" @click="viewDocument(document)">
                                                 <i class="bx bx-show-alt align-center"></i>
                                             </BButton>
                                             <BButton class="btn btn-soft-success btn-sm m-2" size="sm" data-bs-toggle="tooltip" v-b-tooltip.hover
-                                            title="upload" :href="`/approved-drivers/document-upload/${document.id}/${driverId}`">
+                                            :title="$t('upload')" :href="`/approved-drivers/document-upload/${document.id}/${driverId}`">
                                                 <i class="bx bx-upload align-center"></i>
                                             </BButton>
                                         </td>                                        
@@ -141,11 +141,11 @@
     </div>
     <a class="carousel-control-prev bg-dark" style="height:30px"  href="#carouselExampleFade" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only">{{ $t('previous') }}</span>
     </a>
     <a class="carousel-control-next bg-dark" style="height:30px" href="#carouselExampleFade" role="button" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only">{{ $t('next') }}</span>
     </a>
 </div>
 
@@ -167,7 +167,7 @@
         <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show">
             <div class="alert-content">
                 <i class="ri-notification-off-line me-3 align-middle"></i>
-                <strong>Success</strong> - {{ successMessage }}
+                <strong>{{ $t('success') }}</strong> - {{ successMessage }}
                 <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
             </div>
         </div>
@@ -175,7 +175,7 @@
         <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show">
             <div class="alert-content">
                 <i class="ri-notification-off-line me-3 align-middle"></i>
-                <strong>Alert</strong> - {{ alertMessage }}
+                <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
                 <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
             </div>
         </div>

@@ -36,7 +36,7 @@ class PreferencesController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -56,7 +56,7 @@ class PreferencesController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Preference created successfully.',
+            'successMessage' => __('Preference created successfully.'),
             'preference' => $preference,
         ], 201);
     }
@@ -64,7 +64,7 @@ class PreferencesController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -83,7 +83,7 @@ class PreferencesController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Preference Updated successfully.',
+            'successMessage' => __('Preference Updated successfully.'),
             'preference' => $preference,
         ], 201);
 
@@ -92,27 +92,27 @@ class PreferencesController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $preference->delete();
 
         return response()->json([
-            'successMessage' => 'Preference deleted successfully',
+            'successMessage' => __('Preference deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
         Preference::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Preference status updated successfully',
+            'successMessage' => __('Preference status updated successfully'),
         ]);
 
 

@@ -191,7 +191,7 @@ class PermissionController extends Controller
 
         // return redirect()->route('roles.index');
         return response()->json([
-            'message' => 'Permissions synced successfully',
+            'message' => __('Permissions synced successfully'),
         ]);
     }
 
@@ -220,7 +220,7 @@ class PermissionController extends Controller
 
     //     return response()->json([
     //         'success'=>true,
-    //         'message' => 'Permissions listed successfully',
+    //         'message' => __('Permissions listed successfully'),
     //         'data'=>$permissions
     //     ]);
 
@@ -265,7 +265,7 @@ class PermissionController extends Controller
 
     return response()->json([
         'success' => true,
-        'message' => 'Permissions listed successfully',
+        'message' => __('Permissions listed successfully'),
         'data' => $permissions
     ]);
 }

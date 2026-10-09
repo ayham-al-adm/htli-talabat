@@ -1,7 +1,7 @@
 <template>
     <Layout>
-        <Head title="Map Settings" />
-        <PageHeader title="Map Settings" pageTitle="Map Settings" />
+        <Head :title="$t('map_settings')" />
+        <PageHeader :title="$t('map_settings')" pageTitle="Map Settings" />
         <BRow>
             <BCol lg="12">
                 <BCard no-body id="tasksList">
@@ -11,17 +11,17 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label for="google_map_key" class="form-label">Google Map Key</label>
-                                        <input type="text" class="form-control" placeholder="Enter map Key" v-model="form.google_map_key" />
+                                        <label for="google_map_key" class="form-label">{{ $t('google_map_key') }}</label>
+                                        <input type="text" class="form-control" :placeholder="$t('enter_map_key')" v-model="form.google_map_key" />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label for="enable_vase_map" class="form-label">Enable Vase Map</label>
+                                        <label for="enable_vase_map" class="form-label">{{ $t('enable_vase_map_text') }}</label>
                                         <select id="enable_vase_map" class="form-select" v-model="form.enable_vase_map">
                                             <!-- <option selected disabled value="">Select...</option> -->
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                            <option value="yes">{{ $t('yes') }}</option>
+                                            <option value="no">{{ $t('no') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
             <!-- Success Message -->
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert" id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{ successMessage }}
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{ successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
                 </div>
             </div>
@@ -49,7 +49,7 @@
             <!-- Alert Message -->
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert" id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage }}
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
                 </div>
             </div>

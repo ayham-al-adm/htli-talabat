@@ -15,6 +15,7 @@ import search from "@/Components/widgets/search.vue";
 import searchbar from "@/Components/widgets/searchbar.vue";
 import { useI18n } from 'vue-i18n';
 import { useSharedState } from '@/composables/useSharedState'; // Import the composable
+import { i18nT } from '@/i18n';
 
 export default {
     data() {
@@ -98,13 +99,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -216,7 +217,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Negative Balance Drivers" />
+        <Head :title="$t('negative-balance-drivers')" />
         <PageHeader :title="$t('negative_balance_drivers')" :pageTitle="$t('negative_balance_drivers')" />
         <BRow>
             <BCol lg="12">
@@ -315,7 +316,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -326,7 +327,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

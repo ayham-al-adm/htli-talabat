@@ -81,7 +81,7 @@ const closeModal = () => {
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
-                    placeholder="Password"
+                    :placeholder="$t('password')"
                     autocomplete="current-password"
                     @keyup.enter="confirmPassword"
                     :class="{ 'is-invalid': form.error }"
@@ -91,7 +91,7 @@ const closeModal = () => {
             </div>
 
             <div class="text-end">
-                <BButton variant="danger" @click="closeModal">Cancel</BButton>
+                <BButton variant="danger" @click="closeModal">{{ $t('cancel') }}</BButton>
                 <BButton variant="success" class="ms-1" :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
                 @click="confirmPassword">{{ button }}</BButton>

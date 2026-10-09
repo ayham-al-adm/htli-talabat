@@ -72,7 +72,7 @@ class MercadoPagoController extends ApiController
 
         if (empty($token)) {
             Log::error("Mercado Pago access token is not configured for environment: {$environment}");
-            return $this->throwCustomException('Payment gateway not configured correctly.');
+            return $this->throwCustomException(__('Payment gateway not configured correctly.'));
         }
 
         try {
@@ -112,13 +112,13 @@ class MercadoPagoController extends ApiController
                 
             ]);
 
-            return $this->respondSuccess($preference,'Mercado Pago preference created successfully');
+            return $this->respondSuccess($preference,__('Mercado Pago preference created successfully'));
 
         } catch (MPApiException $e) {
             $error = $e->getApiResponse()->getContent();
-            return $this->throwCustomException('Mercado Pago API Error: ' . $error['message']);
+            return $this->throwCustomException(__('Mercado Pago API Error: ') . $error['message']);
         } catch (\Exception $e) {
-            return $this->throwCustomException('An unexpected error occurred.: '.$e->getMessage());
+            return $this->throwCustomException(__('An unexpected error occurred.: ').$e->getMessage());
         }
         return response()->json(['data'=>$preference]);
     }
@@ -141,7 +141,7 @@ class MercadoPagoController extends ApiController
     //     }
 
     //     if (empty($token)) {
-    //         return response()->json(['status' => 'error', 'message' => 'Internal configuration error'], 200);
+    //         return response()->json(['status' => 'error', 'message' => __('Internal configuration error')], 200);
     //     }
 
     //     MercadoPagoConfig::setAccessToken($token);
@@ -151,7 +151,7 @@ class MercadoPagoController extends ApiController
 
     //     if (empty($type) || empty($dataId)) {
     //         Log::warning('Mercado Pago Webhook: Missing type or data.id in payload.', $request->all());
-    //         return response()->json(['status' => 'error', 'message' => 'Invalid webhook payload'], 200);
+    //         return response()->json(['status' => 'error', 'message' => __('Invalid webhook payload')], 200);
     //     }
 
     //     switch ($type) {
@@ -160,20 +160,20 @@ class MercadoPagoController extends ApiController
     //             $paymentClient = new PaymentClient();
     //             $payment = $paymentClient->get($dataId);
     //             Log::info("Fetched Mercado Pago Payment details for ID {$dataId}:", $payment->toArray());
-    //             return response()->json(['status' => 'success', 'message' => 'Webhook type processed'], 200);
+    //             return response()->json(['status' => 'success', 'message' => __('Webhook type processed')], 200);
     //         // case 'authorized_payment': // For cases where payment is authorized but not captured yet
     //         //     // Implement if you have pre-authorization flows
-    //         //     return response()->json(['status' => 'success', 'message' => 'Authorized payment webhook processed'], 200);
+    //         //     return response()->json(['status' => 'success', 'message' => __('Authorized payment webhook processed')], 200);
     //         // case 'refund':
     //         //     // You'd typically handle refunds here, marking orders as refunded
-    //         //     return response()->json(['status' => 'success', 'message' => 'Refund webhook processed'], 200);
+    //         //     return response()->json(['status' => 'success', 'message' => __('Refund webhook processed')], 200);
     //         // case 'chargebacks':
     //         //     // Handle chargebacks here to update order status accordingly
-    //         //     return response()->json(['status' => 'success', 'message' => 'Chargeback webhook processed'], 200);
+    //         //     return response()->json(['status' => 'success', 'message' => __('Chargeback webhook processed')], 200);
     //         // // Add other types as needed
     //         default:
     //             Log::info("Mercado Pago Webhook: Unhandled type '{$type}' received for ID '{$dataId}'.");
-    //             return response()->json(['status' => 'success', 'message' => 'Webhook type not handled'], 200);
+    //             return response()->json(['status' => 'success', 'message' => __('Webhook type not handled')], 200);
     //     }
     // }
 /**

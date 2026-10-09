@@ -286,7 +286,7 @@ return sender_id !== user_id && sender_id !== employee_id;
 <template>
     <Layout>
 
-        <Head title="Tickets" />
+        <Head :title="$t('tickets')" />
         <PageHeader :title="$t('view_ticket')" :pageTitle="$t('support_management')" pageLink="/support-tickets" />
         <BRow>
             <BCol lg="12">
@@ -336,7 +336,7 @@ return sender_id !== user_id && sender_id !== employee_id;
                                     <template v-else-if="isVideo(attachment.image_name)">
                                     <video class="file-preview">
                                         <source :src="getFullImageUrl(attachment.image_name)" type="video/mp4">
-                                        Your browser does not support video playback.
+                                        {{ $t('your_browser_does_not_support_video_playback') }}
                                     </video>
                                     </template>
 
@@ -388,7 +388,7 @@ return sender_id !== user_id && sender_id !== employee_id;
 
                                 <!-- Show Download Button for Other File Types -->
                                 <template v-else>
-                                    <a :href="getFullImageUrl(selectedFile)" target="_blank" class="btn btn-primary">Download File</a>
+                                    <a :href="getFullImageUrl(selectedFile)" target="_blank" class="btn btn-primary">{{ $t('download_file') }}</a>
                                 </template>
 
                                 </div>
@@ -551,7 +551,7 @@ return sender_id !== user_id && sender_id !== employee_id;
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -562,7 +562,7 @@ return sender_id !== user_id && sender_id !== employee_id;
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

@@ -268,7 +268,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="Manage LandingSite-Header-Footer" />
+    <Head :title="$t('manage_landingsite_header_footer')" />
     <PageHeader :title="landingHeader ? $t('edit') : $t('create')" :pageTitle="$t('landingSite_header_footer')" pageLink="/landing-header"/>
     <BRow>
         <BCard v-if="app_for === 'demo'" no-body id="tasksList">
@@ -285,7 +285,7 @@ export default {
               <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
                 <div class="alert-content">
                   <i class="ri-notification-off-line me-3 align-middle"></i>
-                  <strong>Success</strong> - {{ successMessage }}
+                  <strong>{{ $t('success') }}</strong> - {{ successMessage }}
                   <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
                 </div>
               </div>
@@ -293,7 +293,7 @@ export default {
               <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert" id="alertMsg">
                 <div class="alert-content">
                   <i class="ri-notification-off-line me-3 align-middle"></i>
-                  <strong>Alert</strong> - {{ alertMessage }}
+                  <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
                   <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
                 </div>
               </div>
@@ -380,7 +380,7 @@ export default {
                       <label for="book_now_btn" class="form-label">{{$t("book_now_btn")}}
                         <span class="text-danger">*</span>
                       </label>
-                      <input type="text" :readonly="app_for === 'demo'" class="form-control" placeholder="Enter Link" id="book_now_btn" v-model="form.book_now_btn" />
+                      <input type="text" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_link')" id="book_now_btn" v-model="form.book_now_btn" />
                       <span v-for="(error, index) in errors.book_now_btn" :key="index" class="text-danger">
                         {{ error }}
                       </span>

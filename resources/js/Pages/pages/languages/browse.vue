@@ -193,7 +193,7 @@ export default {
 
 <template>
     <Layout>
-        <Head title="Languages" />
+        <Head :title="$t('languages')" />
         <PageHeader :title="languageName" :pageTitle="$t('languages')" pageLink="/languages"/>
         <BRow>
             <BCol lg="12">
@@ -300,7 +300,7 @@ export default {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">To ensure translations work correctly, please follow the instructions below.</h5>
+                <h5 class="modal-title" id="myModalLabel">{{ $t('to_ensure_translations_work_correctly_please_follow_the_inst') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 
             </div>
@@ -311,7 +311,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                            Update the map key for this page <a href="/map-setting" class="text-success">{{$t("map-settings")}} </a>
+                            {{ $t('update_the_map_key_for_this_page') }} <a href="/map-setting" class="text-success">{{$t("map-settings")}} </a>
                         </p>
                     </div>
                 </div>
@@ -321,9 +321,9 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                            If the map key has already been updated on the page but translations still aren’t working, please ensure the Cloud Translation API is enabled. You can enable it by visiting:
+                            {{ $t('if_the_map_key_has_already_been_updated_on_the_page_but_tran') }}
                             <a href="https://console.developers.google.com/apis/api/translate.googleapis.com" target="_blank" class="text-success">https://console.developers.google.com/apis/api/translate.googleapis.com </a> <br>
-                            After enabling, please try again.
+                            {{ $t('after_enabling_please_try_again') }}
                         </p>
                     </div>
                 </div>
@@ -338,7 +338,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -349,7 +349,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage }}
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>
                 </div>

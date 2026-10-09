@@ -16,6 +16,7 @@ import searchbar from "@/Components/widgets/searchbar.vue";
 import { mapGetters } from 'vuex';
 import { layoutComputed } from "@/state/helpers";
 import { useI18n } from 'vue-i18n';
+import { i18nT } from '@/i18n';
 
 export default {
     data() {
@@ -141,13 +142,13 @@ export default {
         };
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -237,7 +238,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Driver Needed Documents" />
+        <Head :title="$t('driver-needed-documents')" />
         <PageHeader :title="$t('bank_infos')" :pageTitle="$t('bank_infos')" />
         <BRow>
             <BCol lg="12">
@@ -332,7 +333,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -343,13 +344,13 @@ export default {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">How Payment Works</h5>
+                            <h5 class="modal-title" id="myModalLabel">{{ $t('how_payment_works') }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                         </div>
                         <div class="modal-body">
-                            <p class="text-muted"><strong>Add Payment Method – </strong>You can add the preferred payment methods that will be used to process manual transactions for withdrawal requests.</p>
-                            <p class="text-muted"><strong>Receive Withdrawal Request –</strong> Drivers can submit a withdrawal request, which will be received by the admin for review.</p>
-                            <p class="text-muted"><strong>Process & Approve Transaction –</strong> The admin reviews the request, completes the manual transaction, and then approves the withdrawal.</p>
+                            <p class="text-muted"><strong>{{ $t('add_payment_method') }} </strong>{{ $t('you_can_add_the_preferred_payment_methods_that_will_be_used_') }}</p>
+                            <p class="text-muted"><strong>{{ $t('receive_withdrawal_request') }}</strong> {{ $t('drivers_can_submit_a_withdrawal_request_which_will_be_receiv') }}</p>
+                            <p class="text-muted"><strong>{{ $t('process_and_approve_transaction') }}</strong> {{ $t('the_admin_reviews_the_request_completes_the_manual_transacti') }}</p>
                            
                         </div>
                         <!-- <div class="modal-footer">
@@ -365,7 +366,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

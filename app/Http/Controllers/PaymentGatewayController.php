@@ -265,7 +265,7 @@ class PaymentGatewayController  extends Controller
             ThirdPartySetting::create(['name' => $key, 'value' => $setting, 'module' => 'payment']);                 
         }
 
-        return response()->json(['message' => 'Sms  Destails updated successfully'], 201);
+        return response()->json(['message' => __('Sms  Destails updated successfully')], 201);
 
     }
 

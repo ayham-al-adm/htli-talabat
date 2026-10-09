@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { ref, watch } from "vue";
 import axios from "axios";
 import { debounce } from 'lodash';
+import { i18nT } from '@/i18n';
 
 export default {
     components: {
@@ -82,11 +83,11 @@ export default {
             const validationRules = {
                 name: {
                     test: () => !name,
-                    message: 'Role name is required'
+                    message: i18nT('role_name_is_required')
                 },
                 description: {
                     test: () => !description,
-                    message: 'Role description is required'
+                    message: i18nT('role_description_is_required')
                 },
             };
 
@@ -157,13 +158,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -237,8 +238,8 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Roles" />
-        <PageHeader title="Roles" pageTitle="Masters" />
+        <Head :title="$t('roles')" />
+        <PageHeader :title="$t('roles')" pageTitle="Masters" />
         <BRow>
             <BCol lg="12">
                 <BCard no-body id="tasksList">
@@ -249,16 +250,16 @@ export default {
                             <BCol md="3">
                                 <div class="search-box">
                                     <input type="text" id="name" class="form-control search"
-                                        placeholder="Search roles..." v-model="searchTerm" @keyup.enter="fetchRoles" />
+                                        :placeholder="$t('search_roles')" v-model="searchTerm" @keyup.enter="fetchRoles" />
                                     <i class="ri-search-line search-icon"></i>
                                 </div>
                             </BCol>
                             <BCol md="auto" class="ms-auto">
                                 <div class="d-flex align-items-center gap-2">
                                     <BButton variant="danger" @click="filterRole"><i
-                                            class="ri-filter-2-line me-1 align-bottom"></i> Filters</BButton>
+                                            class="ri-filter-2-line me-1 align-bottom"></i> {{ $t('filters') }}</BButton>
                                     <BButton variant="primary" @click="createRole" class="float-end"> <i
-                                            class="ri-add-line align-bottom me-1"></i> Create Role</BButton>
+                                            class="ri-add-line align-bottom me-1"></i> {{ $t('create_role') }}</BButton>
                                 </div>
                             </BCol>
                         </BRow>
@@ -268,9 +269,9 @@ export default {
                             <thead class="table-light">
                                 <tr>
                                     <!-- <th>S.No</th> -->
-                                    <th>Role Name</th>
-                                    <th>description</th>
-                                    <th>Action</th>
+                                    <th>{{ $t('role_name') }}</th>
+                                    <th>{{ $t('description') }}</th>
+                                    <th>{{ $t('action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -305,7 +306,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -316,7 +317,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>
@@ -329,13 +330,13 @@ export default {
             class="v-modal-custom">
             <form @submit.prevent="handleSubmit" @keydown="hideError">
                 <div class="form-group mt-3">
-                    <label for="name" class="form-label">Role Name<span class="text-danger">*</span></label>
+                    <label for="name" class="form-label">{{ $t('role_name') }}<span class="text-danger">*</span></label>
                     <input type="text" id="name" v-model="form.name" class="form-control"
                         :class="{ 'is-invalid': form.errors.name }" @focus="hideError('name')" />
                     <div v-if="form.errors.name" class="text-danger">{{ form.errors.name }}</div>
                 </div>
                 <div class="form-group mt-3">
-                    <label for="description" class="form-label">description<span class="text-danger">*</span></label>
+                    <label for="description" class="form-label">{{ $t('description') }}<span class="text-danger">*</span></label>
                     <input type="text" id="description" v-model="form.description" class="form-control"
                         :class="{ 'is-invalid': form.errors.description }" @focus="hideError('description')" />
                     <div v-if="form.errors.description" class="text-danger">{{ form.errors.description }}</div>
@@ -343,29 +344,29 @@ export default {
                 <button type="submit" class="btn btn-success m-2 float-end">{{ selectedRole ? 'Update' : 'Save'
                     }}</button>
                 <button v-if="selectedRole" type="button" @click="cancelEdit"
-                    class="btn btn-secondary m-2 float-end">Cancel</button>
+                    class="btn btn-secondary m-2 float-end">{{ $t('cancel') }}</button>
             </form>
         </BModal>
 
-        <BModal v-model="modalFilter" hide-footer dialog-class="modal-dialog-right" title="Filter"
+        <BModal v-model="modalFilter" hide-footer dialog-class="modal-dialog-right" :title="$t('filter')"
             class="v-modal-custom " size="sm">
             <form>
                 <div class="input-group">
                     <select class="form-select mb-3" aria-label="Default select example" v-model="filter.all">
-                        <option selected>Select Status</option>
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
+                        <option selected>{{ $t('select_status') }}</option>
+                        <option value="1">{{ $t('yes') }}</option>
+                        <option value="0">{{ $t('no') }}</option>
 
                     </select>
 
                     <select class="form-select mb-3" aria-label="Default select example" v-model="filter.locked">
-                        <option selected>Select Status</option>
-                        <option value="0">Inactive</option>
-                        <option value="1">Active</option>
+                        <option selected>{{ $t('select_status') }}</option>
+                        <option value="0">{{ $t('inactive') }}</option>
+                        <option value="1">{{ $t('active') }}</option>
                     </select>
                 </div>
-                <BButton variant="primary" class="float-end" @click="fetchRoles"> Apply</BButton>
-                <BButton variant="outline-primary" class="float-end mx-2" @click="clearFilter">Clear</BButton>
+                <BButton variant="primary" class="float-end" @click="fetchRoles"> {{ $t('apply') }}</BButton>
+                <BButton variant="outline-primary" class="float-end mx-2" @click="clearFilter">{{ $t('clear') }}</BButton>
 
             </form>
         </BModal>

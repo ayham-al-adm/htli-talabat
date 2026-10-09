@@ -66,7 +66,7 @@ class InvoiceConfigurationController extends Controller
         }
         
        
-        return response()->json(['message' => 'Invoice Configuration Details updated successfully'], 201);
+        return response()->json(['message' => __('Invoice Configuration Details updated successfully')], 201);
     }
 
 

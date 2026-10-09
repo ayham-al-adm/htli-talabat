@@ -132,7 +132,7 @@ class AirportController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -215,7 +215,7 @@ class AirportController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // Validate request data
@@ -324,13 +324,13 @@ class AirportController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $airport->delete();
 
         return response()->json([
-            'successMessage' => 'Airport deleted successfully',
+            'successMessage' => __('Airport deleted successfully'),
         ]);
     }
 
@@ -340,13 +340,13 @@ class AirportController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         Airport::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Airport status updated successfully',
+            'successMessage' => __('Airport status updated successfully'),
         ]);
     }
 

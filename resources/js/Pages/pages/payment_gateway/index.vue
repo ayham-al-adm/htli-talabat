@@ -220,7 +220,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Payment Gateway" />
+        <Head :title="$t('payment_gateway')" />
         <PageHeader :title="$t('payment_gateway')" :pageTitle="$t('payment_gateway')" />
         <form @submit.prevent="handleSubmit">
         <BRow>
@@ -671,7 +671,7 @@ export default {
                                             <input :type="app_for === 'demo' ? 'password' : 'text'" :readonly="app_for === 'demo'" class="form-control" :placeholder="$t('enter_openpix_live_api_key')" id="openpix_live_api_key" v-model="form.openpix_live_api_key" />
                                         </div>
                                         <div class="alert bg-warning border-warning text-white" role="alert">
-                                            <strong>Note:</strong> <b>Update the following Webhook URL in Open Pix Portal</b><br>
+                                            <strong>{{ $t('note_text') }}</strong> <b>{{ $t('update_the_following_webhook_url_in_open_pix_portal') }}</b><br>
                                             <em><b class="fs-14">{{ pixWebhookUrl }}</b></em>
                                         </div>
                                         <div class="col-lg-12">
@@ -978,7 +978,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -990,13 +990,13 @@ export default {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">Stripe PreAuthorization</h5>
+                            <h5 class="modal-title" id="myModalLabel">{{ $t('stripe_authorization') }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                         </div>
                         <div class="modal-body">
-                            <p class="text-muted"> For authorization, The card details must be updated by the user</p>
-                            <p class="text-muted"> Stripe authorization uses the saved card details to hold the eta amount when the ride is created.</p>
-                            <p class="text-muted"> The amount is held until the ride is completed or cancelled</p>
+                            <p class="text-muted"> {{ $t('for_authorization_the_card_details_must_be_updated_by_the_us') }}</p>
+                            <p class="text-muted"> {{ $t('stripe_authorization_uses_the_saved_card_details_to_hold_the') }}</p>
+                            <p class="text-muted"> {{ $t('the_amount_is_held_until_the_ride_is_completed_or_cancelled') }}</p>
                         </div>
                         <!-- <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -1010,7 +1010,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

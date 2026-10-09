@@ -18,6 +18,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 import 'leaflet-routing-machine';
 import polyline from '@mapbox/polyline';
+import { i18nT } from '@/i18n';
 
 export default {
   data() {
@@ -195,7 +196,7 @@ export default {
     const timer = () => {
       let timerInterval;
       Swal.fire({
-        title: 'Booking alert!',
+        title: i18nT('booking_alert'),
         html: 'Your Ride has been Booked <b></b> Successfully.',
         timer: 2000,
         timerProgressBar: true,
@@ -1272,7 +1273,7 @@ try {
 
       let timerInterval;
       Swal.fire({
-        title: "Booking Successfull",
+        title: i18nT('booking_successful'),
         html: "Your Ride has been Booked Successfully.",
         timer: 2000,
         timerProgressBar: true,
@@ -1465,7 +1466,7 @@ unit,
 
 <template>
 <Layout>
-<Head title="Taxi Ride" />
+<Head :title="$t('taxi_ride')" />
 <PageHeader :title="$t('book')" :pageTitle="$t('dispatch')" pageLink="/dispatch"/>
 <BRow>
 <BCol lg="12">

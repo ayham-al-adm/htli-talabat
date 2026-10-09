@@ -12,6 +12,6 @@ class EncryptCookies extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'locale', // written by the Vue app, see App\Support\Locale
     ];
 }

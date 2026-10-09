@@ -57,7 +57,7 @@ class DriverTripStartedController extends BaseController
 
         if($request_detail->ride_otp != $request->ride_otp){
 
-          $this->throwCustomException('provided otp is invalid');
+          $this->throwCustomException(__('provided otp is invalid'));
         }
 
         }
@@ -201,14 +201,14 @@ class DriverTripStartedController extends BaseController
         }
 
         if ($request_detail->is_trip_start) {
-            $this->throwCustomException('trip started already');
+            $this->throwCustomException(__('trip started already'));
         }
 
         if ($request_detail->is_completed) {
-            $this->throwCustomException('request completed already');
+            $this->throwCustomException(__('request completed already'));
         }
         if ($request_detail->is_cancelled) {
-            $this->throwCustomException('request cancelled');
+            $this->throwCustomException(__('request cancelled'));
         }
     }
 }

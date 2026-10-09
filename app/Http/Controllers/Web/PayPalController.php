@@ -49,7 +49,7 @@ class PayPalController extends PaymentGatewayController
             Log::info("Paypal checkout Fail");
             $requestBody = $request->all();
             Log::info($requestBody);
-            return $this->respondSuccess($requestBody,'Could not find Payment');
+            return $this->respondSuccess($requestBody,__('Could not find Payment'));
         }elseif($payment->status == "S"){
             $request_id = null;
             return view('success',['success'],compact('web_booking_value','request_id'));
@@ -96,7 +96,7 @@ class PayPalController extends PaymentGatewayController
 
             return redirect()
                 ->route('paypal.payment/cancel')
-                ->with('error', 'Something went wrong.');
+                ->with('error', __('Something went wrong.'));
 
         } else {
 
@@ -127,7 +127,7 @@ class PayPalController extends PaymentGatewayController
                 Log::info("Paypal checkout Fail");
                 $requestBody = $request->all();
                 Log::info($requestBody);
-                return $this->respondSuccess($requestBody,'Could not find Payment');
+                return $this->respondSuccess($requestBody,__('Could not find Payment'));
             }elseif($payment->status == "S"){
 
                 $request_id = $payment->request_id;

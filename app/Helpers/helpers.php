@@ -1420,82 +1420,59 @@ if (! function_exists('get_directions')) {
 
 }
 
+if (!function_exists('json_lang_trans')) {
+    /**
+     * Translate a key from public/lang/{locale}/{file}.json, falling back to English
+     * and finally to the key itself. Files are read once per request.
+     */
+    function json_lang_trans($file, $key, $replace = [], $locale = null)
+    {
+        static $cache = [];
+
+        $locale = strtolower($locale ?: app()->getLocale());
+
+        foreach (array_unique([$locale, 'en']) as $lang) {
+            if (!array_key_exists("{$lang}/{$file}", $cache)) {
+                $filePath = public_path("lang/{$lang}/{$file}.json");
+                $cache["{$lang}/{$file}"] = file_exists($filePath)
+                    ? (json_decode(file_get_contents($filePath), true) ?: [])
+                    : [];
+            }
+
+            $translation = $cache["{$lang}/{$file}"][$key] ?? null;
+
+            if (is_string($translation)) {
+                // Replace placeholders in the translation
+                foreach ($replace as $search => $value) {
+                    $translation = str_replace(':' . $search, $value, $translation);
+                }
+
+                return $translation;
+            }
+        }
+
+        return $key; // Fallback to the key if no translation exists
+    }
+}
+
 if (!function_exists('custom_trans')) {
     function custom_trans($key, $replace = [], $locale = null)
     {
-        $locale = $locale ?: app()->getLocale();
-        $filePath = public_path("lang/{$locale}/push_notifications.json");
-
-        if (!file_exists($filePath)) {
-            return $key; // Fallback to the key if the file does not exist
-        }
-
-        $translations = json_decode(file_get_contents($filePath), true);
-
-        if (isset($translations[$key])) {
-            $translation = $translations[$key];
-
-            // Replace placeholders in the translation
-            foreach ($replace as $search => $value) {
-                $translation = str_replace(':' . $search, $value, $translation);
-            }
-
-            return $translation;
-        }
-
-        return $key; // Fallback to the key if the translation does not exist
+        return json_lang_trans('push_notifications', $key, $replace, $locale);
     }
 }
 
 if (!function_exists('custom_remarks_trans')) {
     function custom_remarks_trans($key, $replace = [], $locale = null)
     {
-        $locale = $locale ?: app()->getLocale();
-        $filePath = public_path("lang/{$locale}/wallet_remarks.json");
-
-        if (!file_exists($filePath)) {
-            return $key; // Fallback to the key if the file does not exist
-        }
-        $translations = json_decode(file_get_contents($filePath), true);
-
-        if (isset($translations[$key])) {
-            $translation = $translations[$key];
-
-            // Replace placeholders in the translation
-            foreach ($replace as $search => $value) {
-                $translation = str_replace(':' . $search, $value, $translation);
-            }
-
-            return $translation;
-        }
-
-        return $key; // Fallback to the key if the translation does not exist
+        return json_lang_trans('wallet_remarks', $key, $replace, $locale);
     }
 }
 
 if (!function_exists('custom_status_trans')) {
     function custom_status_trans($key, $replace = [], $locale = null)
     {
-        $locale = $locale ?: app()->getLocale();
-        $filePath = public_path("lang/{$locale}/view_pages_3.json");
-
-        if (!file_exists($filePath)) {
-            return $key; // Fallback to the key if the file does not exist
-        }
-        $translations = json_decode(file_get_contents($filePath), true);
-
-        if (isset($translations[$key])) {
-            $translation = $translations[$key];
-
-            // Replace placeholders in the translation
-            foreach ($replace as $search => $value) {
-                $translation = str_replace(':' . $search, $value, $translation);
-            }
-
-            return $translation;
-        }
-
-        return $key; // Fallback to the key if the translation does not exist
+        return json_lang_trans('view_pages_3', $key, $replace, $locale);
     }
 }
 

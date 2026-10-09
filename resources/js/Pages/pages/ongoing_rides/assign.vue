@@ -13,6 +13,7 @@ import debounce from 'lodash/debounce';
 import { mapGetters } from 'vuex';
 import { useI18n } from 'vue-i18n';
 import googleMap from '@/Components/googleMap.vue';
+import { i18nT } from '@/i18n';
 
 export default {
 data() {
@@ -50,7 +51,7 @@ methods: {
     timer() {
       let timerInterval;
       Swal.fire({
-        title: "Booking alert!",
+        title: i18nT('booking_alert'),
         html: "Your Ride has been Booked <b></b> Successfully.",
         timer: 2000,
         timerProgressBar: true,
@@ -266,7 +267,7 @@ errors:{},
 
 <template>
 <Layout>
-<Head title="Taxi Ride" />
+<Head :title="$t('taxi_ride')" />
 <PageHeader :title="$t('book')" :pageTitle="$t('taxi_ride')" pageLink="/ongoing-rides"/>
 <BRow>
   <BCol>

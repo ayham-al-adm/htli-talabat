@@ -242,7 +242,7 @@ class DriverManagementController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver created successfully.',
+            'successMessage' => __('Driver created successfully.'),
             'driver' => $driver,
         ], 201);
     }
@@ -394,7 +394,7 @@ class DriverManagementController extends BaseController
         }
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver updated successfully.',
+            'successMessage' => __('Driver updated successfully.'),
             'driver' => $driver,
         ], 201);
     }
@@ -433,7 +433,7 @@ class DriverManagementController extends BaseController
             'password' => bcrypt($updated_params['password']),
         ]);
         return response()->json([
-            'successMessage' => 'Password updated successfully.',
+            'successMessage' => __('Password updated successfully.'),
             'driver' => $driver,
         ], 201);
     }
@@ -489,7 +489,7 @@ class DriverManagementController extends BaseController
                 }
 
         return response()->json([
-            'successMessage' => 'Reason declined.',
+            'successMessage' => __('Reason declined.'),
             'driver' => $driver,
         ], 201);
     }
@@ -501,7 +501,7 @@ class DriverManagementController extends BaseController
         $driver->update(['approve'=>false]);
 
         return response()->json([
-            'successMessage' => 'Driver disapproved successfully',
+            'successMessage' => __('Driver disapproved successfully'),
             'results' => $driver,
         ],201);
     }
@@ -514,7 +514,7 @@ class DriverManagementController extends BaseController
                 ->remove();
 
         return response()->json([
-            'successMessage' => 'Driver deleted successfully',
+            'successMessage' => __('Driver deleted successfully'),
         ]);
     }
     public function approvedDriverViewDocument(Driver $driver)
@@ -667,7 +667,7 @@ class DriverManagementController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver Document uploaded successfully.',
+            'successMessage' => __('Driver Document uploaded successfully.'),
                 'driverId'=>$driverId,
                 'document'=>$document
                 ], 201);
@@ -694,7 +694,7 @@ class DriverManagementController extends BaseController
             if($neededDoc != $uploadedDoc || $neededDoc = 0){
                 return response()->json([
                     'status' => 'failure',
-                    'message' => 'Driver document Disapproved.',
+                    'message' => __('Driver document Disapproved.'),
                     'data' =>'uploaddocument'
                 ]);
             }
@@ -751,7 +751,7 @@ class DriverManagementController extends BaseController
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Driver document Approved.',
+                'message' => __('Driver document Approved.'),
             ]);
 
 
@@ -764,7 +764,7 @@ class DriverManagementController extends BaseController
         if (!$driverDoc) {
             return response()->json([
                 'status' => 'failure',
-                'message' => 'Document not found for the given driver.'
+                'message' => __('Document not found for the given driver.')
             ], 404); // Return a 404 status code for better semantics
         }
 
@@ -856,7 +856,7 @@ class DriverManagementController extends BaseController
                 // return redirect()->route('approveddriver.Index');
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Driver document approved successfully.',
+                    'message' => __('Driver document approved successfully.'),
                     'allDocumentsApproved'=>$allDocumentsApproved,
                 ]);
            }
@@ -919,7 +919,7 @@ class DriverManagementController extends BaseController
                 // return redirect()->route('approveddriver.Index');
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Driver document Disapproved.',
+                    'message' => __('Driver document Disapproved.'),
                     'allDocumentsDisapproved'=>$allDocumentsDisapproved
                 ]);
            }
@@ -929,7 +929,7 @@ class DriverManagementController extends BaseController
 
         // return response()->json([
         //     'status' => 'success',
-        //     'message' => 'Driver document approved successfully.',
+        //     'message' => __('Driver document approved successfully.'),
         // ]);
     }
 
@@ -1171,7 +1171,7 @@ class DriverManagementController extends BaseController
                 ->remove();
 
         return response()->json([
-            'successMessage' => 'Driver deleted successfully',
+            'successMessage' => __('Driver deleted successfully'),
         ]);
     }
 //Driver Needed Documents
@@ -1198,7 +1198,7 @@ class DriverManagementController extends BaseController
     {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         // dd($request->all());
@@ -1230,7 +1230,7 @@ class DriverManagementController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver needed document created successfully.',
+            'successMessage' => __('Driver needed document created successfully.'),
             'driver_needed_doc' => $driver_needed_doc,
         ], 201);
     }
@@ -1245,7 +1245,7 @@ class DriverManagementController extends BaseController
     {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         // dd($driverNeededDocument);
@@ -1270,7 +1270,7 @@ class DriverManagementController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver needed document Updated successfully.',
+            'successMessage' => __('Driver needed document Updated successfully.'),
             'driver_needed_doc' => $driverNeededDocument,
         ], 201);
     }
@@ -1279,14 +1279,14 @@ class DriverManagementController extends BaseController
     {
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'You are not Authorized',
+                'alertMessage' => __('You are not Authorized'),
             ],403);
         }
         // dd($request->all());
         DriverNeededDocument::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'DriverNeededDocument Document Status updated successfully',
+            'successMessage' => __('DriverNeededDocument Document Status updated successfully'),
         ]);
 
 
@@ -1310,7 +1310,7 @@ class DriverManagementController extends BaseController
             $driverId->update(['approve'=>1]);
 
             return response()->json([
-                'successMessage' => 'Driver  Approved successfully',
+                'successMessage' => __('Driver  Approved successfully'),
             ]);
 
         }else{
@@ -1330,13 +1330,13 @@ class DriverManagementController extends BaseController
 
         if(env('APP_FOR') == 'demo') {
             return response()->json([
-                'alertMessage' => 'Driver Document deleted successfully',
+                'alertMessage' => __('Driver Document deleted successfully'),
             ],403);
         }
         $driverNeededDocument->delete();
 
         return response()->json([
-            'successMessage' => 'Driver Document deleted successfully',
+            'successMessage' => __('Driver Document deleted successfully'),
         ]);
     }
 
@@ -1551,7 +1551,7 @@ class DriverManagementController extends BaseController
         $wallet_withdrawal_request->save();
 
         return response()->json([
-            'successMessage' => 'Driver payment status updated successfully.',
+            'successMessage' => __('Driver payment status updated successfully.'),
         ]);
     }
 
@@ -1650,7 +1650,7 @@ class DriverManagementController extends BaseController
         $transaction_id = str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
 
         if ($operation === 'subtract' && $driver_wallet->amount_balance < $amount) {
-            return response()->json(['message' => 'Insufficient funds'], 400);
+            return response()->json(['message' => __('Insufficient funds')], 400);
         }
 
 
@@ -1682,7 +1682,7 @@ class DriverManagementController extends BaseController
         if (!empty($user->email)) {
         SendDriverWalletAmountMailNotification::dispatch($driver, $transaction_id, $currency, $amount, $driver_wallet);
         }
-        return response()->json(['message' => 'Amount adjusted successfully', 'transaction_id' => $transaction_id], 200);
+        return response()->json(['message' => __('Amount adjusted successfully'), 'transaction_id' => $transaction_id], 200);
     }
     public function requestList( QueryFilterContract $queryFilter, Driver $driver)
     {
@@ -1761,7 +1761,7 @@ class DriverManagementController extends BaseController
         }
 
         return response()->json([
-            'successMessage' => 'status updated successfully',
+            'successMessage' => __('status updated successfully'),
         ]);
     }
     public function driverLevelStore(Request $request)
@@ -1789,7 +1789,7 @@ class DriverManagementController extends BaseController
         $level = DriverLevelUp::create($params);
 
         return response()->json([
-            'successMessage' => 'Driver Level created successfully.',
+            'successMessage' => __('Driver Level created successfully.'),
             'level' => $level,
         ], 201);
     }
@@ -1840,7 +1840,7 @@ class DriverManagementController extends BaseController
         $level->update($params);
 
         return response()->json([
-            'successMessage' => 'Driver Level updated successfully.',
+            'successMessage' => __('Driver Level updated successfully.'),
             'level' => $level,
         ], 201);
     }
@@ -1850,7 +1850,7 @@ class DriverManagementController extends BaseController
         $level->delete();
 
         return response()->json([
-            'successMessage' => 'Driver Level Deleted successfully.',
+            'successMessage' => __('Driver Level Deleted successfully.'),
         ], 201);
     }
     public function restoreUser($id)
@@ -1858,13 +1858,13 @@ class DriverManagementController extends BaseController
         $user = User::withTrashed()->find($id);
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => __('User not found')], 404);
         }
 
         $user->update(['is_deleted_at' => null,'active'=>1]);
         $user->driver->update(['is_deleted_at' => null,'active'=>0]);
 
-        return response()->json(['message' => 'User restored successfully']);
+        return response()->json(['message' => __('User restored successfully')]);
     }
 
     public function paymentIndex()

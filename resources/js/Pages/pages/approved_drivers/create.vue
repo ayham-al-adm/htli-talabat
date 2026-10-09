@@ -10,6 +10,7 @@ import Multiselect from "@vueform/multiselect";
 import FormValidation from "@/Components/FormValidation.vue";
 import { useI18n } from 'vue-i18n';
 import ImageUpload from '@/Components/ImageUpload.vue';
+import { i18nT } from '@/i18n';
 
 export default {
   components: {
@@ -105,7 +106,7 @@ export default {
             for (const key in validationRules) {
                 if (validationRules[key].required && !form[key]) {
                     errors[key] = t('this_field_is_required');
-                    // errors[key] = 'This field is required';
+                    // errors[key] = i18nT('this_field_is_required');
                 }
             }
             return errors;
@@ -256,7 +257,7 @@ export default {
 <template>
   <Layout>
 
-    <Head title="Approved Drivers" />
+    <Head :title="$t('approved-drivers')" />
     <PageHeader :title="driver ? $t('edit') : $t('create')" :pageTitle="$t('approved_drivers')" pageLink="/approved-drivers"/>
     <BRow>
       <BCol lg="12">
@@ -466,7 +467,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -476,7 +477,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

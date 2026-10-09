@@ -17,6 +17,7 @@ import L from "leaflet";
 import 'leaflet-routing-machine';
 import "leaflet/dist/leaflet.css";
 import polyline from '@mapbox/polyline';
+import { i18nT } from '@/i18n';
 
 
 export default {
@@ -165,14 +166,14 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You want to be cancel this ride!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_want_to_cancel_this_ride'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, Cancel it!",
-                cancelButtonText: "Close",
+                confirmButtonText: i18nT('yes_cancel_it'),
+                cancelButtonText: i18nT('close'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -474,7 +475,7 @@ return { lat: lat, lon: lon };
 
 <template>
     <Layout>
-        <Head title="View Details" />
+        <Head :title="$t('view_details')" />
         <PageHeader :title="$t('view_details')" :pageTitle="$t('view_details')" pageLink="/rides-request"/>
         <BRow>
             <BCol lg="12">
@@ -590,7 +591,7 @@ return { lat: lat, lon: lon };
                                     </div>
                                     <div class="card-body">
                                         <div>
-                                            <p>{{ rideStatus(result) }}</p>
+                                            <p>{{ $st(rideStatus(result)) }}</p>
                                             <BButton class="btn btn-danger btn-md" v-if="!result.is_cancelled&&!result.is_completed" type="button" @click.prevent="deleteModal(result.id)">
                                                 <i class=" bx bx-show-alt align-center text-muted me-2"></i>  {{$t("cancel")}}
                                             </Bbutton>
@@ -1471,7 +1472,7 @@ return { lat: lat, lon: lon };
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -1482,7 +1483,7 @@ return { lat: lat, lon: lon };
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

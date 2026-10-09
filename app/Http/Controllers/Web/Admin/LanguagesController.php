@@ -142,12 +142,12 @@ class LanguagesController extends Controller
                 'direction'=>$request->direction]);
                     
             return response()->json([
-            'successMessage' => 'Language created successfully.',
+            'successMessage' => __('Language created successfully.'),
         ], 201);
                   
                 } else {
                     return response()->json([
-                        'alertMessage' => 'Translation not found.',
+                        'alertMessage' => __('Translation not found.'),
                     ], 400);
                 }
 
@@ -180,12 +180,12 @@ class LanguagesController extends Controller
             $language->delete();
 
             return response()->json([
-                'successMessage' => 'Language deleted successfully',
+                'successMessage' => __('Language deleted successfully'),
             ], 201);
         }
 
         return response()->json([
-            'alertMessage' => 'Language not found.',
+            'alertMessage' => __('Language not found.'),
         ], 404);
     }
 
@@ -193,7 +193,7 @@ class LanguagesController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $request->validate([ 'status_type' => 'required|string' ]);
@@ -445,7 +445,7 @@ foreach ($default_lang_data as $key => $current_value) {
    {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         Languages::where('default_status',1)->update(['default_status'=>0]);
@@ -456,7 +456,7 @@ foreach ($default_lang_data as $key => $current_value) {
 
 
         return response()->json([
-            'successMessage' => 'Language Updated successfully.',
+            'successMessage' => __('Language Updated successfully.'),
         ], 201);
    }
 }

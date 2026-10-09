@@ -43,7 +43,7 @@ class MapSettingController extends Controller
         }
   
     
-        return response()->json(['message' => 'Map  Details updated successfully'], 201);
+        return response()->json(['message' => __('Map  Details updated successfully')], 201);
     }    
     public function heatmap(Request $request) 
     {

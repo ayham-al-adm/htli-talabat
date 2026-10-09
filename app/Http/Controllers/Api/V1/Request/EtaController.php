@@ -161,7 +161,7 @@ class EtaController extends ApiController
             $type = $zone_detail->zoneType()->whereNull('drop_zone')->where('type_id', $type_id)->get();
 
             if(!$type){
-                $this->throwCustomException('Your Vehicle Type is not associated with this zone');
+                $this->throwCustomException(__('Your Vehicle Type is not associated with this zone'));
             }
         }
 
@@ -452,11 +452,11 @@ class EtaController extends ApiController
                 dispatch(new SendPushNotification($notifable_driver,$title,$body));
             }
 
-            return $this->respondSuccess($request_result,'Drop changes Sucessfully');
+            return $this->respondSuccess($request_result,__('Drop changes Sucessfully'));
 
         }   
         else{
-            return $this->respondFailed('Drop not changed');
+            return $this->respondFailed(__('Drop not changed'));
         }    
 
     }
@@ -617,7 +617,7 @@ class EtaController extends ApiController
 
         $result =  fractal($query, new RecentSearchesTransformer);
 
-        return $this->respondSuccess($result, 'Listed Recent Searches Successfully');
+        return $this->respondSuccess($result, __('Listed Recent Searches Successfully'));
 
     }
 
@@ -638,7 +638,7 @@ class EtaController extends ApiController
             if (!$pick_zone) {
                 $this->throwCustomException('service not available with this location');
             }else{
-                return $this->respondSuccess(null,'Service Available');
+                return $this->respondSuccess(null,__('Service Available'));
             }
         }else{
             $count = count($request->address);
@@ -660,7 +660,7 @@ class EtaController extends ApiController
                 $query->where('active',true);
             })->where('active', 1)->where('id',$pick_zone->id)->first();
     
-            return $this->respondSuccess(null,'Service Available');
+            return $this->respondSuccess(null,__('Service Available'));
             
         }
     }

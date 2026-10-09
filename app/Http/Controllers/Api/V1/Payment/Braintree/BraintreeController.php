@@ -127,7 +127,7 @@ class BraintreeController extends ApiController
 
         } else {
 
-            $this->throwCustomException('unable to detect amount from this card');
+            $this->throwCustomException(__('unable to detect amount from this card'));
             
         }
 

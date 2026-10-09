@@ -9,6 +9,7 @@ import { debounce } from 'lodash';
 import "@vueform/multiselect/themes/default.css";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import { i18nT } from '@/i18n';
 
 export default {
   props: {
@@ -52,12 +53,12 @@ export default {
 
       fields.value.forEach((field, index) => {
         if (!field.input_field_name) {
-          errors.value[`input_field_name_${index}`] = "Field name is required.";
+          errors.value[`input_field_name_${index}`] = i18nT('field_name_is_required');
           isValid = false;
         }
 
         if (!field.input_field_type) {
-          errors.value[`input_field_type_${index}`] = "Field type is required.";
+          errors.value[`input_field_type_${index}`] = i18nT('field_type_is_required');
           isValid = false;
         }
       });
@@ -69,7 +70,7 @@ const submitForm = async () => {
   if (!validateFields()) {
     Swal.fire({
       icon: "error",
-      title: "Error",
+      title: i18nT('error'),
       text: "Please fix the errors before submitting the form.",
     });
     return;
@@ -93,13 +94,13 @@ const submitForm = async () => {
 
     Swal.fire({
       icon: "success",
-      title: "Success",
+      title: i18nT('success'),
       text: "Fields submitted successfully!",
     });
   } catch (error) {
     Swal.fire({
       icon: "error",
-      title: "Error",
+      title: i18nT('error'),
       text: "There was a problem submitting the form.",
     });
   }
@@ -128,7 +129,7 @@ const submitForm = async () => {
 
 <template>
   <Layout>
-    <Head title="Bank Info" />
+    <Head :title="$t('bank_info')" />
     <PageHeader :title="$t('bank_infos')" :pageTitle="$t('bank_infos')" pageLink="/driver-bank-info"/>
     <BRow>
       <BCol lg="12">

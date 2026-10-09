@@ -74,7 +74,7 @@ export default {
 
 <section class="py-5 mt-5">
     <BContainer>
-<PageHeader title="DMV Check" pageTitle="Pages" />
+<PageHeader :title="$t('dmv_check')" pageTitle="Pages" />
 
 <BRow class="justify-content-center">
   <BCol col lg="10">

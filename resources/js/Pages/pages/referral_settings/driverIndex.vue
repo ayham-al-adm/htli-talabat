@@ -144,7 +144,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="Driver Referral Settings" />
+    <Head :title="$t('driver-referral-settings')" />
     <PageHeader :title="$t('driver-referral-settings')" :pageTitle="$t('driver-referral-settings')" />
     <BRow>
       <BCol lg="12">
@@ -252,7 +252,7 @@ export default {
                                     <input
                                       type="text"
                                       class="form-control"
-                                      placeholder="Enter the Amount"
+                                      :placeholder="$t('enter_the_amount')"
                                       id="referral_commission_amount_for_driver"
                                       :readonly="app_for == 'demo'"
                                       v-model="form.referral_commission_amount_for_driver"
@@ -288,7 +288,7 @@ export default {
                                   <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="Enter the Amount"
+                                    :placeholder="$t('enter_the_amount')"
                                     id="referral_commission_for_new_driver_from_referer_driver"
                                     v-model="form.referral_commission_for_new_driver_from_referer_driver"
                                   />
@@ -307,7 +307,7 @@ export default {
                                   <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="Enter the Amount"
+                                    :placeholder="$t('enter_the_amount')"
                                     id="referral_commission_for_new_user_from_referer_driver"
                                     v-model="form.referral_commission_for_new_user_from_referer_driver"
                                   />
@@ -351,7 +351,7 @@ export default {
                                     type="number"
                                     class="form-control"
                                     :readonly="app_for == 'demo'"
-                                    placeholder="Enter the Ride Count"
+                                    :placeholder="$t('enter_the_ride_count')"
                                     id="driver_referral_condition_driver_ride_count"
                                     v-model="form.driver_referral_condition_driver_ride_count"
                                   />
@@ -371,7 +371,7 @@ export default {
                                     type="number"
                                     class="form-control"
                                     id="driver_referral_condition_user_ride_count"
-                                    placeholder="Enter the Ride Count"
+                                    :placeholder="$t('enter_the_ride_count')"
                                     :readonly="app_for == 'demo'"
                                     v-model="form.driver_referral_condition_user_ride_count"
                                   />
@@ -409,7 +409,7 @@ export default {
                                     class="form-control"
                                     :readonly="app_for == 'demo'"
                                     id="driver_referral_condition_driver_earning_amount"
-                                    placeholder="Enter the Amount"
+                                    :placeholder="$t('enter_the_amount')"
                                     v-model="form.driver_referral_condition_driver_earning_amount"
                                   />
                                 </div>
@@ -429,7 +429,7 @@ export default {
                                     class="form-control"
                                     :readonly="app_for == 'demo'"
                                     id="driver_referral_condition_user_spent_amount"
-                                    placeholder="Enter the Amount"
+                                    :placeholder="$t('enter_the_amount')"
                                     v-model="form.driver_referral_condition_user_spent_amount"
                                   />
                                 </div>
@@ -461,7 +461,7 @@ export default {
                                 <input
                                   type="text"
                                   class="form-control"
-                                  placeholder="Enter the Amount"
+                                  :placeholder="$t('enter_the_amount')"
                                   id="referral_commission_for_new_driver_from_referer_driver"
                                   v-model="form.referral_commission_for_new_driver_from_referer_driver"
                                 />
@@ -480,7 +480,7 @@ export default {
                                 <input
                                   type="text"
                                   class="form-control"
-                                  placeholder="Enter the Amount"
+                                  :placeholder="$t('enter_the_amount')"
                                   id="referral_commission_for_new_user_from_referer_driver"
                                   v-model="form.referral_commission_for_new_user_from_referer_driver"
                                 />

@@ -75,17 +75,17 @@ public function updateUserReferral(Request $request)
 
     $referrer = $this->user->where('refferal_code', $request->refferal_code)->first();
     if (!$referrer) {
-        return $this->respondFailed('Invalid referral code.');
+        return $this->respondFailed(__('Invalid referral code.'));
     }
 
     $authUser = auth()->user();
 
     if ($referrer->id === $authUser->id) {
-        return $this->respondFailed('You cannot use your own referral code.');
+        return $this->respondFailed(__('You cannot use your own referral code.'));
     }
 
     if ($authUser->referred_by && $authUser->referred_by != $referrer->id) {
-        return $this->respondFailed('Referral code already applied.');
+        return $this->respondFailed(__('Referral code already applied.'));
     }
 
     $referralType = (string)(
@@ -294,7 +294,7 @@ public function updateUserReferral(Request $request)
     } catch (\Throwable $e) {
         DB::rollBack();
         Log::error('User referral credit error: ' . $e->getMessage());
-        return $this->respondFailed('Failed to apply referral credits.');
+        return $this->respondFailed(__('Failed to apply referral credits.'));
     }
 
     try {
@@ -334,17 +334,17 @@ public function updateDriverReferral(Request $request)
 
     $referrer = $this->user->where('refferal_code', $request->refferal_code)->first();
     if (!$referrer) {
-        $this->throwCustomException('Provided Referral code is not valid', 'refferal_code');
+        $this->throwCustomException(__('Provided Referral code is not valid'), 'refferal_code');
     }
 
     $authUser = auth()->user();
 
     if ($referrer->id === $authUser->id) {
-        return $this->respondFailed('You cannot use your own referral code.');
+        return $this->respondFailed(__('You cannot use your own referral code.'));
     }
 
     if ($authUser->referred_by && $authUser->referred_by != $referrer->id) {
-        return $this->respondFailed('Referral code already applied.');
+        return $this->respondFailed(__('Referral code already applied.'));
     }
 
     $isReferrerDriver = $referrer->hasRole('driver');
@@ -354,7 +354,7 @@ public function updateDriverReferral(Request $request)
     $isNewUser   = $authUser->hasRole('user');
 
     if (!$isNewDriver) {
-        return $this->respondFailed('Referral only applicable for drivers.');
+        return $this->respondFailed(__('Referral only applicable for drivers.'));
     }
 
     if ($isReferrerDriver) {
@@ -480,7 +480,7 @@ public function updateDriverReferral(Request $request)
     } catch (\Throwable $e) {
         DB::rollBack();
         Log::error('Driver referral credit error: ' . $e->getMessage());
-        return $this->respondFailed('Failed to apply referral credits.');
+        return $this->respondFailed(__('Failed to apply referral credits.'));
     }
 
     try {

@@ -15,6 +15,7 @@ import ImageModal from "@/Components/ImageModal.vue";
 import { mapGetters } from 'vuex';
 import { layoutComputed } from "@/state/helpers";
 import { useI18n } from 'vue-i18n';
+import { i18nT } from '@/i18n';
 export default {
     data() {
         return {
@@ -125,13 +126,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -267,7 +268,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Landing Header" />
+        <Head :title="$t('landing_header')" />
         <PageHeader :title="$t('index')" :pageTitle="$t('landing_header_footer')" />
         <BRow>
             <BCol lg="12">
@@ -280,7 +281,7 @@ export default {
                                         <div class="d-flex align-items-center">
                                         <div class="color-picker me-3">
                                       <!-- Color Picker -->
-                                      <label for="colorPicker" class="visually-hidden">Choose a Color</label>
+                                      <label for="colorPicker" class="visually-hidden">{{ $t('choose_a_color') }}</label>
                                       <input
                                         type="color"
                                         id="colorPicker"
@@ -289,7 +290,7 @@ export default {
                                       />
 
                                       <!-- Hex Code Display -->
-                                      <label for="colorCode" class="visually-hidden">Color Code</label>
+                                      <label for="colorCode" class="visually-hidden">{{ $t('color_code') }}</label>
                                       <input
                                         type="text"
                                         id="colorCode"
@@ -298,7 +299,7 @@ export default {
                                         readonly
                                       />
                                     </div>
-                                    <div>("You can choose and copy color code from here and paste to below input fields")</div>
+                                    <div>{{ $t('you_can_choose_and_copy_color_code_from_here_and_paste_to_be') }}</div>
                                   </div>
                                     </div>
                                     
@@ -442,7 +443,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -453,7 +454,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>
@@ -469,7 +470,7 @@ export default {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">How Landingsite works when Language change?</h5>
+                <h5 class="modal-title" id="myModalLabel">{{ $t('how_landingsite_works_when_language_change') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 
             </div>
@@ -478,7 +479,7 @@ export default {
             </div>
             <div class="modal-body">
                 <h5 class="fs-15">
-                  When preparing to change the language on your landing website, it’s essential to update the content for the new language in the CMS section across all below pages.
+                  {{ $t('when_preparing_to_change_the_language_on_your_landing_websit') }}
                 </h5>
                 <div class="d-flex mt-4">
                     <div class="flex-shrink-0">
@@ -486,7 +487,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                          Header-Footer Section
+                          {{ $t('header_footer_section') }}
                         </p>
                     </div>
                 </div>
@@ -496,7 +497,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                          Home Section
+                          {{ $t('home_section') }}
                         </p>
                     </div>
                 </div>
@@ -506,7 +507,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                          About Us Section
+                          {{ $t('about_us_section') }}
                         </p>
                     </div>
                 </div>
@@ -516,7 +517,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                          Driver Section
+                          {{ $t('driver_section') }}
                         </p>
                     </div>
                 </div>
@@ -526,7 +527,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                          User Section
+                          {{ $t('user_section') }}
                         </p>
                     </div>
                 </div>
@@ -536,7 +537,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                          Contact Section
+                          {{ $t('contact_section') }}
                         </p>
                     </div>
                 </div>
@@ -546,12 +547,12 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-2">
                         <p class="text-muted mb-0">
-                          Quicklinks Section
+                          {{ $t('quicklinks_section') }}
                         </p>
                     </div>
                 </div>
                 <h5 class="fs-15 mt-2">
-                  If you don't update contents for the new language in the CMS section across all pages,you will get error on Landing Webiste like below
+                  {{ $t('if_you_don_t_update_contents_for_the_new_language_in_the_cms') }}
                 </h5>
                 <div class="m-auto text-center">
                   <img src="@assets/images/error.png" alt="Loading..." style="width:800px" />

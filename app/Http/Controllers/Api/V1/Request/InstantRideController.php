@@ -84,7 +84,7 @@ class InstantRideController extends BaseController
         $zone_type_id = $zone_detail->zoneType()->where('type_id',$type_id)->pluck('id')->first();
 
         if(!$zone_type_id){
-            $this->throwCustomException('Your Vehicle Type is not associated with this zone');
+            $this->throwCustomException(__('Your Vehicle Type is not associated with this zone'));
         }
 
         $zone_type_detail = $zone_detail->zoneType()->where('type_id',$type_id)->first();
@@ -252,7 +252,7 @@ class InstantRideController extends BaseController
         $zone_type_id = $zone_detail->zoneType()->where('type_id',$type_id)->pluck('id')->first();
 
         if(!$zone_type_id){
-            $this->throwCustomException('Your Vehicle Type is not associated with this zone');
+            $this->throwCustomException(__('Your Vehicle Type is not associated with this zone'));
         }
 
 

@@ -73,7 +73,7 @@ class AdminController extends BaseController
 
         if(env('APP_FOR') == 'demo' && $request->role == 'dispatcher'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request);
@@ -135,7 +135,7 @@ class AdminController extends BaseController
     
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver created successfully.',
+            'successMessage' => __('Driver created successfully.'),
         ], 201);
     }
 
@@ -166,7 +166,7 @@ class AdminController extends BaseController
         
         if(env('APP_FOR') == 'demo' && $request->role == 'dispatcher'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -224,7 +224,7 @@ class AdminController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Admin created successfully.',
+            'successMessage' => __('Admin created successfully.'),
         ], 201);
     }
 
@@ -236,7 +236,7 @@ class AdminController extends BaseController
         $adminDetail->delete();
 
         return response()->json([
-            'successMessage' => 'Admin deleted successfully',
+            'successMessage' => __('Admin deleted successfully'),
         ]);
     }  
     public function updateStatus(Request $request)
@@ -254,7 +254,7 @@ class AdminController extends BaseController
 
     
         return response()->json([
-            'successMessage' => 'Admin Status updated successfully',
+            'successMessage' => __('Admin Status updated successfully'),
         ]);
     }
 
@@ -280,7 +280,7 @@ class AdminController extends BaseController
     {
         if(env('APP_FOR') == 'demo' && $adminDetail->user->roles[0]->slug == 'dispatcher'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // Validate the password and confirmation
@@ -308,7 +308,7 @@ class AdminController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Admin created successfully.',
+            'successMessage' => __('Admin created successfully.'),
         ], 201);
     }
 }

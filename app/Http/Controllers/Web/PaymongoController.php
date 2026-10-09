@@ -39,7 +39,7 @@ class PaymongoController extends PaymentGatewayController
             Log::info("Flexpaie checkout Fail");
             $requestBody = $request->all();
             Log::info($requestBody);
-            return $this->respondSuccess($requestBody,'Could not find Payment');
+            return $this->respondSuccess($requestBody,__('Could not find Payment'));
         }elseif($payment->status == "S"){
 
             $request_id = $payment->request_id;
@@ -123,7 +123,7 @@ class PaymongoController extends PaymentGatewayController
             Log::info("FlexPaie checkout Fail");
             $requestBody = $request->all();
             Log::info($requestBody);
-            return $this->respondSuccess($requestBody,'Could not find Payment');
+            return $this->respondSuccess($requestBody,__('Could not find Payment'));
         }elseif($payment->status == "S"){
 
             $request_id = $payment->request_id;

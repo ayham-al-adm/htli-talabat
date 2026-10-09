@@ -13,6 +13,7 @@ import ImageUp from "@/Components/ImageUp.vue";
 import MultiUpload from "@/Components/MultiUpload.vue";
 import { BCard, BCardBody, BCardFooter, BCardHeader } from 'bootstrap-vue-next';
 import { debounce } from 'lodash';
+import { i18nT } from '@/i18n';
 
 
 export default {
@@ -79,7 +80,7 @@ export default {
             for (const key in validationRules) {
                 if (validationRules[key].required && !form[key]) {
                     errors[key] = t('this_field_is_required');
-                    // errors[key] = 'This field is required';
+                    // errors[key] = i18nT('this_field_is_required');
                 }
             }
             return errors;
@@ -204,7 +205,7 @@ export default {
 
 <template>
     <BCard>
-        <Head title="Taxi Ride" />
+        <Head :title="$t('taxi_ride')" />
         <BCardHeader class="border-0">
             <!-- menu Offcanvas -->
             <UserWebMenu :user="user" />

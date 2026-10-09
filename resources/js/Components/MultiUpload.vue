@@ -3,8 +3,8 @@
       <div id="file-container">
         <div id="file-slot" @click="triggerFileInput" v-if="files.length < 8">
           <div class="d-flex flex-column align-items-center">
-            <span>Upload File</span>
-            <span>(Max: 8 files)</span>
+            <span>{{ $t('upload_file') }}</span>
+            <span>{{ $t('max_8_files') }}</span>
             <span style="font-size:8px">png,jpg,jpeg,mp4,pdf,doc</span>
           </div>
           <input type="file" ref="fileInput" @change="handleFileChange" multiple 
@@ -33,7 +33,7 @@
         <video v-else-if="isVideo(currentFile)" :src="currentFile.dataURL" controls id="fullscreen-video"></video>
         <iframe v-else-if="isPDF(currentFile)" :src="currentFile.dataURL" width="80%" height="80%"></iframe>
         <a v-else-if="isDOCX(currentFile)" :href="currentFile.dataURL" target="_blank" class="docx-preview">
-          <i class="fas fa-file-word"></i> Open DOCX
+          <i class="fas fa-file-word"></i> {{ $t('open_docx') }}
         </a>
   
         <button id="prev-file" @click="prevFile">&#10094;</button>
@@ -41,7 +41,7 @@
         <button id="close-modal" @click="closeModal">X</button>
       </div>
   
-      <div v-if="showToast" id="toast">You can only upload up to 8 files.</div>
+      <div v-if="showToast" id="toast">{{ $t('you_can_only_upload_up_to_8_files') }}</div>
     </div>
   </template>
   

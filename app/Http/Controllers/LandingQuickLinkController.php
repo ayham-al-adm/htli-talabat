@@ -19,6 +19,7 @@ use App\Base\Services\ImageUploader\ImageUploader;
 use Illuminate\Support\Str;
 use App\Models\Admin\Setting;
 use App\Models\Languages;
+use App\Support\Locale;
 
 
 class LandingQuickLinkController extends BaseController
@@ -80,7 +81,7 @@ class LandingQuickLinkController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Landing QuickLinks Content created successfully.'
+            'successMessage' => __('Landing QuickLinks Content created successfully.')
         ], 201);
     }
 
@@ -116,7 +117,7 @@ class LandingQuickLinkController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'QuickLink Content updated successfully.',
+            'successMessage' => __('QuickLink Content updated successfully.'),
             'landingQuickLink' => $landingQuickLink,
         ], 201);
 
@@ -126,7 +127,7 @@ class LandingQuickLinkController extends BaseController
         $landingQuickLink->delete();
 
         return response()->json([
-            'successMessage' => 'Home deleted successfully',
+            'successMessage' => __('Home deleted successfully'),
         ]);
     }  
 
@@ -135,16 +136,13 @@ class LandingQuickLinkController extends BaseController
     public function privacypage(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingQuickLink = LandingQuickLink::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
-        $landingHeader = LandingHeader::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingQuickLink = Locale::pick(LandingQuickLink::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingQuickLink);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
            // Check the customization settings toggle status
            $enableLandingSite = Setting::where('category', 'customization_settings')
@@ -181,14 +179,14 @@ class LandingQuickLinkController extends BaseController
     public function getPrivacyContent(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
         $content = LandingQuickLink::where('locale', $selectedLocale)->value('privacy') ??
                    LandingQuickLink::where('locale', 'en')->value('privacy');
 
         if (!$content) {
-            return response()->json(['error' => 'Content not found'], 404); // Return 404 if no content found
+            return response()->json(['error' => __('Content not found')], 404); // Return 404 if no content found
         }
 
         return response()->json(['privacy' => $content]);
@@ -197,14 +195,13 @@ class LandingQuickLinkController extends BaseController
     public function termspage(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingQuickLink = LandingQuickLink::where('locale', $selectedLocale)->first() ?? 
-                            LandingQuickLink::where('locale', 'en')->first();
-        $landingHeader = LandingHeader::where('locale', $selectedLocale)->first() ??
-                         LandingHeader::where('locale', 'en')->first();
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingQuickLink = Locale::pick(LandingQuickLink::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingQuickLink);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
            // Check the customization settings toggle status
            $enableLandingSite = Setting::where('category', 'customization_settings')
@@ -241,14 +238,14 @@ class LandingQuickLinkController extends BaseController
     public function getTermsContent(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
         $content = LandingQuickLink::where('locale', $selectedLocale)->value('terms') ?? 
                    LandingQuickLink::where('locale', 'en')->value('terms');
 
         if (!$content) {
-            return response()->json(['error' => 'Content not found'], 404); // Return 404 if no content found
+            return response()->json(['error' => __('Content not found')], 404); // Return 404 if no content found
         }
 
         return response()->json(['terms' => $content]);
@@ -257,14 +254,13 @@ class LandingQuickLinkController extends BaseController
     public function compliancepage(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingQuickLink = LandingQuickLink::where('locale', $selectedLocale)->first() ?? 
-                            LandingQuickLink::where('locale', 'en')->first();
-        $landingHeader = LandingHeader::where('locale', $selectedLocale)->first() ?? 
-                         LandingHeader::where('locale', 'en')->first();
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingQuickLink = Locale::pick(LandingQuickLink::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingQuickLink);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
            // Check the customization settings toggle status
            $enableLandingSite = Setting::where('category', 'customization_settings')
@@ -301,14 +297,14 @@ class LandingQuickLinkController extends BaseController
     public function getComplianceContent(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
         $content = LandingQuickLink::where('locale', $selectedLocale)->value('compliance') ?? 
                    LandingQuickLink::where('locale', 'en')->value('compliance');
 
         if (!$content) {
-            return response()->json(['error' => 'Content not found'], 404); // Return 404 if no content found
+            return response()->json(['error' => __('Content not found')], 404); // Return 404 if no content found
         }
 
         return response()->json(['compliance' => $content]);
@@ -317,14 +313,13 @@ class LandingQuickLinkController extends BaseController
     public function dmvpage(Request $request)
     {
          // Fetch the default language code where default_status is true
-         $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+         $defaultLocale = Locale::default();
 
-         $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingQuickLink = LandingQuickLink::where('locale', $selectedLocale)->first() ?? 
-                            LandingQuickLink::where('locale', 'en')->first();
-        $landingHeader = LandingHeader::where('locale', $selectedLocale)->first() ?? 
-                         LandingHeader::where('locale', 'en')->first();
+         $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingQuickLink = Locale::pick(LandingQuickLink::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingQuickLink);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
 
                // Check the customization settings toggle status
@@ -363,14 +358,14 @@ class LandingQuickLinkController extends BaseController
     public function getDmvContent(Request $request)
     {
          // Fetch the default language code where default_status is true
-         $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+         $defaultLocale = Locale::default();
 
-         $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
+         $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
         $content = LandingQuickLink::where('locale', $selectedLocale)->value('dmv')  ??
                    LandingQuickLink::where('locale', 'en')->value('dmv');
 
         if (!$content) {
-            return response()->json(['error' => 'Content not found'], 404); // Return 404 if no content found
+            return response()->json(['error' => __('Content not found')], 404); // Return 404 if no content found
         }
 
         return response()->json(['dmv' => $content]);

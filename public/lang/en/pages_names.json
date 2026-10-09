@@ -287,5 +287,6 @@
     "permission": "Permission",
     "from_date": "From Date",
     "to_date": "To Date",
-    "store": "Store"
+    "store": "Store",
+    "quicklinks": "Quick Links"
 }

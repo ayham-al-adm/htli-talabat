@@ -50,7 +50,7 @@ class BannerImageController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         
@@ -69,7 +69,7 @@ class BannerImageController extends Controller
         BannerImage::create($created_params);
 
         return response()->json([
-            'successMessage' => 'Banner Image created successfully.'
+            'successMessage' => __('Banner Image created successfully.')
         ], 201);
     } 
 
@@ -86,7 +86,7 @@ class BannerImageController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -119,7 +119,7 @@ class BannerImageController extends Controller
         $bannerimage->update($updated_params);
 
         return response()->json([
-            'successMessage' => 'Banner Image updated successfully.',
+            'successMessage' => __('Banner Image updated successfully.'),
             'bannerimage' => $bannerimage,
         ], 201);
 
@@ -129,13 +129,13 @@ class BannerImageController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $bannerimage->delete();
 
         return response()->json([
-            'successMessage' => 'Banner Image deleted successfully',
+            'successMessage' => __('Banner Image deleted successfully'),
         ]);
     } 
 
@@ -143,13 +143,13 @@ class BannerImageController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         BannerImage::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Banner Image status updated successfully',
+            'successMessage' => __('Banner Image status updated successfully'),
         ]);
 
     }

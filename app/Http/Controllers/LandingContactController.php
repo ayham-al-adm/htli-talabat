@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\Mailer\LandingContactEmail;
 use App\Models\Admin\Setting;
 use App\Models\Languages;
+use App\Support\Locale;
 
 
 class LandingContactController extends BaseController
@@ -92,7 +93,7 @@ class LandingContactController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Landing Contact Content created successfully.'
+            'successMessage' => __('Landing Contact Content created successfully.')
         ], 201);
     }
 
@@ -136,7 +137,7 @@ class LandingContactController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Contact Content updated successfully.',
+            'successMessage' => __('Contact Content updated successfully.'),
             'landingContact' => $landingContact,
         ], 201);
 
@@ -146,23 +147,20 @@ class LandingContactController extends BaseController
         $landingContact->delete();
 
         return response()->json([
-            'successMessage' => 'Contact  deleted successfully',
+            'successMessage' => __('Contact  deleted successfully'),
         ]);
     }  
 
     public function contactpage(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingContact = LandingContact::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
-        $landingHeader = LandingHeader::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingContact = Locale::pick(LandingContact::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingContact);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
            // Check the customization settings toggle status
            $enableLandingSite = Setting::where('category', 'customization_settings')
@@ -231,7 +229,7 @@ public function contact_message(Request $request)
         ])->json();
 
         if (empty($recaptchaVerification['success'])) {
-            return response()->json(['error' => 'reCAPTCHA validation failed.'], 422);
+            return response()->json(['error' => __('reCAPTCHA validation failed.')], 422);
         }
     }
 
@@ -243,10 +241,10 @@ public function contact_message(Request $request)
 
     // Check if the reCAPTCHA verification was successful
     // if (!$responseData['success']) {
-    //     return response()->json(['error' => 'reCAPTCHA validation failed.'], 422);
+    //     return response()->json(['error' => __('reCAPTCHA validation failed.')], 422);
     // }
 
-    // return response()->json(['success' => 'reCAPTCHA validated successfully.']);
+    // return response()->json(['success' => __('reCAPTCHA validated successfully.')]);
 
     // Create a new message
     $created_params = $request->only(['name', 'mail', 'subject', 'comments']);
@@ -257,7 +255,7 @@ public function contact_message(Request $request)
 
     // Return a response
     return response()->json([
-        'successMessage' => 'Message created successfully.',
+        'successMessage' => __('Message created successfully.'),
         'created_params' => $created_params,
     ], 201);
 }

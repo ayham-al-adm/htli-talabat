@@ -57,7 +57,7 @@ class FlutterwaveController extends PaymentGatewayController
             }
 
             if($driver->is_subscribed){
-                $this->throwCustomException('Driver already subscribed');
+                $this->throwCustomException(__('Driver already subscribed'));
             }
 
             $vehicle_types = $driver->driverVehicleTypeDetail->pluck('vehicle_type');
@@ -65,7 +65,7 @@ class FlutterwaveController extends PaymentGatewayController
             $plan = Subscription::active()->where('id',$plan_id)->whereIn('vehicle_type_id',$vehicle_types)->first();
 
             if(!$plan){
-                $this->throwCustomException('Subscription is not Valid or Incorrect');
+                $this->throwCustomException(__('Subscription is not Valid or Incorrect'));
             }
         }
 
@@ -83,7 +83,7 @@ class FlutterwaveController extends PaymentGatewayController
             Log::info("Flutterwave checkout Fail");
             $requestBody = $request->all();
             Log::info($requestBody);
-            return $this->respondSuccess($requestBody,'Could not find Payment');
+            return $this->respondSuccess($requestBody,__('Could not find Payment'));
         }elseif($payment->status == "S"){
 
             $request_id = $payment->request_id;

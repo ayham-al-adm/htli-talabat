@@ -71,7 +71,7 @@ class VehicleTypeController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -122,7 +122,7 @@ class VehicleTypeController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Vehicle Type created successfully.',
+            'successMessage' => __('Vehicle Type created successfully.'),
             'vehicleType' => $vehicleType,
         ], 201);
     }
@@ -148,7 +148,7 @@ class VehicleTypeController extends BaseController
 // dd($request);
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -203,7 +203,7 @@ class VehicleTypeController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Vehicle Type updated successfully.',
+            'successMessage' => __('Vehicle Type updated successfully.'),
             'vehicle_type' => $vehicle_type,
         ], 201);
 
@@ -212,7 +212,7 @@ class VehicleTypeController extends BaseController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         if($vehicle_type->zoneType()->exists()){
@@ -221,21 +221,21 @@ class VehicleTypeController extends BaseController
         $vehicle_type->delete();
 
         return response()->json([
-            'successMessage' => 'Vehicle Type deleted successfully',
+            'successMessage' => __('Vehicle Type deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
         VehicleType::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Vehicle Type status updated successfully',
+            'successMessage' => __('Vehicle Type status updated successfully'),
         ]);
 
 

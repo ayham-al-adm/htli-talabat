@@ -80,7 +80,7 @@ class ProfileBackupController extends ApiController
              $validate_exists_mobile = $this->user->belongsTorole(Role::USER)->where('mobile', $mobile)->where('id','!=',$user->id)->exists();
 
         if ($validate_exists_mobile) {
-            $this->throwCustomException('Provided mobile has already been taken');
+            $this->throwCustomException(__('Provided mobile has already been taken'));
         }
 
         }
@@ -115,25 +115,25 @@ class ProfileBackupController extends ApiController
             if ($mobile) {
                 $validate_exists_mobile = $this->user->belongsTorole(Role::DRIVER)->where('mobile', $mobile)->where('id', '!=', $user->id)->exists();
                 if ($validate_exists_mobile) {
-                    $this->throwCustomException('Provided mobile has already been taken');
+                    $this->throwCustomException(__('Provided mobile has already been taken'));
                 }
             }
             if ($email) {
                 $validate_exists_email = $this->user->belongsTorole(Role::DRIVER)->where('email', $email)->where('id', '!=', $user->id)->exists();
                 if ($validate_exists_email) {
-                    $this->throwCustomException('Provided email has already been taken');
+                    $this->throwCustomException(__('Provided email has already been taken'));
                 }
             }
         } else {
             // Handle validation for owners (checking mobile and email)
             $validate_exists_mobile = $this->user->belongsTorole(Role::OWNER)->where('mobile', $mobile)->where('id', '!=', $user->id)->exists();
             if ($validate_exists_mobile) {
-                $this->throwCustomException('Provided mobile has already been taken');
+                $this->throwCustomException(__('Provided mobile has already been taken'));
             }
             if ($email) {
                 $validate_exists_email = $this->user->belongsTorole(Role::OWNER)->where('email', $email)->where('id', '!=', $user->id)->exists();
                 if ($validate_exists_email) {
-                    $this->throwCustomException('Provided email has already been taken');
+                    $this->throwCustomException(__('Provided email has already been taken'));
                 }
             }
         }
@@ -325,11 +325,11 @@ class ProfileBackupController extends ApiController
         $locations = FavouriteLocation::where('user_id',auth()->user()->id)->get()->count();
 
         if($locations==4){
-            $this->throwCustomException('You have reached your limits');
+            $this->throwCustomException(__('You have reached your limits'));
         }
         FavouriteLocation::create($created_params);
 
-        return $this->respondSuccess(null,'address added successfully');
+        return $this->respondSuccess(null,__('address added successfully'));
 
 
 
@@ -345,7 +345,7 @@ class ProfileBackupController extends ApiController
 
         $locations = FavouriteLocation::where('user_id',$user->id)->get();
 
-        return $this->respondSuccess($locations,'address listed successfully');
+        return $this->respondSuccess($locations,__('address listed successfully'));
 
     }
 
@@ -362,7 +362,7 @@ class ProfileBackupController extends ApiController
 
         $favourite_location->delete();
 
-        return $this->respondSuccess(null,'favorite location deleted successfully');
+        return $this->respondSuccess(null,__('favorite location deleted successfully'));
 
 
     }
@@ -391,7 +391,7 @@ class ProfileBackupController extends ApiController
 
         }
 
-        return $this->respondSuccess(null,'bank info updated successfully');
+        return $this->respondSuccess(null,__('bank info updated successfully'));
 
     }
 
@@ -406,7 +406,7 @@ class ProfileBackupController extends ApiController
 
         $bankInfo = $user->bankInfo;
 
-        return response()->json(['success'=>true,'message'=>'bank info listed successfully','data'=>$bankInfo]);
+        return response()->json(['success'=>true,'message'=>__('bank info listed successfully'),'data'=>$bankInfo]);
 
 
     }
@@ -431,7 +431,7 @@ class ProfileBackupController extends ApiController
         {
             if ($user->is_deleted_at!=null)
             {
-                $this->throwCustomException('Your Account Delete operation is Processing');
+                $this->throwCustomException(__('Your Account Delete operation is Processing'));
 
             }else{
           
@@ -442,7 +442,7 @@ class ProfileBackupController extends ApiController
             auth()->user()->delete();
         }
 
-        return response()->json(['success'=>true,'message'=>'User Account deleted successfully']);
+        return response()->json(['success'=>true,'message'=>__('User Account deleted successfully')]);
 
     }
 

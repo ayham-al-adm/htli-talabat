@@ -158,7 +158,7 @@ class StripeController extends BaseController
         ]);
 
 
-        return $this->respondSuccess(null, 'Card saved successfully.');
+        return $this->respondSuccess(null, __('Card saved successfully.'));
 
 
     }
@@ -268,7 +268,7 @@ class StripeController extends BaseController
                 
             } else {
 
-                return $this->respondFailed('Payment failed successfully.');
+                return $this->respondFailed(__('Payment failed successfully.'));
 
                 
             }
@@ -280,7 +280,7 @@ class StripeController extends BaseController
                 return false;
             }
         // Handle failure
-                return $this->respondFailed('Payment failed successfully.');
+                return $this->respondFailed(__('Payment failed successfully.'));
 
         }
 
@@ -317,28 +317,28 @@ class StripeController extends BaseController
                 case 'charge.expired':
                 $paymentIntent = $event->data->object;
 
-                return $this->respondFailed('Payment Expired successfully.');
+                return $this->respondFailed(__('Payment Expired successfully.'));
                         
                 break;
 
                 case 'charge.failed':
                 $paymentIntent = $event->data->object;
-                return $this->respondFailed('Payment failed successfully.');
+                return $this->respondFailed(__('Payment failed successfully.'));
                         
                 break;
                 
 
         }
 
-        return $this->respondSuccess(null, 'Payment Done successfully.');
+        return $this->respondSuccess(null, __('Payment Done successfully.'));
 
 
     }catch (\UnexpectedValueException $e) {
             // Invalid payload
-            return response()->json(['error' => 'Invalid payload'], 400);
+            return response()->json(['error' => __('Invalid payload')], 400);
         } catch (\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
-            return response()->json(['error' => 'Invalid signature'], 400);
+            return response()->json(['error' => __('Invalid signature')], 400);
         }
 
 
@@ -385,7 +385,7 @@ class StripeController extends BaseController
 
         end:
 
-        return $this->respondFailed('Payment failed successfully.');
+        return $this->respondFailed(__('Payment failed successfully.'));
 
 
         

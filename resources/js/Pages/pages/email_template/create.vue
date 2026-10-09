@@ -474,7 +474,7 @@ export default {
                                             <a href="#" style="color: #495057;">Privacy</a>
                                         </li>
                                         <li>
-                                            <a href="#" style="color: #495057;">Web</a>
+                                            <a href="#" style="color: #495057;">{{ $t('web') }}</a>
                                         </li>
                                     </ul>
                                     <div class="row d-flex align-items-center justify-content-center mt-5">

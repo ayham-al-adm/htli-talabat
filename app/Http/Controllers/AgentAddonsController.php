@@ -63,7 +63,7 @@ class AgentAddonsController extends Controller
 
          return response()->json([
                  'success' => true,
-                'message' => 'Module files extracted and stored successfully!',
+                'message' => __('Module files extracted and stored successfully!'),
             ], 201);
 
     }

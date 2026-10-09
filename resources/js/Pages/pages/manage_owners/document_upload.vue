@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Head title="Document Upload" />
+    <Head :title="$t('document_upload')" />
     <PageHeader :title="$t('create')" :pageTitle="$t('document_upload')" pageLink="/manage-owners"/>
     <BRow>
       <BCol lg="12">

@@ -242,7 +242,7 @@ class ManageOwnerController extends BaseController
         $owner->user->update($user_params);
         $owner->update($validated);
         return response()->json([
-            'successMessage' => 'Owner Updated Successfully',
+            'successMessage' => __('Owner Updated Successfully'),
         ],201);
     }
 
@@ -292,7 +292,7 @@ class ManageOwnerController extends BaseController
         $owner->delete();
         $owner->user->delete();
         return response()->json([
-            'successMessage' => 'Owner Deleted Successfully',
+            'successMessage' => __('Owner Deleted Successfully'),
             'serviceLocations' =>ServiceLocation::active()->get(),
         ],201);
     }
@@ -601,7 +601,7 @@ class ManageOwnerController extends BaseController
         $transaction_id = str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
 
         if ($operation === 'subtract' && $owner_wallet->amount_balance < $amount) {
-            return response()->json(['message' => 'Insufficient funds'], 400);
+            return response()->json(['message' => __('Insufficient funds')], 400);
         }
 
 
@@ -631,7 +631,7 @@ class ManageOwnerController extends BaseController
 
         // send mail wallet amount added
         // SendDriverWalletAmountMailNotification::dispatch($driver, $transaction_id, $currency, $amount, $owner_wallet);
-        return response()->json(['message' => 'Amount adjusted successfully', 'transaction_id' => $transaction_id], 200);
+        return response()->json(['message' => __('Amount adjusted successfully'), 'transaction_id' => $transaction_id], 200);
     }
     public function document(Owner $owner) 
     {
@@ -768,7 +768,7 @@ class ManageOwnerController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Owner Document uploaded successfully.',
+            'successMessage' => __('Owner Document uploaded successfully.'),
                 'ownerId'=>$ownerId,
                 'document'=>$document
                 ], 201);
@@ -788,7 +788,7 @@ class ManageOwnerController extends BaseController
         if($neededDoc != $uploadedDoc || $neededDoc = 0){
             return response()->json([
                 'status' => 'failure',
-                'message' => 'Driver document Disapproved.',
+                'message' => __('Driver document Disapproved.'),
                 'data' =>'uploaddocument'
             ]);
         }
@@ -832,7 +832,7 @@ class ManageOwnerController extends BaseController
         }
 
         return response()->json([
-            'successMessage' => 'Owner updated successfully',
+            'successMessage' => __('Owner updated successfully'),
         ]);
     }
     public function approvOwnerDocument($documentId,$ownerId,$status,Request $request)
@@ -844,7 +844,7 @@ class ManageOwnerController extends BaseController
         if (!$ownerDoc) {
             return response()->json([
                 'status' => 'failure',
-                'message' => 'Document not found for the given driver.'
+                'message' => __('Document not found for the given driver.')
             ], 404); // Return a 404 status code for better semantics
         }
 
@@ -915,7 +915,7 @@ class ManageOwnerController extends BaseController
                 // return redirect()->route('manageowners.index');
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Owner document approved successfully.',
+                    'message' => __('Owner document approved successfully.'),
                     'allDocumentsApproved'=>$allDocumentsApproved,
                 ]);
            }
@@ -966,7 +966,7 @@ class ManageOwnerController extends BaseController
                 // return redirect()->route('manageowners.index');
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Owner document disapproved successfully.',
+                    'message' => __('Owner document disapproved successfully.'),
                     'allDocumentsDisapproved'=>$allDocumentsDisapproved
                 ]);
             }
@@ -976,7 +976,7 @@ class ManageOwnerController extends BaseController
     
         // return response()->json([
         //     'status' => 'success',
-        //     'message' => 'Owner document approved successfully.'
+        //     'message' => __('Owner document approved successfully.')
         // ]);
 
 
@@ -989,7 +989,7 @@ class ManageOwnerController extends BaseController
 
          // Handle the case where no document statuses exist
          if ($documentStatuses->isEmpty()) {           
-            return response()->json(['message' => 'No documents found. Update not performed.']);
+            return response()->json(['message' => __('No documents found. Update not performed.')]);
         }
        
         $allDocumentsApproved = $documentStatuses->every(function ($value) {
@@ -1041,7 +1041,7 @@ class ManageOwnerController extends BaseController
 
 
             return response()->json([
-                'successMessage' => 'Owner  Approved successfully',
+                'successMessage' => __('Owner  Approved successfully'),
             ]);
 
         }else{
@@ -1254,7 +1254,7 @@ class ManageOwnerController extends BaseController
         $wallet_withdrawal_request->save();
 
         return response()->json([
-            'successMessage' => 'Owner payment status updated successfully.',
+            'successMessage' => __('Owner payment status updated successfully.'),
         ]);
     }
 
@@ -1286,11 +1286,11 @@ class ManageOwnerController extends BaseController
         // })->find($id);
    
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => __('User not found')], 404);
         }
     
         $user->update(['is_deleted_at' => null,'active'=>1]);
     
-        return response()->json(['message' => 'User restored successfully']);
+        return response()->json(['message' => __('User restored successfully')]);
     }
 }

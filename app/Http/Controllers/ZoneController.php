@@ -105,7 +105,7 @@ class ZoneController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -254,7 +254,7 @@ class ZoneController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // Validate request data
@@ -351,27 +351,27 @@ class ZoneController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $zone->delete();
 
         return response()->json([
-            'successMessage' => 'Zone deleted successfully',
+            'successMessage' => __('Zone deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
         Zone::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Zone status updated successfully',
+            'successMessage' => __('Zone status updated successfully'),
         ]);
 
 

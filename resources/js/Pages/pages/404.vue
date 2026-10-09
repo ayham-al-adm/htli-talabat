@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <Head title="Maintenance" />
+  <Head :title="$t('maintenance')" />
   <div class="auth-page-wrapper pt-5">
     <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
       <div class="bg-overlay"></div>
@@ -27,11 +27,11 @@ export default {
             <div class="text-center mt-sm-5 pt-4">
               <div class="mb-5 text-white-50">
                 <h1 class="display-5 coming-soon-text">
-                  Page Not Found
+                  {{ $t('page_not_found') }}
                 </h1>
                 <!-- <p class="fs-14">Please check back in sometime</p> -->
                 <div class="mt-4 pt-2">
-                  <Link href="/" class="btn btn-success"><i class="mdi mdi-home me-1"></i> Back to Home
+                  <Link href="/" class="btn btn-success"><i class="mdi mdi-home me-1"></i> {{ $t('back_to_home') }}
                   </Link>
                 </div>
               </div>

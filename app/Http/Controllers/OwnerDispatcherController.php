@@ -495,7 +495,7 @@ class OwnerDispatcherController extends StripeController
             no_drivers_available:
         }
 
-        return $this->respondSuccess($request_result, 'Request Created Successfully');
+        return $this->respondSuccess($request_result, __('Request Created Successfully'));
     }
 
 
@@ -760,10 +760,10 @@ class OwnerDispatcherController extends StripeController
                     'request_data' => $request->all(),
                 ]);
             Log::error('Error while Create new schedule request. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
         DB::commit();
 
-        return $this->respondSuccess($request_result, 'Request Scheduled Successfully');
+        return $this->respondSuccess($request_result, __('Request Scheduled Successfully'));
     }
 }

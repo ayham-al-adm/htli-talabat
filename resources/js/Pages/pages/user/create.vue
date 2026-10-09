@@ -9,6 +9,7 @@ import imageUpload from "@/Components/widgets/vehicletypeIcon.vue";
 import { useI18n } from 'vue-i18n';
 import ImageUpload from '@/Components/ImageUpload.vue';
 import FormValidation from "@/Components/FormValidation.vue";
+import { i18nT } from '@/i18n';
 
 export default {
     components: {
@@ -115,7 +116,7 @@ export default {
             for (const key in validationRules) {
                 if (validationRules[key].required && !form[key]) {
                     errors[key] = t('this_field_is_required');
-                    // errors[key] = 'This field is required';
+                    // errors[key] = i18nT('this_field_is_required');
                 }
             }
             return errors;
@@ -243,7 +244,7 @@ export default {
 
 <template>
     <Layout>
-        <Head title="User" />
+        <Head :title="$t('user')" />
         <PageHeader :title="user ? $t('edit') : $t('create')" :pageTitle="$t('user')" pageLink="/users" />
         <BRow>
             <BCol lg="12">
@@ -254,7 +255,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -265,7 +266,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

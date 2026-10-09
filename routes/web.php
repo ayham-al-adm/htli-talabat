@@ -203,7 +203,7 @@ Route::group(['prefix' => 'set-prices', 'middleware' => 'permission:vehicle-fare
     Route::get('/list', [SetPriceController::class, 'list'])->name('setprice.list');
     Route::middleware(['permission:edit-price'])->get('/edit/{id}', [SetPriceController::class, 'edit'])->name('setprice.edit');
     Route::post('/update/{zoneTypePrice}', [SetPriceController::class, 'update'])->name('setprice.update');
-    Route::delete('/delete/{id}', [SetPriceController::class, 'destroy'])->name('setprice.delete');
+    Route::middleware(['permission:delete-price'])->delete('/delete/{id}', [SetPriceController::class, 'destroy'])->name('setprice.delete');
     Route::post('/update-status', [SetPriceController::class, 'updateStatus'])->name('setprice.updateStatus');
 //package-price
     Route::middleware(['permission:add-package-price'])->get('/packages/{zoneType}', [SetPriceController::class, 'packageIndex'])->name('setprice.packageIndex');
@@ -1006,7 +1006,12 @@ Route::group(['prefix' => 'incentives', 'middleware' => 'permission:incentives']
 
 
 
-    Route::post('/set-locale', function (Request $request) {session(['selectedLocale' => $request->locale]);
+    Route::post('/set-locale', function (Request $request) {
+        $locale = \App\Support\Locale::normalize($request->locale);
+        if (!$locale) {
+            return response()->json(['status' => 'failed'], 422);
+        }
+        \Illuminate\Support\Facades\Cookie::queue(\App\Support\Locale::COOKIE, $locale, 60 * 24 * 365, '/', null, null, false, false, 'Lax');
         return response()->json(['status' => 'success']);
     });
 

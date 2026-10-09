@@ -97,6 +97,7 @@
  </template>
  
  <script>
+import { i18nT } from '@/i18n';
  import { useForm } from '@inertiajs/vue3';
  import Swal from "sweetalert2";
  import axios from 'axios';
@@ -153,14 +154,14 @@
        })
          .then(response => {
            Swal.fire({
-             title: 'Success!',
+             title: i18nT('success'),
              text: 'Profile updated successfully.',
              icon: 'success',
            });
          })
          .catch(error => {
            Swal.fire({
-             title: 'Error!',
+             title: i18nT('error'),
              text: 'There was an error updating your profile.',
              icon: 'error',
            });
@@ -170,8 +171,8 @@
        // Check if password matches confirm password
        if (this.form.password !== this.form.confirm_password) {
          Swal.fire({
-           title: 'Error!',
-           text: 'Passwords do not match!',
+           title: i18nT('error'),
+           text: i18nT('passwords_do_not_match'),
            icon: 'error',
          });
          return;
@@ -184,7 +185,7 @@
        })
        .then(response => {
          Swal.fire({
-           title: 'Success!',
+           title: i18nT('success'),
            text: 'Password updated successfully!',
            icon: 'success',
          });
@@ -193,7 +194,7 @@
        })
        .catch(error => {
          Swal.fire({
-           title: 'Error!',
+           title: i18nT('error'),
            text: error.response.data.message || 'An error occurred.',
            icon: 'error',
          });

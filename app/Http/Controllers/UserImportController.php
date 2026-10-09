@@ -87,7 +87,7 @@ class UserImportController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Import completed',
+            'message' => __('Import completed'),
         ],201);
     }
     public function downloadInvalidFile($id)
@@ -156,7 +156,7 @@ class UserImportController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Import completed',
+            'message' => __('Import completed'),
         ],201);
     }
 

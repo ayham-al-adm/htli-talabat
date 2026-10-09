@@ -36,7 +36,7 @@ class RentalPackageTypeController extends Controller
 
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
          // Validate the incoming request
@@ -53,7 +53,7 @@ class RentalPackageTypeController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Package Type created successfully.',
+            'successMessage' => __('Package Type created successfully.'),
             'packageType' => $packageType,
         ], 201);
     }
@@ -70,7 +70,7 @@ class RentalPackageTypeController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($packageType);
@@ -79,7 +79,7 @@ class RentalPackageTypeController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Package Type created successfully.',
+            'successMessage' => __('Package Type created successfully.'),
             'packageType' => $packageType,
         ], 201);    
     }
@@ -87,27 +87,27 @@ class RentalPackageTypeController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $packageType->delete();
 
         return response()->json([
-            'successMessage' => 'Package Type deleted successfully',
+            'successMessage' => __('Package Type deleted successfully'),
         ]);
     }  
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
         PackageType::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Package Type status updated successfully',
+            'successMessage' => __('Package Type status updated successfully'),
         ]);
 
 

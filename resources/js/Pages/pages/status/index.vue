@@ -1,7 +1,7 @@
 <template>
     <div class="flex mb-4 place-content-end">
         <div class="px-4 py-2 bg-indigo-600 cursor-pointer hover:bg-indigo-700 text-white">
-            <Link href="/status/create" class="text-sm font-medium">Add new Status</Link>
+            <Link href="/status/create" class="text-sm font-medium">{{ $t('add_new_status') }}</Link>
         </div>
     </div>
     <div class="min-w-full overflow-hidden overflow-x-auto align-middle sm:rounded-md">
@@ -10,11 +10,11 @@
                 <tr>
                     <th class="px-6 py-3 bg-gray-50">
                         <span
-                            class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase">Name</span>
+                            class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase">{{ $t('name') }}</span>
                     </th>
                     <th class="px-6 py-3 bg-gray-50">
                         <span
-                            class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase">Options</span>
+                            class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase">{{ $t('options') }}</span>
                     </th>
                 </tr>
             </thead>
@@ -26,7 +26,7 @@
                         <td class="px-6 py-4 text-sm leading-5 text-center text-grey-900 whitespace-no-wrap">
                             <Link :href="`/status/show/${item.id}`"
                                 class="px-4 py-2 rounded-md border border-transparent bg-indigo-600 cursor-pointer hover:bg-indigo-700 text-white">
-                            Show</Link>
+                            {{ $t('show') }}</Link>
 
                             <!-- <router-link :to="{ name: 'status.edit', params: { id: item.id } }"
                                 class="px-4 py-2 rounded-md border border-transparent bg-indigo-600 cursor-pointer hover:bg-indigo-700 text-white">Edit</router-link>

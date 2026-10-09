@@ -199,7 +199,7 @@ export default {
 
 <template>
     <Layout>
-        <Head title="Food Request Details" />
+        <Head :title="$t('food_request_details')" />
         <PageHeader :title="$t('food_request_details')" :pageTitle="$t('food_requests')" />
 
         <BRow>
@@ -242,7 +242,7 @@ export default {
                                             'text-bg-danger': rideStatus(request) === 'Cancelled',
                                             'text-bg-info': rideStatus(request) === 'On Trip',
                                             'text-bg-warning': rideStatus(request) === 'Upcoming' || rideStatus(request) === 'Driver Arrived' || rideStatus(request) === 'Searching',
-                                        }">{{ rideStatus(request) }}</BBadge>
+                                        }">{{ $st(rideStatus(request)) }}</BBadge>
                                     </p>
                                 </div>
                                 <div class="mb-3">
@@ -252,7 +252,7 @@ export default {
                                             'text-uppercase':true,
                                             'text-bg-success': request.is_paid,
                                             'text-bg-danger': !request.is_paid,
-                                        }">{{ request.payment_opt == 1 ? 'Cash' : (request.payment_opt == 2 ? 'Wallet' : 'Card') }}</BBadge>
+                                        }">{{ $t(request.payment_opt == 1 ? 'cash' : (request.payment_opt == 2 ? 'wallet' : 'card')) }}</BBadge>
                                     </p>
                                 </div>
                                 <div class="mb-3">

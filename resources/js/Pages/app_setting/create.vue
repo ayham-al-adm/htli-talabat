@@ -15,7 +15,7 @@
                         <label for="name" class="form-label">{{$t("name")}}
                           <span class="text-danger">*</span>
                         </label>
-                        <input type="text" class="form-control" placeholder="Enter Name" id="name" v-model="form.name" required />
+                        <input type="text" class="form-control" :placeholder="$t('enter_name')" id="name" v-model="form.name" required />
                         <span v-for="(error, index) in errors.name" :key="index" class="text-danger">{{ error }}</span>
                       </div>
                     </div>
@@ -111,14 +111,14 @@
       <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
         </div>
       </div>
       <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert" id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
         </div>
       </div>

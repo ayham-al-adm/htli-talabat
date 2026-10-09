@@ -290,64 +290,6 @@ export default {
             </div>
         </section>
 
-        <section class="food-section" id="food-section">
-            <div class="container">
-                <div class="food-how-it-works">
-                    <div class="section-header" data-aos="fade-up">
-                        <h3>{{ $t('landing_page.how_food_delivery_works') }}</h3>
-                    </div>
-
-                    <div class="food-steps">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3 col-md-6" data-aos="fade-right" data-aos-delay="100">
-                                <div class="food-step">
-                                    <div class="step-number">1</div>
-                                    <div class="step-icon">
-                                        <i class="ri-search-line"></i>
-                                    </div>
-                                    <h5>{{ $t('landing_page.browse_restaurants') }}</h5>
-                                    <p>{{ $t('landing_page.browse_restaurants_desc') }}</p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6" data-aos="fade-right" data-aos-delay="200">
-                                <div class="food-step">
-                                    <div class="step-number">2</div>
-                                    <div class="step-icon">
-                                        <i class="ri-shopping-cart-2-line"></i>
-                                    </div>
-                                    <h5>{{ $t('landing_page.place_order') }}</h5>
-                                    <p>{{ $t('landing_page.place_order_desc') }}</p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6" data-aos="fade-right" data-aos-delay="300">
-                                <div class="food-step">
-                                    <div class="step-number">3</div>
-                                    <div class="step-icon">
-                                        <i class="ri-truck-line"></i>
-                                    </div>
-                                    <h5>{{ $t('landing_page.track_delivery') }}</h5>
-                                    <p>{{ $t('landing_page.track_delivery_desc') }}</p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6" data-aos="fade-right" data-aos-delay="400">
-                                <div class="food-step">
-                                    <div class="step-number">4</div>
-                                    <div class="step-icon">
-                                        <i class="ri-restaurant-line"></i>
-                                    </div>
-                                    <h5>{{ $t('landing_page.enjoy_food') }}</h5>
-                                    <p>{{ $t('landing_page.enjoy_food_desc') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                            </div>
-        </section>
 
         <!-- App Download -->
         <section class="app-download" id="app-download">

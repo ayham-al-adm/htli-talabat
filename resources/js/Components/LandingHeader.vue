@@ -8,6 +8,7 @@ import "swiper/css/autoplay";
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import logo from "@/assets/images/logo.png";
+import { persistLocale } from '@/common/locale';
 
 export default {
 
@@ -82,17 +83,10 @@ export default {
             this.isCollapsed = false;
         },
 
-        changeLocale(event) {
-            const localeId = event.target.value;
-            this.selectedLocale = this.locales[localeId];
-            localStorage.setItem('locale', this.selectedLocale.toLowerCase());
-            window.location.href = `?locale=${this.selectedLocale.toLowerCase()}`;
-        },
-
         changeLocale(locale) {
             this.selectedLocale = locale;
-            localStorage.setItem('locale', this.selectedLocale.toLowerCase());
-            window.location.href = `?locale=${this.selectedLocale.toLowerCase()}`;
+            persistLocale(locale);
+            window.location.href = `?locale=${String(locale).toLowerCase()}`;
         },
 
         headerLogoUrl() {
@@ -105,7 +99,7 @@ export default {
 
         // Method to handle scroll events and update active section
         handleScroll() {
-            const sections = ['hero', 'features', 'services', 'food-section', 'app-download', 'service-area'];
+            const sections = ['hero', 'features', 'services', 'app-download', 'service-area'];
             const navbarHeight = 80;
             const scrollPosition = window.pageYOffset + navbarHeight + 100; // Add some offset for better UX
 
@@ -184,9 +178,6 @@ export default {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" @click.prevent="smoothScroll('services')" :class="{ 'active': activeSection === 'services' }">{{ $t('landing_page.why_htli') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" @click.prevent="smoothScroll('food-section')" :class="{ 'active': activeSection === 'food-section' }">{{ $t('landing_page.food_delivery') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" @click.prevent="smoothScroll('app-download')" :class="{ 'active': activeSection === 'app-download' }">{{ $t('landing_page.download') }}</a>

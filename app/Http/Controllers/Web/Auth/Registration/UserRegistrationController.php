@@ -78,7 +78,7 @@ class UserRegistrationController extends LoginController
             return $this->authenticateAndRespond($user, $request);
         }
 
-        return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+        return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
 
     }
 }

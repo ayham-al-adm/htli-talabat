@@ -299,7 +299,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="Manage LandingSite-Driver" />
+    <Head :title="$t('manage_landingsite_driver')" />
     <PageHeader :title="landingDriver ? $t('edit') : $t('create')" :pageTitle="$t('landing_driver')" pageLink="/landing-driver"/>
     <BRow>
         <BCard v-if="app_for === 'demo'" no-body id="tasksList">
@@ -316,7 +316,7 @@ export default {
               <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
                 <div class="alert-content">
                   <i class="ri-notification-off-line me-3 align-middle"></i>
-                  <strong>Success</strong> - {{ successMessage }}
+                  <strong>{{ $t('success') }}</strong> - {{ successMessage }}
                   <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
                 </div>
               </div>
@@ -324,7 +324,7 @@ export default {
               <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert" id="alertMsg">
                 <div class="alert-content">
                   <i class="ri-notification-off-line me-3 align-middle"></i>
-                  <strong>Alert</strong> - {{ alertMessage }}
+                  <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
                   <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
                 </div>
               </div>
@@ -422,7 +422,7 @@ export default {
                       <label for="driver_title_2" class="form-label">{{$t("driver_title_2")}}
                         <span class="text-danger">*</span>
                       </label>
-                      <input :readonly="app_for === 'demo'" type="text" class="form-control" placeholder="Enter Hero Title" id="driver_title_2" v-model="form.driver_title_2" />
+                      <input :readonly="app_for === 'demo'" type="text" class="form-control" :placeholder="$t('enter_hero_title')" id="driver_title_2" v-model="form.driver_title_2" />
                       <span v-for="(error, index) in errors.driver_title_2" :key="index" class="text-danger">
                         {{ error }}
                       </span>
@@ -452,7 +452,7 @@ export default {
                       <label for="driver_title_3" class="form-label">{{$t("driver_title_3")}}
                         <span class="text-danger">*</span>
                       </label>
-                      <input :readonly="app_for === 'demo'" type="text" class="form-control" placeholder="Enter Hero Title" id="driver_title_3" v-model="form.driver_title_3" />
+                      <input :readonly="app_for === 'demo'" type="text" class="form-control" :placeholder="$t('enter_hero_title')" id="driver_title_3" v-model="form.driver_title_3" />
                       <span v-for="(error, index) in errors.driver_title_3" :key="index" class="text-danger">
                         {{ error }}
                       </span>
@@ -588,7 +588,7 @@ export default {
                       <label for="how_it_work_title_4" class="form-label">{{$t("how_it_work_title_4")}}
                         <span class="text-danger">*</span>
                       </label>
-                      <input :readonly="app_for === 'demo'" type="text" class="form-control" placeholder="Enter Hero Title" id="how_it_work_title_4" v-model="form.how_it_work_title_4" />
+                      <input :readonly="app_for === 'demo'" type="text" class="form-control" :placeholder="$t('enter_hero_title')" id="how_it_work_title_4" v-model="form.how_it_work_title_4" />
                       <span v-for="(error, index) in errors.how_it_work_title_4" :key="index" class="text-danger">
                         {{ error }}
                       </span>

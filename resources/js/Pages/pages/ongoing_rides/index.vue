@@ -297,14 +297,14 @@ export default {
                                                 'text-bg-danger': rideStatus(result) === 'Cancelled',
                                                 'text-bg-info': rideStatus(result) === 'On Trip',
                                                 'text-bg-warning': rideStatus(result) === 'Upcoming' || rideStatus(result) === 'Driver Arrived' || rideStatus(result) === 'Searching',
-                                            }">{{ rideStatus(result) }} </BBadge>
+                                            }">{{ $st(rideStatus(result)) }} </BBadge>
                                         </td>
                                         <td>
                                             <BBadge :class="{
                                                 'text-uppercase':true,
                                                 'text-bg-success': result.is_paid,
                                                 'text-bg-danger': !result.is_paid,
-                                                }">{{ result.payment_opt == 1 ? 'Cash' : (result.payment_opt == 2 ? 'Wallet' : 'Card') }} </BBadge>
+                                                }">{{ $t(result.payment_opt == 1 ? 'cash' : (result.payment_opt == 2 ? 'wallet' : 'card')) }} </BBadge>
                                         </td>
                                         <td>
                                             <div class="dropdown">
@@ -346,7 +346,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -357,7 +357,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

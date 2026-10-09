@@ -721,5 +721,6 @@
             "verifyEmailId": "Verify your email id",
             "pleaseAddAddress": "Please add address",
             "verifyEmailText": "Verify Email",
-            "downloadInvoice": "Download Invoice"
-        }
+            "downloadInvoice": "Download Invoice",
+            "kmAway": "km away"
+}

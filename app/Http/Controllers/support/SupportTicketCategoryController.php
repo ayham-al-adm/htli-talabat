@@ -76,7 +76,7 @@ class SupportTicketCategoryController extends BaseController
 // dd($category);
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'category created successfully.',
+            'successMessage' => __('category created successfully.'),
             'category' => $category,
         ], 201);
     }
@@ -106,7 +106,7 @@ class SupportTicketCategoryController extends BaseController
 
             // Optionally, return a response
             return response()->json([
-                'successMessage' => 'Category updated successfully.',
+                'successMessage' => __('Category updated successfully.'),
                 'category' => $category,
             ], 201);
 
@@ -116,7 +116,7 @@ class SupportTicketCategoryController extends BaseController
     {
         $category->delete();
         return response()->json([
-            'successMessage' => 'category deleted successfully',
+            'successMessage' => __('category deleted successfully'),
         ]);
     }   
 

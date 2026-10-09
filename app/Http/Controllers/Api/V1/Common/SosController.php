@@ -54,7 +54,7 @@ class SosController extends BaseController
                     ->count();
 
         if ($sos == 4) {
-            $this->throwCustomException('You cant able to add more than 4 contacts');
+            $this->throwCustomException(__('You cant able to add more than 4 contacts'));
         }
 
         $sos =  Sos::where('created_by', auth()->user()->id)
@@ -62,7 +62,7 @@ class SosController extends BaseController
                 ->first();
 
         if ($sos) {
-            $this->throwCustomException('Already added this Number');
+            $this->throwCustomException(__('Already added this Number'));
         }
 
         $sos = new Sos;

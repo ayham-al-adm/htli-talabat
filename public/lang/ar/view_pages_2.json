@@ -1,7 +1,7 @@
 {
     "user_details": "تفاصيل المستخدم",
     "bill_details": "تفاصيل الفاتورة",
-    "title": "عنوان",
+    "title": "العنوان",
     "price": "سعر",
     "for_first": "لأول مرة",
     "km": "كم",
@@ -18,7 +18,7 @@
     "rejected": "مرفوض",
     "accepted": "مقبول",
     "ride_started": "بدأت الرحلة",
-    "searching": "جاري البحث...",
+    "searching": "جارٍ البحث...",
     "yet_to_search": "لم يتم البحث بعد...",
     "delivery_ride_request": "طلب توصيل",
     "download_customer_invoice": "تنزيل فاتورة العميل",
@@ -451,5 +451,10 @@
     "outstation": "محطة خارجية",
     "bidding": "المزايدة",
     "show_delivery_outstation_ride_feature": "عرض ميزة توصيل الرحلات خارج المحطة",
-    "return_time": "وقت العودة"
+    "return_time": "وقت العودة",
+    "default_country_code_for_mobile_app": "رمز الدولة الافتراضي لتطبيق الجوال (مثال: الهند هي IN)",
+    "maximum_time_for_find_drivers_for_bitting_ride": "الحد الأقصى لوقت قبول/رفض السائقين لرحلة المزايدة بالثواني",
+    "enter_maximum_time_for_find_drivers_for_bitting_ride": "أدخل الحد الأقصى لوقت قبول/رفض السائقين لرحلة المزايدة بالثواني",
+    "minimum_time_for_starting_trip_drivers_for_schedule_ride": "أدخل الحد الأدنى للوقت (بالدقائق) قبل الموعد المجدول لبدء الرحلة تلقائياً عند قبول السائق لها",
+    "enter_minimum_time_for_starting_trip_drivers_for_schedule_ride": "أدخل الحد الأدنى للوقت لبدء السائق الرحلة تلقائياً عند قبول الرحلة المجدولة بالدقائق"
 }

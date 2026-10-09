@@ -162,7 +162,7 @@ class UserController extends BaseController
         }
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'user created successfully.',
+            'successMessage' => __('user created successfully.'),
             'user' => $user,
         ], 201);
     }
@@ -252,7 +252,7 @@ class UserController extends BaseController
 
             // Optionally, return a response
             return response()->json([
-                'successMessage' => 'User updated successfully.',
+                'successMessage' => __('User updated successfully.'),
                 'user' => $user,
             ], 201);
 
@@ -284,7 +284,7 @@ class UserController extends BaseController
             // $user->update($updated_params);
 // dd($updated_params);
             return response()->json([
-                'successMessage' => 'Password updated successfully.',
+                'successMessage' => __('Password updated successfully.'),
                 'user' => $user,
             ], 201);
         }
@@ -325,7 +325,7 @@ class UserController extends BaseController
             $user->update(['active'=> $request->status]);
 
             return response()->json([
-                'successMessage' => 'User status updated successfully',
+                'successMessage' => __('User status updated successfully'),
             ]);
 
 
@@ -343,7 +343,7 @@ class UserController extends BaseController
         }
 
         return response()->json([
-            'successMessage' => 'User deleted successfully',
+            'successMessage' => __('User deleted successfully'),
         ]);
     }
 
@@ -406,7 +406,7 @@ class UserController extends BaseController
         $transaction_id = str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
 
         if ($operation === 'subtract' && $user_wallet->amount_balance < $amount) {
-            return response()->json(['message' => 'Insufficient funds'], 400);
+            return response()->json(['message' => __('Insufficient funds')], 400);
         }
 
 
@@ -434,7 +434,7 @@ class UserController extends BaseController
 
         SendWalletAmountMailNotification::dispatch($user, $transaction_id, $currency, $amount, $user_wallet);
 
-        return response()->json(['message' => 'Amount adjusted successfully', 'transaction_id' => $transaction_id], 200);
+        return response()->json(['message' => __('Amount adjusted successfully'), 'transaction_id' => $transaction_id], 200);
     }
 // deletedUser
     public function deletedUser()
@@ -498,7 +498,7 @@ class UserController extends BaseController
 // dd($updated_params);
         $user = auth()->user()->update($updated_params);
 
-        return response()->json(['message' => 'Password Updated successfully'], 200);
+        return response()->json(['message' => __('Password Updated successfully')], 200);
 
 
     }
@@ -529,7 +529,7 @@ class UserController extends BaseController
 
         $request->session()->regenerate();
 
-        return response()->json(['message' => 'Password Updated successfully'], 200);
+        return response()->json(['message' => __('Password Updated successfully')], 200);
 
     }
     public function requestList(QueryFilterContract $queryFilter,  User $user)
@@ -564,12 +564,12 @@ class UserController extends BaseController
         $user = User::withTrashed()->find($id);
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => __('User not found')], 404);
         }
 
         $user->update(['is_deleted_at' => null,'active'=>1]);
 
-        return response()->json(['message' => 'User restored successfully']);
+        return response()->json(['message' => __('User restored successfully')]);
     }
 
     // public function dashboard()

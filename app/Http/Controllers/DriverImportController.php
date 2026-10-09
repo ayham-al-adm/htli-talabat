@@ -110,7 +110,7 @@ class DriverImportController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Import completed',
+            'message' => __('Import completed'),
         ],201);
     }
 
@@ -178,7 +178,7 @@ class DriverImportController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Import completed',
+            'message' => __('Import completed'),
         ],201);
     }
 

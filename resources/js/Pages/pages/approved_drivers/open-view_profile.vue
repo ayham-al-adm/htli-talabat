@@ -755,7 +755,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Driver Profile" />
+        <Head :title="$t('driver_profile')" />
         <PageHeader :title="$t('driver_profile')" :pageTitle="$t('driver_profile')" pageLink="/approved-drivers"/>
         <BRow>
             <BCol lg="12">
@@ -1300,15 +1300,15 @@ export default {
                                                         <td>{{ request.converted_created_at }}</td>
                                                         <td>{{ request.user_name }}</td>
                                                         <td>{{ request.driver_name }}</td>
-                                                        <td>{{ request.trip_status }}</td>
-                                                        <td>{{ request.trip_payment }}</td>
+                                                        <td>{{ $st(request.trip_status) }}</td>
+                                                        <td>{{ $st(request.trip_payment) }}</td>
                                                         <!-- <td>{{ request.payment_opt }}</td>  -->
                                                         <td>
                                                             <BBadge :class="{
                                                                 'text-uppercase':true,
                                                                 'text-bg-success': request.is_paid,
                                                                 'text-bg-danger': !request.is_paid,
-                                                                }">{{ request.payment_opt == 1 ? 'Cash' : (request.payment_opt == 2 ? 'Wallet' : 'Card') }} </BBadge>
+                                                                }">{{ $t(request.payment_opt == 1 ? 'cash' : (request.payment_opt == 2 ? 'wallet' : 'card')) }} </BBadge>
                                                         </td>                                       
                                                         <!-- <td>
                                                             <div class="dropdown">
@@ -1746,11 +1746,11 @@ export default {
                                                         <td>{{ document.comment || 'N/A' }}</td>
                                                         <td>
                                                             <BButton class="btn btn-soft-info btn-sm m-2" size="sm"data-bs-toggle="tooltip" v-b-tooltip.hover
-                                                            title="view" @click="viewDocument(document)">
+                                                            :title="$t('view')" @click="viewDocument(document)">
                                                                 <i class="bx bx-show-alt align-center"></i>
                                                             </BButton>
                                                             <BButton class="btn btn-soft-success btn-sm m-2" size="sm" data-bs-toggle="tooltip" v-b-tooltip.hover
-                                                            title="upload" :href="`/approved-drivers/document-upload/${document.id}/${driver.id}`">
+                                                            :title="$t('upload')" :href="`/approved-drivers/document-upload/${document.id}/${driver.id}`">
                                                                 <i class="bx bx-upload align-center"></i>
                                                             </BButton>
                                                         </td>                                        
@@ -1833,11 +1833,11 @@ export default {
                                                             </div>
                                                             <a class="carousel-control-prev bg-dark" style="height:30px"  href="#carouselExampleFade" role="button" data-bs-slide="prev">
                                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                                <span class="sr-only">Previous</span>
+                                                                <span class="sr-only">{{ $t('previous') }}</span>
                                                             </a>
                                                             <a class="carousel-control-next bg-dark" style="height:30px" href="#carouselExampleFade" role="button" data-bs-slide="next">
                                                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                                <span class="sr-only">Next</span>
+                                                                <span class="sr-only">{{ $t('next') }}</span>
                                                             </a>
                                                         </div>
 
@@ -1960,7 +1960,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -1971,7 +1971,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

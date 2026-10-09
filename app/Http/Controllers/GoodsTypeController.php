@@ -31,7 +31,7 @@ class GoodsTypeController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
@@ -60,7 +60,7 @@ class GoodsTypeController extends Controller
         $goodsType->save();
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Goods Type created successfully.',
+            'successMessage' => __('Goods Type created successfully.'),
             'goodsType' => $goodsType,
         ], 201);
     }
@@ -81,7 +81,7 @@ class GoodsTypeController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
          // Validate the incoming request
@@ -109,7 +109,7 @@ class GoodsTypeController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Goods Type updated successfully.',
+            'successMessage' => __('Goods Type updated successfully.'),
             'goodsType' => $goodsType,
         ], 201);
 
@@ -118,27 +118,27 @@ class GoodsTypeController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $goodsType->delete();
 
         return response()->json([
-            'successMessage' => 'Goods Type deleted successfully',
+            'successMessage' => __('Goods Type deleted successfully'),
         ]);
     }   
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // dd($request->all());
         GoodsType::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Goods Type status updated successfully',
+            'successMessage' => __('Goods Type status updated successfully'),
         ]);
 
 

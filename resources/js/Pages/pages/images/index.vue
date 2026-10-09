@@ -15,6 +15,7 @@ import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import { i18nT } from '@/i18n';
 
 export default {
     data() {
@@ -98,11 +99,11 @@ export default {
             const validationRules = {
                 name: {
                     test: () => !name,
-                    message: 'Role name is required'
+                    message: i18nT('role_name_is_required')
                 },
                 description: {
                     test: () => !description,
-                    message: 'Role description is required'
+                    message: i18nT('role_description_is_required')
                 },
             };
 
@@ -181,13 +182,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -258,8 +259,8 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Image" />
-        <PageHeader title="Image" pageTitle="Image" />
+        <Head :title="$t('image')" />
+        <PageHeader :title="$t('image')" pageTitle="Image" />
         <BRow>
             <BCol lg="12">
                 <BCard no-body id="tasksList">
@@ -273,12 +274,12 @@ export default {
                                 <div class="d-flex align-items-center gap-2">
                                     <searchbar></searchbar>
                                     <BButton variant="danger" @click="rightOffcanvas = true"><i
-                                            class="ri-filter-2-line me-1 align-bottom"></i> Filters</BButton>
+                                            class="ri-filter-2-line me-1 align-bottom"></i> {{ $t('filters') }}</BButton>
 
                                 
                                 <Link :href="`/images/create`">
                                     <BButton variant="primary" class="float-end"> <i
-                                            class="ri-add-line align-bottom me-1"></i> Add Image</BButton>
+                                            class="ri-add-line align-bottom me-1"></i> {{ $t('add_image') }}</BButton>
                                     </Link>
                                 </div>
                             </BCol>
@@ -290,11 +291,11 @@ export default {
                             <table class="table align-middle position-relative table-nowrap">
                                 <thead class="table-active">
                                     <tr>
-                                        <th scope="col">S.no</th>
-                                        <th scope="col">Vehicle Make Name</th>
-                                        <th scope="col">Vehicle Image</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">{{ $t('s_no') }}</th>
+                                        <th scope="col">{{ $t('vehicle_make_name') }}</th>
+                                        <th scope="col">{{ $t('vehicle_image') }}</th>
+                                        <th scope="col">{{ $t('status') }}</th>
+                                        <th scope="col">{{ $t('action') }}</th>
                                     </tr>
                                 </thead>
 
@@ -304,7 +305,7 @@ export default {
                                         <td> Audi</td>
                                         <td> <img src="@assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle me-2"></td>
                                         <td><BBadge variant="success"
-                                                class="text-uppercase">Active</BBadge>
+                                                class="text-uppercase">{{ $t('active') }}</BBadge>
                                         </td>
                                         <td>
                                             <div class="hstack gap-2">
@@ -324,7 +325,7 @@ export default {
                                         <td> BMW</td>
                                         <td> <img src="@assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle me-2"></td>
                                         <td><BBadge variant="danger"
-                                                class="text-uppercase">Inactive</BBadge>
+                                                class="text-uppercase">{{ $t('inactive') }}</BBadge>
                                         </td>
                                         <td>
                                             <div class="hstack gap-2">
@@ -354,7 +355,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -365,7 +366,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>
@@ -375,51 +376,51 @@ export default {
 
         <!-- Create or Edit Form Modal -->
 <!-- filter -->
-        <BOffcanvas v-model="rightOffcanvas" placement="end" title="Leads Filters" header-class="bg-light"
+        <BOffcanvas v-model="rightOffcanvas" placement="end" :title="$t('leads_filters')" header-class="bg-light"
               body-class="p-0 overflow-hidden" footer-class="border-top p-3 text-center">
               <BFrom action="" class="d-flex flex-column justify-content-end h-100">
                 <div class="offcanvas-body">
                   <div class="mb-4">
                     <label for="datepicker-range"
-                      class="form-label text-muted text-uppercase fw-semibold mb-3">Process</label>
+                      class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('process') }}</label>
                     <select class="form-control" data-choices data-choices-search-false name="choices-select-status"
                         id="choices-select-status" v-model="status">
-                        <option value="All Tasks">All</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Inprogress">Inprogress</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Pending">Cancelled</option>
+                        <option value="All Tasks">{{ $t('all') }}</option>
+                        <option value="Completed">{{ $t('completed') }}</option>
+                        <option value="Inprogress">{{ $t('inprogress') }}</option>
+                        <option value="Pending">{{ $t('pending') }}</option>
+                        <option value="Pending">{{ $t('cancelled') }}</option>
                     </select>
                   </div>
 
                   <div class="mb-4">
                     <label for="datepicker-range"
-                      class="form-label text-muted text-uppercase fw-semibold mb-3">Payment</label>
+                      class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('payment') }}</label>
                         <div>
                             <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="WithoutinlineRadio1" value="option1">
-                            <label class="form-check-label" for="inlineRadio1">Online</label>
+                            <label class="form-check-label" for="inlineRadio1">{{ $t('online') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="WithoutinlineRadio2" value="option2">
-                            <label class="form-check-label" for="inlineRadio1">Card</label>
+                            <label class="form-check-label" for="inlineRadio1">{{ $t('card') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="WithoutinlineRadio3" value="option3">
-                            <label class="form-check-label" for="inlineRadio1">Cash</label>
+                            <label class="form-check-label" for="inlineRadio1">{{ $t('cash') }}</label>
                             </div>
                         </div>
                     </div>
                   <div class="mb-4">
                     <label for="datepicker-range"
-                      class="form-label text-muted text-uppercase fw-semibold mb-3">Date</label>
-                    <flat-pickr placeholder="Select date" v-model="date" :config="rangeDateconfig"
+                      class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('date') }}</label>
+                    <flat-pickr :placeholder="$t('select_date')" v-model="date" :config="rangeDateconfig"
                       class="form-control flatpickr-input" id="demo-datepicker"></flat-pickr>
                   </div>
                   
                   <div class="mb-4">
                     <label for="country-select"
-                      class="form-label text-muted text-uppercase fw-semibold mb-3">Country</label>
+                      class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('country') }}</label>
 
                     <Multiselect class="form-control" v-model="value" :close-on-select="true" :searchable="true"
                       :create-option="true" :options="[
@@ -440,30 +441,30 @@ export default {
                   </div>
                   <div class="mb-4">
                     <label for="status-select"
-                      class="form-label text-muted text-uppercase fw-semibold mb-3">Status</label>
+                      class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('status') }}</label>
                     <BRow class="g-2">
                       <BCol lg="6">
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                          <label class="form-check-label" for="inlineCheckbox1">Active</label>
+                          <label class="form-check-label" for="inlineCheckbox1">{{ $t('active') }}</label>
                         </div>
                       </BCol>
                       <BCol lg="6">
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
-                          <label class="form-check-label" for="inlineCheckbox2">Inactive</label>
+                          <label class="form-check-label" for="inlineCheckbox2">{{ $t('inactive') }}</label>
                         </div>
                       </BCol>
                       <BCol lg="6">
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" />
-                          <label class="form-check-label" for="inlineCheckbox3">Cash</label>
+                          <label class="form-check-label" for="inlineCheckbox3">{{ $t('cash') }}</label>
                         </div>
                       </BCol>
                       <BCol lg="6">
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4" />
-                          <label class="form-check-label" for="inlineCheckbox4">Card</label>
+                          <label class="form-check-label" for="inlineCheckbox4">{{ $t('card') }}</label>
                         </div>
                       </BCol>
                     </BRow>
@@ -473,9 +474,9 @@ export default {
                 </div>
                 <!--end offcanvas-body-->
                 <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
-                  <BButton variant="light" class="w-100">Clear Filter</BButton>
+                  <BButton variant="light" class="w-100">{{ $t('clear_filter') }}</BButton>
                   <BButton type="submit" variant="success" class="w-100">
-                    Apply
+                    {{ $t('apply') }}
                   </BButton>
                 </div>
                 <!--end offcanvas-footer-->

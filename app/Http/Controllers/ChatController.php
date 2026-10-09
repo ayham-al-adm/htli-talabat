@@ -95,7 +95,7 @@ class ChatController extends Controller
         $this->database->getReference('conversation/'.$request->conversationId)->set($chat);
 
         return response()->json([
-            'successMessage' => 'message Sended successfully',
+            'successMessage' => __('message Sended successfully'),
         ]);
    }
    public function closeChat(Request $request)
@@ -108,7 +108,7 @@ class ChatController extends Controller
         // dd($conversations);
 
         return response()->json([
-            'successMessage' => 'Conversation Closed successfully',
+            'successMessage' => __('Conversation Closed successfully'),
         ]);
    }
 
@@ -118,7 +118,7 @@ class ChatController extends Controller
         $user = User::find($request->user_id);
         if(!$user){
             return response()->json([
-                'message' => 'Conversation Closed successfully',
+                'message' => __('Conversation Closed successfully'),
             ],403);
         }
         $user_id = $user->id;   
@@ -178,7 +178,7 @@ class ChatController extends Controller
         $this->database->getReference('conversation/readMark')->remove();
 
         return response()->json([
-            'successMessage' => 'Conversation Marked as Read successfully',
+            'successMessage' => __('Conversation Marked as Read successfully'),
         ]);
    }
 

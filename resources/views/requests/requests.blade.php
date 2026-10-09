@@ -1,24 +1,24 @@
    <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>Date</th>
-                <th>Request Number</th>
-                <th>Trip Start Time</th>
-                <th> Trip End Time</th>
-                <th> User</th>
-                <th> Driver</th>
-                <th> Owner</th>
-                <th> Trip Status</th>
-                <th> Payment Status</th>
-                <th> Payment Option</th>
-                <th> Vehicle Type</th>
-                <th> Ride Type</th>
-                <th> Trip Time</th>
-                <th> Trip Distance</th>
-                <th> Driver Commission</th>
-                <th> Admin Commission</th>
-                <th> Total Amount</th>
+                <th>{{ __('exports.no') }}</th>
+                <th>{{ __('exports.date') }}</th>
+                <th>{{ __('exports.request_number') }}</th>
+                <th>{{ __('exports.trip_start_time') }}</th>
+                <th>{{ __('exports.trip_end_time') }}</th>
+                <th>{{ __('exports.user') }}</th>
+                <th>{{ __('exports.driver') }}</th>
+                <th>{{ __('exports.owner') }}</th>
+                <th>{{ __('exports.trip_status') }}</th>
+                <th>{{ __('exports.payment_status') }}</th>
+                <th>{{ __('exports.payment_option') }}</th>
+                <th>{{ __('exports.vehicle_type') }}</th>
+                <th>{{ __('exports.ride_type') }}</th>
+                <th>{{ __('exports.trip_time') }}</th>
+                <th>{{ __('exports.trip_distance') }}</th>
+                <th>{{ __('exports.driver_commission') }}</th>
+                <th>{{ __('exports.admin_commission') }}</th>
+                <th>{{ __('exports.total_amount') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -37,33 +37,33 @@
                     @if($requests->owner_id)
                     <td>{{$requests->ownerDetail ? $requests->ownerDetail->owner_name : '-'}}</td>
                     @else
-                    <td>{{"Individual"}}</td>
+                    <td>{{ __('exports.individual') }}</td>
                     @endif
 
                     @if($requests->is_cancelled == 1)
-                        <td><span class="label label-danger">cancelled</span></td>
+                        <td><span class="label label-danger">{{ __('exports.cancelled') }}</span></td>
                     @elseif($requests->is_completed == 1)
-                        <td><span class="label label-success">completed</span></td>
+                        <td><span class="label label-success">{{ __('exports.completed') }}</span></td>
                     @elseif($requests->is_trip_start == 0 && $requests->is_cancelled == 0)
-                        <td><span class="label label-warning">not_started</span></td>
+                        <td><span class="label label-warning">{{ __('exports.not_started') }}</span></td>
                     @else
                         <td>-</td>
                     @endif
 
                     @if ($requests->is_paid)
-                        <td><span class="label label-success">paid</span></td>
+                        <td><span class="label label-success">{{ __('exports.paid') }}</span></td>
                     @else
-                        <td><span class="label label-danger">not_paid</span></td>
+                        <td><span class="label label-danger">{{ __('exports.not_paid') }}</span></td>
                     @endif
 
                     @if ($requests->payment_opt == 0)
-                        <td><span class="label label-danger">card</span></td>
+                        <td><span class="label label-danger">{{ __('exports.card') }}</span></td>
                     @elseif($requests->payment_opt == 1)
-                        <td><span class="label label-primary">cash</span></td>
+                        <td><span class="label label-primary">{{ __('exports.cash') }}</span></td>
                     @elseif($requests->payment_opt == 2)
-                        <td><span class="label label-warning">wallet</span></td>
+                        <td><span class="label label-warning">{{ __('exports.wallet') }}</span></td>
                     @else
-                        <td><span class="label label-info">cash_wallet</span></td>
+                        <td><span class="label label-info">{{ __('exports.cash_wallet') }}</span></td>
                     @endif
 
                     <td>{{ $requests->vehicle_type_name }}</td>
@@ -76,23 +76,23 @@
                  @if($later == 0)
 
                     @if(($later == 0) &&  ($rental == 0))
-                    <td><span class="label label-success">regular_instant</span> </td>
+                    <td><span class="label label-success">{{ __('exports.regular_instant') }}</span> </td>
                     @else(($later == 0) &&  ($rental == 1))
-                    <td><span class="label label-success"> rental_instant</span> </td>
+                    <td><span class="label label-success">{{ __('exports.rental_instant') }}</span> </td>
                     @endif
 
                 @else($later == 1)
 
                     @if(($later == 1) &&  ($rental == 0))
-                    <td><span class="label label-success">  regular_scheduled</span></td>
+                    <td><span class="label label-success">{{ __('exports.regular_scheduled') }}</span></td>
                     @else(($later == 1) &&  ($rental == 1 ))
-                    <td><span class="label label-success"> rental_scheduled</span></td>
+                    <td><span class="label label-success">{{ __('exports.rental_scheduled') }}</span></td>
                     @endif
 
                 @endif
 
 
-                    <td>{{ $requests->total_time .' Mins' }}</td>
+                    <td>{{ $requests->total_time .' '. __('exports.mins') }}</td>
                     <td>{{ $requests->total_distance .'  '. $requests->request_unit}}</td>
                     <td>{{ $requests->requestBill ? $requests->currency .' '. $requests->requestBill->driver_commision : '-' }}</td>
                     <td>{{ $requests->requestBill ? $requests->currency .' '. $requests->requestBill->admin_commision_with_tax : '-' }}</td>
@@ -100,14 +100,14 @@
                 @empty
                 <tr>
                     <td colspan="11">
-                        <h4 class="text-center" style="color:#333;font-size:25px;">No Data Found</h4>
+                        <h4 class="text-center" style="color:#333;font-size:25px;">{{ __('exports.no_data_found') }}</h4>
                     </td>
                 </tr>
             @endforelse
 
             @if(isset($totals) && $results->count() > 0)
                 <tr style="font-weight: bold; background-color: #f8f9fa;">
-                    <td colspan="15" style="text-align: right;">TOTAL:</td>
+                    <td colspan="15" style="text-align: right;">{{ __('exports.total') }}</td>
                     <td>{{ $results->first()->currency ?? '' }} {{ number_format($totals['driver_commission'], 2) }}</td>
                     <td>{{ $results->first()->currency ?? '' }} {{ number_format($totals['admin_commission'], 2) }}</td>
                     <td>{{ $results->first()->currency ?? '' }} {{ number_format($totals['total_amount'], 2) }}</td>

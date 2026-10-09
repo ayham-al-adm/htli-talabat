@@ -1,7 +1,7 @@
 <template>
     <Layout>
-      <Head title="Permissions" />
-      <PageHeader title="Permissions" pageTitle="Roles" pageLink="/roles"/>
+      <Head :title="$t('permissions')" />
+      <PageHeader :title="$t('permissions')" pageTitle="Roles" pageLink="/roles"/>
 
       <BRow>
         <BCol lg="12">
@@ -75,7 +75,7 @@
       <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show bounce" role="alert" id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
            <!-- Progress bar -->
            <div class="progress-container">

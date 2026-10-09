@@ -12,6 +12,7 @@ import { ref,onMounted } from "vue";
 import { initI18n } from '@/i18n';
 import { useI18n } from 'vue-i18n';
 import UserWebMenu from "@/Components/UserWebMenu.vue";
+import { i18nT } from '@/i18n';
 
 export default {
   components: {
@@ -127,8 +128,8 @@ export default {
       const formData = new FormData();
       if (form.password !== form.confirm_password) {
         Swal.fire({
-          title: 'Error!',
-          text: 'Passwords do not match!',
+          title: i18nT('error'),
+          text: i18nT('passwords_do_not_match'),
           icon: 'error',
         });
         return;
@@ -181,7 +182,7 @@ export default {
 
 <template>
   <BCard>
-    <Head title="Taxi Ride" />
+    <Head :title="$t('taxi_ride')" />
     <BCardHeader class="border-0">
       <!-- menu Offcanvas -->
       <UserWebMenu :user="user" />

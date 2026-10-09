@@ -114,7 +114,7 @@ class PaymentController extends BaseController
     public function deleteCard(CardInfo $card)
     {
         // if ($card->is_default) {
-        //     $this->throwCustomException('you cannot delete your default card');
+        //     $this->throwCustomException(__('you cannot delete your default card'));
         // }
 
         $card->delete();
@@ -441,18 +441,18 @@ class PaymentController extends BaseController
 
             if ($wallet_balance <= 0) {
 
-                $this->throwCustomException('Your wallet balance is too low');
+                $this->throwCustomException(__('Your wallet balance is too low'));
 
             }
             if ($wallet_balance < $request->requested_amount) {
 
-                $this->throwCustomException('Your wallet balance is too low than your requested amount');
+                $this->throwCustomException(__('Your wallet balance is too low than your requested amount'));
 
             }
 
             $user_info->withdrawalRequestsHistory()->where('status', WithdrawalRequestStatus::REQUESTED)->exists();
             if ($user_info) {
-                $this->throwCustomException('You cannot make multiple request. please wait for your existing request approval');
+                $this->throwCustomException(__('You cannot make multiple request. please wait for your existing request approval'));
             }
 
         } elseif (access()->hasRole(Role::DRIVER)) {
@@ -472,13 +472,13 @@ class PaymentController extends BaseController
 
             if ($wallet_balance <= 0) {
 
-                $this->throwCustomException('Your wallet balance is too low');
+                $this->throwCustomException(__('Your wallet balance is too low'));
 
             }
 
             if ($wallet_balance < $request->requested_amount) {
 
-                $this->throwCustomException('Yout wallet balance is too low than your requested amount');
+                $this->throwCustomException(__('Yout wallet balance is too low than your requested amount'));
 
             }
 
@@ -487,7 +487,7 @@ class PaymentController extends BaseController
             $exists_request = WalletWithdrawalRequest::where('driver_id', $user_info->id)->where('status', 0)->exists();
 
             if ($exists_request == true) {
-                $this->throwCustomException('You cannot make multiple request. please wait for your existing request approval');
+                $this->throwCustomException(__('You cannot make multiple request. please wait for your existing request approval'));
             }
 
         } else {
@@ -507,13 +507,13 @@ class PaymentController extends BaseController
 
             if ($wallet_balance <= 0) {
 
-                $this->throwCustomException('Your wallet balance is too low');
+                $this->throwCustomException(__('Your wallet balance is too low'));
 
             }
 
             if ($wallet_balance < $request->requested_amount) {
 
-                $this->throwCustomException('Yout wallet balance is too low than your requested amount');
+                $this->throwCustomException(__('Yout wallet balance is too low than your requested amount'));
 
             }
 
@@ -522,7 +522,7 @@ class PaymentController extends BaseController
             $exists_request = WalletWithdrawalRequest::where('owner_id', $user_info->id)->where('status', 0)->exists();
 
             if ($exists_request == true) {
-                $this->throwCustomException('You cannot make multiple request. please wait for your existing request approval');
+                $this->throwCustomException(__('You cannot make multiple request. please wait for your existing request approval'));
             }
 
         }
@@ -555,7 +555,7 @@ class PaymentController extends BaseController
             'amount' => 'required'
         ]);
         if($request->amount < 0) {
-            $this->throwCustomException('Invalid Amount');
+            $this->throwCustomException(__('Invalid Amount'));
         }
         $user = auth()->user();
         
@@ -579,7 +579,7 @@ class PaymentController extends BaseController
         if ($request->mobile == $user->mobile && $invalid_mobile) {
 
             //Throw exception
-            $this->throwCustomException('Invalid Mobile Number');
+            $this->throwCustomException(__('Invalid Mobile Number'));
 
         }
         if (access()->hasRole('user')) {
@@ -603,7 +603,7 @@ class PaymentController extends BaseController
         if ($user_wallet && $user_wallet->amount_balance < $minimum_wallet_amount) {
 
             //Throw exception
-            $this->throwCustomException('Insufficient balance to transfer money to wallet');
+            $this->throwCustomException(__('Insufficient balance to transfer money to wallet'));
 
         }
 
@@ -615,7 +615,7 @@ class PaymentController extends BaseController
 
         if ($user_wallet->amount_balance < $amount_to_transfer) {
             // Throw exception
-            $this->throwCustomException('Insufficient Balance');
+            $this->throwCustomException(__('Insufficient Balance'));
         }
 
         // Find Receiver Wallet
@@ -623,7 +623,7 @@ class PaymentController extends BaseController
         $receiver_user = User::belongsTorole($role)->where('mobile', $mobile_number)->first();
 
         if (!$receiver_user) {
-            $this->throwCustomException('Mobile Number Does Not Exists');
+            $this->throwCustomException(__('Mobile Number Does Not Exists'));
         }
 
         $transaction_id = str_random(6);
@@ -632,7 +632,7 @@ class PaymentController extends BaseController
 
             $receiver_wallet = $receiver_user->userWallet;
             if($receiver_wallet==null){
-                $this->throwCustomException('This user Does Not have an E-Wallet');
+                $this->throwCustomException(__('This user Does Not have an E-Wallet'));
             }
             $receiver_wallet_history_model = new UserWalletHistory();
             $receiver_wallet->amount_added += $amount_to_transfer;
@@ -650,7 +650,7 @@ class PaymentController extends BaseController
 
             $receiver_wallet = $receiver_user->driver->driverWallet;
             if($receiver_wallet==null){
-                $this->throwCustomException('This user Does Not have an E-Wallet');
+                $this->throwCustomException(__('This user Does Not have an E-Wallet'));
             }
             $receiver_wallet_history_model = new DriverWalletHistory();
             $receiver_wallet->amount_added += $amount_to_transfer;
@@ -668,7 +668,7 @@ class PaymentController extends BaseController
 
             $receiver_wallet = $receiver_user->owner->ownerWalletDetail;
             if($receiver_wallet==null){
-                $this->throwCustomException('This user Does Not have an E-Wallet');
+                $this->throwCustomException(__('This user Does Not have an E-Wallet'));
             }
             $receiver_wallet_history_model = new OwnerWalletHistory();
             $receiver_wallet->amount_added += $amount_to_transfer;
@@ -773,7 +773,7 @@ class PaymentController extends BaseController
         $user = auth()->user();
         $rewards_to_transfer = $request->amount;
         if($rewards_to_transfer > $user->rewardPoint->balance_reward_points){
-            $this->throwCustomException('Insufficient Balance');
+            $this->throwCustomException(__('Insufficient Balance'));
         }
 
         

@@ -172,20 +172,20 @@ class RequestHistoryController extends BaseController
             if($user->email){
                 dispatch(new SendUserInvoiceMailNotification($user, $data, $logo, $invoice));
             } else {
-                return response()->json(['error' => 'Invalid role'], 403);
+                return response()->json(['error' => __('Invalid role')], 403);
             }
         } elseif (access()->hasRole(Role::DRIVER) || access()->hasRole(Role::OWNER)) {
             if($user->email){
                 dispatch(new SendDriverInvoiceMailNotification($user, $data, $logo, $invoice));
             } else {
-                return response()->json(['error' => 'Invalid role'], 403);
+                return response()->json(['error' => __('Invalid role')], 403);
             }
         } else {
-            return response()->json(['error' => 'Invalid role'], 403);
+            return response()->json(['error' => __('Invalid role')], 403);
         }
     
 
-        return $this->respondSuccess(null, 'Invoice Sent');
+        return $this->respondSuccess(null, __('Invoice Sent'));
     }
     
 }

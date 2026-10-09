@@ -8,6 +8,7 @@ import { useSharedState } from '@/composables/useSharedState';
 import { useI18n } from 'vue-i18n';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { i18nT } from '@/i18n';
 import 'leaflet-draw/dist/leaflet.draw.css'; // Import Leaflet Draw CSS
 import 'leaflet-draw'; // Import Leaflet Draw JS
 
@@ -197,7 +198,7 @@ export default {
             const { service_location_id, unit, } = form;
             const errors = {};
             if (!unit) {
-                errors.unit = 'Unit is required';
+                errors.unit = i18nT('unit_is_required');
             } else {
                 delete errors.unit;
             }
@@ -408,7 +409,7 @@ export default {
             id="alertMsg">
             <div class="alert-content">
             <i class="ri-notification-off-line me-3 align-middle"></i>
-            <strong>Alert</strong> - {{ alertMessage }}
+            <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
             <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                 aria-label="Close Alert Message"></button>
             </div>

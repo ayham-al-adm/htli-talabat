@@ -174,7 +174,7 @@
 
     <template>
         <Layout>
-          <Head title="Payment History" />
+          <Head :title="$t('payment_history')" />
           <PageHeader :title="$t('payment_history')" />
 
           <BRow>

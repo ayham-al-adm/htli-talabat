@@ -215,7 +215,7 @@ class UserWebBookingController extends Controller
             $user = auth()->user()->update($updated_params);
             // $user->update($updated_params);
     // dd($updated_params);
-            return redirect()->back()->with('successMessage', 'Profile updated successfully!');
+            return redirect()->back()->with('successMessage', __('Profile updated successfully!'));
         }
         
         public function getCurrentUser()
@@ -561,7 +561,7 @@ class UserWebBookingController extends Controller
         // }
 
 
-        return $this->respondSuccess($request_result, 'Request Created Successfully');
+        return $this->respondSuccess($request_result, __('Request Created Successfully'));
     }
 
   /**
@@ -691,11 +691,11 @@ class UserWebBookingController extends Controller
             DB::rollBack();
             Log::error($e);
             Log::error('Error while Create new schedule request. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
         DB::commit();
 
-        return $this->respondSuccess($request_result, 'Request Scheduled Successfully');
+        return $this->respondSuccess($request_result, __('Request Scheduled Successfully'));
     }
 
 
@@ -742,7 +742,7 @@ class UserWebBookingController extends Controller
    public function store(Request $request)
     {      // if(env('APP_FOR') == 'demo'){
         //     return response()->json([
-        //         'alertMessage' => 'You are not Authorized'
+        //         'alertMessage' => __('You are not Authorized')
         //     ], 403);
         // }
         // dd($request->all());
@@ -797,7 +797,7 @@ class UserWebBookingController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Title created successfully.',
+            'successMessage' => __('Title created successfully.'),
             'ticket' => $ticket,
         ], 201);
     }
@@ -818,7 +818,7 @@ class UserWebBookingController extends Controller
     public function replyMessage(Request $request, SupportTicket $supportTicket)
     {      // if(env('APP_FOR') == 'demo'){
         //     return response()->json([
-        //         'alertMessage' => 'You are not Authorized'
+        //         'alertMessage' => __('You are not Authorized')
         //     ], 403);
         // }
         // dd($request->all());
@@ -840,7 +840,7 @@ class UserWebBookingController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Title created successfully.',
+            'successMessage' => __('Title created successfully.'),
             'reply_ticket' => $reply_ticket,
         ], 201);
     }

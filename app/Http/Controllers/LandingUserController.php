@@ -19,6 +19,7 @@ use App\Base\Services\ImageUploader\ImageUploader;
 use Illuminate\Support\Str;
 use App\Models\Admin\Setting;
 use App\Models\Languages;
+use App\Support\Locale;
 
 
 class LandingUserController extends BaseController
@@ -141,7 +142,7 @@ class LandingUserController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Landing User created successfully.'
+            'successMessage' => __('Landing User created successfully.')
         ], 201);
     }
     public function edit($id)
@@ -238,7 +239,7 @@ class LandingUserController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'User updated successfully.',
+            'successMessage' => __('User updated successfully.'),
             'landingUser' => $landingUser,
         ], 201);
 
@@ -248,7 +249,7 @@ class LandingUserController extends BaseController
         $landingUser->delete();
 
         return response()->json([
-            'successMessage' => 'User deleted successfully',
+            'successMessage' => __('User deleted successfully'),
         ]);
     }  
    
@@ -256,16 +257,13 @@ class LandingUserController extends BaseController
     public function userpage(Request $request)
     {
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' 
+        $defaultLocale = Locale::default();
 
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale)); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingUser = LandingUser::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
-        $landingHeader = LandingHeader::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingUser = Locale::pick(LandingUser::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingUser);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
            // Check the customization settings toggle status
            $enableLandingSite = Setting::where('category', 'customization_settings')

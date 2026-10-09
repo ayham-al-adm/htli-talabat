@@ -1,10 +1,10 @@
 <table>
     <thead>
         <tr>
-            <th>No</th>
-            <th>Date</th>
-            <th>Driver Name</th>
-            <th>Total Logged in Hours</th>
+            <th>{{ __('exports.no') }}</th>
+            <th>{{ __('exports.date') }}</th>
+            <th>{{ __('exports.driver_name') }}</th>
+            <th>{{ __('exports.total_logged_in_hours') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
                             $totalHours = floor($requests->total_duration_hours); // Whole hours
                             $totalMinutes = ($requests->total_duration_hours - $totalHours) * 60; // Convert decimal part to minutes
                         @endphp
-                        {{ $totalHours }} hour{{ $totalHours !== 1 ? 's' : '' }} {{ floor($totalMinutes) }} minute{{ floor($totalMinutes) !== 1 ? 's' : '' }}
+                        {{ __('exports.hours_minutes', ['hours' => $totalHours, 'minutes' => floor($totalMinutes)]) }}
                     @else
                         -
                     @endif
@@ -31,7 +31,7 @@
         @empty
             <tr>
                 <td colspan="4">
-                    <h4 class="text-center" style="color:#333; font-size:25px;">No Data Found</h4>
+                    <h4 class="text-center" style="color:#333; font-size:25px;">{{ __('exports.no_data_found') }}</h4>
                 </td>
             </tr>
         @endforelse

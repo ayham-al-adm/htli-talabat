@@ -8,6 +8,7 @@ import {loadLocaleMessages } from '../i18n';
 import { useSharedState } from '@/composables/useSharedState';
 import store from '/resources/js/state/store.js';
 import Swal from "sweetalert2";
+import { switchLocale } from '@/common/locale';
 
 // State and shared methods from composable
 const selectedLanguageCode = ref(i18n.global.locale);
@@ -53,30 +54,10 @@ onMounted(async () => {
 
 
 
-const setLanguage = async (locale) => {
-  await loadLocaleMessages(locale);
-  i18n.global.locale = locale;
+const setLanguage = (locale) => {
   selectedLanguageCode.value = locale;
-  localStorage.setItem('locale', locale);
-
-  const selectedLanguage = languages.value.find(lang => lang.code === locale);
-
-  if (selectedLanguage) {
-    const direction = selectedLanguage.direction;
-    const body = document.body;
-
-    if (direction === 'rtl') {      
-      window.location.reload();
-      localStorage.setItem('toggleDirection', true);
-      body.classList.add('rtl');
-      body.classList.remove('ltr');
-    } else {
-      window.location.reload();
-      localStorage.setItem('toggleDirection', false);
-      body.classList.add('ltr');
-      body.classList.remove('rtl');
-    }
-  }
+  // Reload so the server renders with the new locale (cookie) and direction.
+  switchLocale(locale);
 };
 
 

@@ -597,7 +597,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Owner Profile" />
+        <Head :title="$t('owner_profile')" />
         <PageHeader :title="$t('owner_profile')" :pageTitle="$t('owner_profile')" pageLink="/manage-owners"/>
         <BRow>
             <BCol lg="12">
@@ -1522,11 +1522,11 @@ export default {
                                                         <td>{{ document.comment || 'N/A' }}</td>
                                                         <td>
                                                             <BButton class="btn btn-soft-info btn-sm m-2" size="sm"data-bs-toggle="tooltip" v-b-tooltip.hover
-                                                            title="view" @click="viewDocument(document)">
+                                                            :title="$t('view')" @click="viewDocument(document)">
                                                                 <i class="bx bx-show-alt align-center"></i>
                                                             </BButton>
                                                             <BButton class="btn btn-soft-success btn-sm m-2" size="sm" data-bs-toggle="tooltip" v-b-tooltip.hover
-                                                            title="upload" :href="`/manage-owners/document-upload/${document.id}/${owner.id}`">
+                                                            :title="$t('upload')" :href="`/manage-owners/document-upload/${document.id}/${owner.id}`">
                                                                 <i class="bx bx-upload align-center"></i>
                                                             </BButton>
                                                         </td>                                        
@@ -1609,11 +1609,11 @@ export default {
                                                             </div>
                                                             <a class="carousel-control-prev bg-dark" style="height:30px"  href="#carouselExampleFade" role="button" data-bs-slide="prev">
                                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                                <span class="sr-only">Previous</span>
+                                                                <span class="sr-only">{{ $t('previous') }}</span>
                                                             </a>
                                                             <a class="carousel-control-next bg-dark" style="height:30px" href="#carouselExampleFade" role="button" data-bs-slide="next">
                                                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                                <span class="sr-only">Next</span>
+                                                                <span class="sr-only">{{ $t('next') }}</span>
                                                             </a>
                                                         </div>
 
@@ -1667,7 +1667,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -1678,7 +1678,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

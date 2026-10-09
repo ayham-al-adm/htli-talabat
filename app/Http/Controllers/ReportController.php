@@ -86,7 +86,7 @@ class ReportController extends BaseController
             return Excel::download(new UsersExport($users), 'users.csv', \Maatwebsite\Excel\Excel::CSV);
         }
 
-        return response()->json(['error' => 'Invalid format'], 400);
+        return response()->json(['error' => __('Invalid format')], 400);
 
     }
     public function driverReport()
@@ -170,7 +170,7 @@ class ReportController extends BaseController
             return Excel::download(new DriversExport($drivers), 'drivers.csv', \Maatwebsite\Excel\Excel::CSV);
         }
 
-        return response()->json(['error' => 'Invalid format'], 400);
+        return response()->json(['error' => __('Invalid format')], 400);
     }
 
 
@@ -262,7 +262,7 @@ class ReportController extends BaseController
                         $from = Carbon::createFromFormat('d M, Y', $date[0])->startOfDay()->toDateTimeString();
                         $to = Carbon::createFromFormat('d M, Y', $date[1])->endOfDay()->toDateTimeString();
                     } catch (\Exception $e) {
-                        return response()->json(['error' => 'Invalid date format'], 400);
+                        return response()->json(['error' => __('Invalid date format')], 400);
                     }
                 }
             }
@@ -292,7 +292,7 @@ class ReportController extends BaseController
             return Excel::download(new RequestExport($requests, null), 'requests.csv', \Maatwebsite\Excel\Excel::CSV);
         }
 
-        return response()->json(['error' => 'Invalid format'], 400);
+        return response()->json(['error' => __('Invalid format')], 400);
     }
 
 
@@ -373,7 +373,7 @@ class ReportController extends BaseController
             return Excel::download(new OwnersExport($owners), 'owners.csv', \Maatwebsite\Excel\Excel::CSV);
         }
 
-        return response()->json(['error' => 'Invalid format'], 400);
+        return response()->json(['error' => __('Invalid format')], 400);
     }
 
     public function financeReport()
@@ -495,7 +495,7 @@ class ReportController extends BaseController
             return Excel::download(new RequestExport($requests, $totals), 'requests.csv', \Maatwebsite\Excel\Excel::CSV);
         }
 
-        return response()->json(['error' => 'Invalid format'], 400);
+        return response()->json(['error' => __('Invalid format')], 400);
     }
     public function driverDutyReport()
     {
@@ -555,7 +555,7 @@ class ReportController extends BaseController
             return Excel::download(new DutyExport($results), 'results.csv', \Maatwebsite\Excel\Excel::CSV);
         }
 
-        return response()->json(['error' => 'Invalid format'], 400);
+        return response()->json(['error' => __('Invalid format')], 400);
 
     }
 
@@ -571,7 +571,7 @@ class ReportController extends BaseController
 
     //         return view('emails.driver_invoice',compact('data'));
     //     }
-    //     return response()->json(['error' => 'Invalid format'], 400);
+    //     return response()->json(['error' => __('Invalid format')], 400);
 
     // }
 
@@ -597,7 +597,7 @@ class ReportController extends BaseController
         }
 
         // Handle invalid invoice type
-        return response()->json(['error' => 'Invalid invoice type'], 400);
+        return response()->json(['error' => __('Invalid invoice type')], 400);
     }
 
 

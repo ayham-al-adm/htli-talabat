@@ -3,7 +3,7 @@
     <div id="image-container">
       <div id="image-slot" @click="triggerFileInput" v-if="images.length < 8">
         <div class="d-flex flex-column align-items-center">
-          <span>Upload Image</span>
+          <span>{{ $t('upload_image') }}</span>
           <span>(1500px * 1000px)</span>
         </div>
         <input type="file" id="image-upload" ref="fileInput" @change="handleFileChange" multiple style="display: none;" />
@@ -22,7 +22,7 @@
     </div>
 
     <div v-if="showToast" id="toast">
-      Sólo es posible cargar hasta 8 imágenes
+      {{ $t('s_lo_es_posible_cargar_hasta_8_im_genes') }}
     </div>
   </div>
 </template>

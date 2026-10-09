@@ -153,7 +153,7 @@ onMounted(async() => {
 
 <template>
     <Layout>
-        <Head title="Heat Map" />
+        <Head :title="$t('heat-map')" />
         <PageHeader :title="$t('heat_map')" :pageTitle="$t('map')"/>
         <BRow>
             <BCol lg="12">

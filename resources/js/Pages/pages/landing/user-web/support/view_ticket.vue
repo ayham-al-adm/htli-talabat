@@ -13,6 +13,7 @@ import ImageUp from "@/Components/ImageUp.vue";
 import { BCard, BCardBody, BCardFooter, BCardHeader } from 'bootstrap-vue-next';
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { i18nT } from '@/i18n';
 
 
 
@@ -112,7 +113,7 @@ export default {
             for (const key in validationRules) {
                 if (validationRules[key].required && !form[key]) {
                     errors[key] = t('this_field_is_required');
-                    // errors[key] = 'This field is required';
+                    // errors[key] = i18nT('this_field_is_required');
                 }
             }
             return errors;
@@ -233,7 +234,7 @@ export default {
 
 <template>
     <BCard style="margin-bottom: 0px;">
-        <Head title="Taxi Ride" />
+        <Head :title="$t('taxi_ride')" />
         <BCardHeader class="border-0">
             <!-- menu Offcanvas -->
             <UserWebMenu :user="user" />
@@ -299,7 +300,7 @@ export default {
         <template v-else-if="isVideo(attachment.image_name)">
           <video class="file-preview">
             <source :src="getFullImageUrl(attachment.image_name)" type="video/mp4">
-            Your browser does not support video playback.
+            {{ $t('your_browser_does_not_support_video_playback') }}
           </video>
         </template>
 
@@ -351,7 +352,7 @@ export default {
 
       <!-- Show Download Button for Other File Types -->
       <template v-else>
-        <a :href="getFullImageUrl(selectedFile)" target="_blank" class="btn btn-primary">Download File</a>
+        <a :href="getFullImageUrl(selectedFile)" target="_blank" class="btn btn-primary">{{ $t('download_file') }}</a>
       </template>
 
     </div>

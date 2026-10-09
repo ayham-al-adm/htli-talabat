@@ -14,6 +14,7 @@ import "flatpickr/dist/flatpickr.css";
 import search from "@/Components/widgets/search.vue";
 import searchbar from "@/Components/widgets/searchbar.vue";
 import { useI18n } from 'vue-i18n';
+import { i18nT } from '@/i18n';
 
 export default {
     data() {
@@ -98,13 +99,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -174,7 +175,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title=" Documents" />
+        <Head :title="$t('documents')" />
         <PageHeader :title="$t('documents')" :pageTitle="$t('documents')" pageLink="/delete-request-drivers"/>
         <BRow>
             <BCol lg="12">
@@ -221,12 +222,12 @@ export default {
                                 <tbody v-if="results.length > 0">
                                     <tr v-for="(result, index) in results" :key="index">
                                         <!-- <td>1</td> -->
-                                        <td>test</td> 
-                                        <td>Driver Licence</td> 
+                                        <td>{{ $t('test') }}</td> 
+                                        <td>{{ $t('driver_licence') }}</td> 
                                         <td>-</td> 
                                         <td> 
                                             <template v-if="result.active == 1">
-                                                <BBadge variant="danger" class="text-uppercase">Not Uploaded</BBadge>
+                                                <BBadge variant="danger" class="text-uppercase">{{ $t('not_uploaded') }}</BBadge>
                                             </template>
                                             <!-- <template v-else>
                                                 <BBadge variant="danger" class="text-uppercase">Disapproved</BBadge>
@@ -277,7 +278,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -288,7 +289,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

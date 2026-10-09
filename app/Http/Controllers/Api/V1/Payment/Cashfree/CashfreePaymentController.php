@@ -344,7 +344,7 @@ class CashfreePaymentController extends ApiController
         } catch (\Exception $e) {
             Log::error($e);
             Log::error('Error while Add money to wallet. Input params : ' . json_encode($request->all()));
-            return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+            return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         }
     }
 

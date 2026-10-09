@@ -73,7 +73,7 @@ export default {
 
 <section class="py-5 mt-5">
     <BContainer>
-<PageHeader title="Compliance" pageTitle="Pages" />
+<PageHeader :title="$t('compliance')" pageTitle="Pages" />
 
 <BRow class="justify-content-center">
   <BCol col lg="10">

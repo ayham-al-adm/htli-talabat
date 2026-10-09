@@ -237,7 +237,7 @@ export default {
 <template>
   <Layout>
 
-    <Head title="Driver Duties Report" />
+    <Head :title="$t('driver_duties_report')" />
     <PageHeader :title="$t('driver_duty_report')" :pageTitle="$t('driver_duty_report')" />
     <BRow>
       <BCol lg="12">
@@ -345,7 +345,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -355,7 +355,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

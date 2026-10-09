@@ -504,5 +504,7 @@
   "downloadInvoice": "Download Invoice",
   "deliveryOutStation": "Delivery OutStation",
             "deliveryRental": "Delivery Rental",
-            "deliveryRide": "Delivery Ride"
-        }
+            "deliveryRide": "Delivery Ride",
+            "discoverYourCaptain": "Discover your Captain",
+            "base": "Base"
+}

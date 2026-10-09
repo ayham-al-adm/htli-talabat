@@ -19,6 +19,7 @@ use App\Base\Services\ImageUploader\ImageUploader;
 use Illuminate\Support\Str;
 use App\Models\Admin\Setting;
 use App\Models\Languages;
+use App\Support\Locale;
 
 
 class LandingQuickLinkController extends BaseController
@@ -39,10 +40,10 @@ class LandingQuickLinkController extends BaseController
     public function showPrivacyPage(Request $request)
 {
         // Step 1: Get default locale or fallback to 'en'
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en';
+        $defaultLocale = Locale::default();
 
         // Step 2: Check for locale from request or session
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale));
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
     
         // Step 3: Try to fetch localized privacy content
         $content = LandingQuickLink::where('locale', $selectedLocale)->value('privacy')
@@ -52,7 +53,7 @@ class LandingQuickLinkController extends BaseController
         if (!$content) {
             return response()->json([
                 'success' => false,
-                'message' => 'Privacy policy content not found.',
+                'message' => __('Privacy policy content not found.'),
                 'data' => null
             ], 404);
         }
@@ -68,10 +69,10 @@ class LandingQuickLinkController extends BaseController
 public function showTermsPage(Request $request)
 {
         // Step 1: Get default locale or fallback to 'en'
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en';
+        $defaultLocale = Locale::default();
 
         // Step 2: Check for locale from request or session
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale));
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
     
         // Step 3: Try to fetch localized terms content
         $content = LandingQuickLink::where('locale', $selectedLocale)->value('terms')
@@ -81,7 +82,7 @@ public function showTermsPage(Request $request)
         if (!$content) {
             return response()->json([
                 'success' => false,
-                'message' => 'Terms policy content not found.',
+                'message' => __('Terms policy content not found.'),
                 'data' => null
             ], 404);
         }

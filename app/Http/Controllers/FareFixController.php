@@ -59,7 +59,7 @@ class FareFixController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $transportType = $request->transport_type;
@@ -110,7 +110,7 @@ class FareFixController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Vehicle Price created successfully.',
+            'successMessage' => __('Vehicle Price created successfully.'),
             'vehiclePrice' => $vehiclePrice,
         ], 201);
     }
@@ -136,7 +136,7 @@ class FareFixController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
     // dd($request->all());
@@ -189,7 +189,7 @@ class FareFixController extends Controller
 
        // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Vehicle Price created successfully.',
+            'successMessage' => __('Vehicle Price created successfully.'),
             'vehiclePrice' => $vehiclePrice,
         ], 201);
     
@@ -198,7 +198,7 @@ class FareFixController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
 
@@ -207,14 +207,14 @@ class FareFixController extends Controller
         $zoneType = ZoneType::where('id', $id)->delete();
 
         return response()->json([
-            'successMessage' => 'Vehicle Price deleted successfully',
+            'successMessage' => __('Vehicle Price deleted successfully'),
         ]);
     }  
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         // ZoneTypePrice::where('zone_type_id', $request->id)->update(['active'=> $request->status]);
@@ -222,7 +222,7 @@ class FareFixController extends Controller
         // dd($request->all());
 
         return response()->json([
-            'successMessage' => 'Vehicle Price status updated successfully',
+            'successMessage' => __('Vehicle Price status updated successfully'),
         ]);
     }
 }

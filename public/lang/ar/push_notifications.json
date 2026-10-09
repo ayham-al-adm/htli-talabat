@@ -63,5 +63,8 @@
     "payment_declained": "تم رفض الدفع 🙁️",
     "payment_declained_body": "تم رفض الدفع الخاص بك",
     "daily_incentive_title": "حافز يومي",
-    "daily_incentive_notify_body": "حافز يومي يتم إضافته إلى محفظتك"
+    "daily_incentive_notify_body": "حافز يومي يتم إضافته إلى محفظتك",
+    "subscription_title": "تم الاشتراك بنجاح",
+    "subscription_body": "لقد تم اشتراكك بنجاح",
+    "new_message_from": "رسالة جديدة من"
 }

@@ -518,7 +518,7 @@ export default {
                                                       <BLink :href="notification.button_url" target="_blank" class="btn btn-primary">{{ notification.button_name }}</BLink>
                                                     </div>
                                                     <div style="display: flex;" class="mt-3" v-else>
-                                                      <BLink href="#" target="_blank" class="btn btn-primary">Log In</BLink>
+                                                      <BLink href="#" target="_blank" class="btn btn-primary">{{ $t('log_in') }}</BLink>
                                                     </div>
                                                 </td>
                                             </tr>

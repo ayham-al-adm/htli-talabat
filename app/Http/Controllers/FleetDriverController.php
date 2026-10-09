@@ -127,7 +127,7 @@ class FleetDriverController extends BaseController
                         ->get();
     
         if ($results->isEmpty()) {
-            return response()->json(['results' => [], 'message' => 'No owners found'], 404);
+            return response()->json(['results' => [], 'message' => __('No owners found')], 404);
         }
     
         return response()->json(['results' => $results]);
@@ -210,7 +210,7 @@ class FleetDriverController extends BaseController
     
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver created successfully.',
+            'successMessage' => __('Driver created successfully.'),
         ], 201);
     }
 
@@ -293,7 +293,7 @@ class FleetDriverController extends BaseController
         $driver->update($updated_params);
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver Updated successfully.',
+            'successMessage' => __('Driver Updated successfully.'),
         ], 201);
     }
 
@@ -364,7 +364,7 @@ class FleetDriverController extends BaseController
         $updated_params['user_id'] =$driver->user->id;
         $driver->update($updated_params);
         return response()->json([
-            'successMessage' => 'Password updated successfully.',
+            'successMessage' => __('Password updated successfully.'),
         ], 201);
     }
 
@@ -377,7 +377,7 @@ class FleetDriverController extends BaseController
                 ->remove();     
 
         return response()->json([
-            'successMessage' => 'FleetDriver deleted successfully',
+            'successMessage' => __('FleetDriver deleted successfully'),
         ]);
     } 
     public function editDocument(Driver $driver,DriverNeededDocument $document)
@@ -415,7 +415,7 @@ class FleetDriverController extends BaseController
         }
 
         return response()->json([
-            'successMessage' => 'Driver Document Uploaded Successfully',
+            'successMessage' => __('Driver Document Uploaded Successfully'),
         ],201);
     }
 
@@ -435,7 +435,7 @@ class FleetDriverController extends BaseController
                 ->update(['approve' => 0, 'updated_at' => Database::SERVER_TIMESTAMP]);
 
         return response()->json([
-            'successMessage' => 'Reason declined.',
+            'successMessage' => __('Reason declined.'),
             'driver' => $driver,
         ], 201);
     }
@@ -450,7 +450,7 @@ class FleetDriverController extends BaseController
             $document->update(['document_status'=>DriverDocumentStatus::UPLOADED_AND_APPROVED]);
         }
         return response()->json([
-            'successMessage' => 'Document Approved Successfully',
+            'successMessage' => __('Document Approved Successfully'),
             'document' => $document,
         ],201);
     }
@@ -647,7 +647,7 @@ class FleetDriverController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Driver Document uploaded successfully.',
+            'successMessage' => __('Driver Document uploaded successfully.'),
                 'driverId'=>$driverId,
                 'document'=>$document
                 ], 201);
@@ -674,7 +674,7 @@ class FleetDriverController extends BaseController
             if($neededDoc != $uploadedDoc){
                 return response()->json([
                     'status' => 'failure',
-                    'message' => 'Driver document Disapproved.',
+                    'message' => __('Driver document Disapproved.'),
                     'data' =>'uploaddocument'
                 ]);            
             }       
@@ -731,7 +731,7 @@ class FleetDriverController extends BaseController
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Driver document Approved.',
+                'message' => __('Driver document Approved.'),
             ]);
             
     
@@ -746,7 +746,7 @@ class FleetDriverController extends BaseController
         if (!$driverDoc) {
             return response()->json([
                 'status' => 'failure',
-                'message' => 'Document not found for the given driver.'
+                'message' => __('Document not found for the given driver.')
             ], 404); // Return a 404 status code for better semantics
         }
     
@@ -800,7 +800,7 @@ class FleetDriverController extends BaseController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Driver document approved successfully.',
+                    'message' => __('Driver document approved successfully.'),
                     'allDocumentsApproved'=>$allDocumentsApproved,
                 ]);
         
@@ -846,7 +846,7 @@ class FleetDriverController extends BaseController
             // SendAccountApprovedMailNotification::dispatch($driver);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Driver document approved successfully.',
+                'message' => __('Driver document approved successfully.'),
                 'allDocumentsApproved'=>$allDocumentsApproved,
             ]);
         }else{
@@ -900,7 +900,7 @@ class FleetDriverController extends BaseController
                 }
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Driver document Disapproved.',
+                    'message' => __('Driver document Disapproved.'),
                     'allDocumentsDisapproved'=>$allDocumentsDisapproved
                 ]);
             }
@@ -910,7 +910,7 @@ class FleetDriverController extends BaseController
     
         // return response()->json([
         //     'status' => 'success',
-        //     'message' => 'Driver document approved successfully.'
+        //     'message' => __('Driver document approved successfully.')
         // ]);
     }
     public function updateAndApprove(Driver $driverId)
@@ -919,7 +919,7 @@ class FleetDriverController extends BaseController
 
          // Handle the case where no document statuses exist
          if ($documentStatuses->isEmpty()) {           
-            return response()->json(['message' => 'No documents found. Update not performed.']);
+            return response()->json(['message' => __('No documents found. Update not performed.')]);
         }
        
         $allDocumentsApproved = $documentStatuses->every(function ($value) {
@@ -931,7 +931,7 @@ class FleetDriverController extends BaseController
             $driverId->update(['approve'=>1]);
 
             return response()->json([
-                'successMessage' => 'Driver  Approved successfully',
+                'successMessage' => __('Driver  Approved successfully'),
             ]);
 
         }else{
@@ -952,7 +952,7 @@ class FleetDriverController extends BaseController
         $driverNeededDocument->delete();
 
         return response()->json([
-            'successMessage' => 'Driver Document deleted successfully',
+            'successMessage' => __('Driver Document deleted successfully'),
         ]);
     }
 

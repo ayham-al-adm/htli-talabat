@@ -131,7 +131,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="Subscription" />
+    <Head :title="$t('subscription')" />
     <PageHeader :title="plan ? $t('edit') : $t('create')" :pageTitle="$t('subscription')"  pageLink="/subscription"/>
     <BRow>
       <BCol lg="12">
@@ -225,14 +225,14 @@ export default {
       <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
         </div>
       </div>
       <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
         </div>
       </div>
@@ -240,16 +240,14 @@ export default {
 
     <!-- modal -->
     <BModal v-model="subscription_hint" hide-footer :title="$t('subscription')" class="v-modal-custom" size="lg">
-      <p class="text-muted mb-0">How Coupon Works:</p>
+      <p class="text-muted mb-0">{{ $t('how_coupon_works') }}</p>
       <div class="d-flex mt-4">
         <div class="flex-shrink-0">
             <i class="ri-checkbox-circle-fill text-success"></i>
         </div>
         <div class="flex-grow-1 ms-2">
             <p class="text-muted mb-0">
-              The coupon name will work based on its settings, such as the date range,
-              how many times each user can use it, the total number of uses,
-              maximum discount, and minimum trip amount.
+              {{ $t('the_coupon_name_will_work_based_on_its_settings_such_as_the_') }}
             </p>
         </div>
       </div>
@@ -259,8 +257,7 @@ export default {
         </div>
         <div class="flex-grow-1 ms-2">
             <p class="text-muted mb-0">
-              The driver will still receive the full payment, so they won't be
-              affected by rides where a coupon is applied.
+              {{ $t('the_driver_will_still_receive_the_full_payment_so_they_won_t') }}
             </p>
         </div>
       </div>
@@ -268,7 +265,7 @@ export default {
           <div class="modal-footer v-modal-footer">
             <BLink href="javascript:void(0);" class="btn btn-link link-success fw-medium"
                 @click="subscription_hint = false">
-                <i class="ri-close-line me-1 align-middle"></i> Close
+                <i class="ri-close-line me-1 align-middle"></i> {{ $t('close') }}
             </BLink>
             <!-- <BButton type="button" variant="primary">Save Changes</BButton> -->
         </div>

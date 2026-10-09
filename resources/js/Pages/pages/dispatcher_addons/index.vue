@@ -226,7 +226,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Dispatcher Addons" />
+        <Head :title="$t('dispatcher-addons')" />
         <PageHeader :title="$t('dispatcher_addons')" :pageTitle="$t('dispatcher_addons')" />
         <BRow>
             <BCol lg="12">
@@ -294,7 +294,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -305,7 +305,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>
@@ -320,7 +320,7 @@ export default {
                         <div class="flex-shrink-0 text-success me-1">
                             <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                         </div>
-                        <div class="flex-grow-1">Enter the Purchase Code and Verify it</div>
+                        <div class="flex-grow-1">{{ $t('enter_the_purchase_code_and_verify_it') }}</div>
                         </div>
                     </li>
                     <li>
@@ -328,7 +328,7 @@ export default {
                         <div class="flex-shrink-0 text-success me-1">
                             <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                         </div>
-                        <div class="flex-grow-1">After, verify the Purchase Code it show the Zip file Uplaod Section.</div>
+                        <div class="flex-grow-1">{{ $t('after_verify_the_purchase_code_it_show_the_zip_file_uplaod_s') }}</div>
                         </div>
                     </li>
                     <li>
@@ -336,7 +336,7 @@ export default {
                         <div class="flex-shrink-0 text-success me-1">
                             <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                         </div>
-                        <div class="flex-grow-1">Upload the Dispatcher Zip File in the Form and click the Upload Button.</div>
+                        <div class="flex-grow-1">{{ $t('upload_the_dispatcher_zip_file_in_the_form_and_click_the_upl') }}</div>
                         </div>
                     </li>
                     <li>
@@ -345,7 +345,7 @@ export default {
                         <div class="flex-shrink-0 text-success me-1">
                             <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                         </div>
-                        <div class="flex-grow-1">Once the files uploaded, then run 
+                        <div class="flex-grow-1">{{ $t('once_the_files_uploaded_then_run') }} 
                            <div class="d-flex mt-3">
                                 <div class="flex-shrink-0 text-success me-1">
                                     <!-- <i class="ri-checkbox-circle-fill fs-15 align-middle"></i> --> - 

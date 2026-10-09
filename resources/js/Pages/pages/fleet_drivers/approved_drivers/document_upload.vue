@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Head title="Document Upload" />
+    <Head :title="$t('document_upload')" />
     <PageHeader :title="document ? $t('edit') : $t('upload')" :pageTitle="$t('document_upload')"  pageLink="/fleet-drivers"/>
     <BRow>
       <BCol lg="12">

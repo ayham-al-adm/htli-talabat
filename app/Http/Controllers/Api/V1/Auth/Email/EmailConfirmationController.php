@@ -48,7 +48,7 @@ class EmailConfirmationController extends ApiController
         $user = $this->resolveUserFromEmail($email);
 
         if (!$user || !hash_check($token, $user->email_confirmation_token)) {
-            return $this->respondFailed('Invalid confirmation token.');
+            return $this->respondFailed(__('Invalid confirmation token.'));
         }
 
         $user->forceFill([

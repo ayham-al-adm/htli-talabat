@@ -80,7 +80,7 @@ class SubscriptionController extends Controller
     public function addSubscription(){
         $driver = auth()->user()->driver;
         if($driver->is_subscribed){
-            $this->throwCustomException('Driver already subscribed');
+            $this->throwCustomException(__('Driver already subscribed'));
         }
 
         if(request()->payment_opt != 2){
@@ -93,7 +93,7 @@ class SubscriptionController extends Controller
         $plan = Subscription::active()->where('id',$plan_id)->whereIn('vehicle_type_id',$vehicle_types)->first();
 
         if(!$plan){
-             $this->throwCustomException('Subscription is not Valid or Incorrect');
+             $this->throwCustomException(__('Subscription is not Valid or Incorrect'));
         }
 
         $amount = floatval($plan->amount);
@@ -109,7 +109,7 @@ class SubscriptionController extends Controller
         $params['transaction_id'] = str_random(6);
         $driver_wallet = $driver->DriverWallet;
         if($amount > $driver_wallet->amount_balance){
-            $this->throwCustomException('Insufficient Wallet Balance');
+            $this->throwCustomException(__('Insufficient Wallet Balance'));
         }
         $driver_wallet->amount_balance -= $amount;
         $driver_wallet->amount_spent += $amount;

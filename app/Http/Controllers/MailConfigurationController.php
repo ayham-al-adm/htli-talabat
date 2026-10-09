@@ -46,7 +46,7 @@ class MailConfigurationController  extends Controller
          $this->updateEnvFile($settings);
                      
          Artisan::call('optimize:clear');
-       return response()->json(['message' => 'Mail  Destails updated successfully'], 201);
+       return response()->json(['message' => __('Mail  Destails updated successfully')], 201);
 
 
     }
@@ -138,9 +138,9 @@ private function updateEnvFile(array $settings)
                         ->subject($request->mail_subject);
             });
 
-            return response()->json(['message' => 'Test email sent successfully.'], 201);
+            return response()->json(['message' => __('Test email sent successfully.')], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to send test email: ' . $e->getMessage()], 500);
+            return response()->json(['message' => __('Failed to send test email: ') . $e->getMessage()], 500);
         }
     }
 }

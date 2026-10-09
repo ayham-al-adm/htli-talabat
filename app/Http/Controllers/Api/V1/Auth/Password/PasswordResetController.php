@@ -68,7 +68,7 @@ class PasswordResetController extends ApiController
         }
 
         if (!$request->has('mobile')&&!$request->has('email')) {
-            return $this->respondBadRequest('Input Params could be mismatched.');
+            return $this->respondBadRequest(__('Input Params could be mismatched.'));
         }
 
         if (!$user) {
@@ -129,7 +129,7 @@ class PasswordResetController extends ApiController
         }
 
         if (!$request->has('mobile')&&!$request->has('email')) {
-            return $this->respondBadRequest('Input Params could be mismatched.');
+            return $this->respondBadRequest(__('Input Params could be mismatched.'));
         }
 
 

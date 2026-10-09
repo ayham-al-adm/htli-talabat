@@ -167,14 +167,14 @@ public function destroy(Request $request, PeakZone $peak_zones,Database $databas
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $database->getReference('peak-zones/'.$peak_zones->id)->remove();
         $peak_zones->delete();
 
         return response()->json([
-            'successMessage' => 'peak Zone deleted successfully',
+            'successMessage' => __('peak Zone deleted successfully'),
         ]);
     } 
 

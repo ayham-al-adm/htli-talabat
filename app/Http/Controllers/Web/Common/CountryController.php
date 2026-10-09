@@ -73,7 +73,7 @@ class CountryController extends ApiController
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $created_params = $request->only([
@@ -100,7 +100,7 @@ class CountryController extends ApiController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Service location created successfully.',
+            'successMessage' => __('Service location created successfully.'),
             'country' => $country,
         ], 201);
     }
@@ -123,7 +123,7 @@ class CountryController extends ApiController
 
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $updated_params = $request->only([
@@ -146,7 +146,7 @@ class CountryController extends ApiController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Service location updated successfully.',
+            'successMessage' => __('Service location updated successfully.'),
             'country' => $country,
         ], 201);
     }
@@ -156,7 +156,7 @@ class CountryController extends ApiController
 
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $status = $country->isActive() ? false: true;
@@ -164,7 +164,7 @@ class CountryController extends ApiController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Service location created successfully.',
+            'successMessage' => __('Service location created successfully.'),
             'country' => $country,
         ], 201);
     }

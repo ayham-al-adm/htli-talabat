@@ -37,7 +37,7 @@ class CashfreeController extends PaymentGatewayController
             Log::info("Cashfree checkout Fail");
             $requestBody = $request->all();
             Log::info($requestBody);
-            return $this->respondSuccess($requestBody,'Could not find Payment');
+            return $this->respondSuccess($requestBody,__('Could not find Payment'));
         }elseif($payment->status == "S"){
 
             $request_id = $payment->request_id;
@@ -137,7 +137,7 @@ class CashfreeController extends PaymentGatewayController
             Log::info("Cashfree checkout Fail");
             $requestBody = $request->all();
             Log::info($requestBody);
-            return $this->respondSuccess($requestBody,'Could not find Payment');
+            return $this->respondSuccess($requestBody,__('Could not find Payment'));
         }elseif($payment->status == "S"){
 
             $request_id = $payment->request_id;

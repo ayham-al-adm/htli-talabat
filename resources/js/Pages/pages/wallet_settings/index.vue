@@ -118,7 +118,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="Wallet Settings" />
+    <Head :title="$t('wallet-settings')" />
     <PageHeader :title="$t('wallet-settings')" :pageTitle="$t('wallet-settings')" />
     <BRow>
         <BCard v-if="app_for === 'demo'" no-body id="tasksList">
@@ -233,7 +233,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -243,7 +243,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

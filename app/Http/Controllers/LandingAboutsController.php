@@ -19,6 +19,7 @@ use App\Base\Services\ImageUploader\ImageUploader;
 use Illuminate\Support\Str;
 use App\Models\Admin\Setting;
 use App\Models\Languages;
+use App\Support\Locale;
 
 
 class LandingAboutsController extends BaseController
@@ -155,7 +156,7 @@ class LandingAboutsController extends BaseController
     
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Landing Aboutus created successfully.'
+            'successMessage' => __('Landing Aboutus created successfully.')
         ], 201);
     }
     
@@ -261,7 +262,7 @@ class LandingAboutsController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Aboutus updated successfully.',
+            'successMessage' => __('Aboutus updated successfully.'),
             'landingAbouts' => $landingAbouts,
         ], 201);
 
@@ -271,7 +272,7 @@ class LandingAboutsController extends BaseController
         $landingAbouts->delete();
 
         return response()->json([
-            'successMessage' => 'Aboutus deleted successfully',
+            'successMessage' => __('Aboutus deleted successfully'),
         ]);
     }  
 
@@ -281,18 +282,13 @@ class LandingAboutsController extends BaseController
     {
 
         // Fetch the default language code where default_status is true
-        $defaultLocale = Languages::where('default_status', true)->value('code') ?? 'en'; // Fallback to 'en' if not found
+        $defaultLocale = Locale::default();
         // Use the default locale if none is selected
-        $selectedLocale = $request->input('locale', session('selectedLocale', $defaultLocale));
-        session(['selectedLocale' => $selectedLocale]); // Store in session
-        // $selectedLocale = $request->input('locale', session('selectedLocale', 'en')); // default to 'en'
-        session(['selectedLocale' => $selectedLocale]); // store the selected locale in the session
-        $landingAbouts = LandingAbouts::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
-        $landingHeader = LandingHeader::whereIn('locale', [$selectedLocale, $defaultLocale, 'en'])
-            ->orderByRaw("FIELD(locale, ?, ?, ?)", [$selectedLocale, $defaultLocale, 'en'])
-            ->first();
+        $selectedLocale = app()->getLocale(); // resolved by the SetLocale middleware
+        $landingAbouts = Locale::pick(LandingAbouts::query());
+        // Render the page in the language its content exists in.
+        $selectedLocale = Locale::alignTo($landingAbouts);
+        $landingHeader = Locale::pick(LandingHeader::query(), $selectedLocale);
 
 
              

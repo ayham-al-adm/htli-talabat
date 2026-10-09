@@ -9,6 +9,7 @@ import { mapGetters } from 'vuex';
 import { layoutComputed } from "@/state/helpers";
 import { useI18n } from 'vue-i18n';
 import ImageUpload from '@/Components/ImageUpload.vue';
+import { i18nT } from '@/i18n';
 
 export default {
     components: {
@@ -159,13 +160,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -238,7 +239,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Preferences" />
+        <Head :title="$t('preferences')" />
         <PageHeader :title="$t('preferences')" :pageTitle="$t('preferences')"/>
         <BRow>
             <BCol lg="12">
@@ -348,7 +349,7 @@ export default {
         <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" language="alert"
             id="alertMsg">
             <div class="alert-content">
-                <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                     successMessage }}
                 <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                     aria-label="Close Success Message"></button>
@@ -359,7 +360,7 @@ export default {
         <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" language="alert"
             id="alertMsg">
             <div class="alert-content">
-                <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                 }}
                 <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                     aria-label="Close Alert Message"></button>

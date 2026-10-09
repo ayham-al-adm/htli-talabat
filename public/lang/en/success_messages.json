@@ -148,6 +148,10 @@
      "files_uploaded_successfully":"Files Uploaded Successfully",
      "trip_completed_successfully":"Trip Completed Successfully",
      "franchise_deleted_successfully":"Franchise Deleted Successfully",
-     "franchise_created_successfully":"Franchise Created Successfully"
-
+     "franchise_created_successfully":"Franchise Created Successfully",
+    "airport_created_successfully":"Airport Created Successfully",
+    "app_modules_deleted_successfully":"App Modules Deleted Successfully",
+    "user_imported_files_created_successfully":"Imported Files Created Successfully",
+    "driver_assigned_successfully":"Driver Assigned Successfully",
+    "tip_settings_updated_successfully":"Tip Settings Updated Successfully"
 }

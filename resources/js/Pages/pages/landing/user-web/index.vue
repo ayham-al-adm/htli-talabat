@@ -106,7 +106,7 @@
                             </div>
   
                             <div class="mt-3 text-center">
-                              <span>or</span>
+                              <span>{{ $t('or') }}</span>
                               <BButton variant="link" @click="sendOTP">{{$t("sign_in_with_otp")}}</BButton>
                             </div>
                           </div>

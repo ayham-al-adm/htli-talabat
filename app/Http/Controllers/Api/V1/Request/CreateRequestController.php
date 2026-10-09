@@ -225,7 +225,7 @@ class CreateRequestController extends StripeController
 
             if(!$request->has('contact_no_other') || $request->input('contact_no_other')==null){
 
-                $this->throwCustomException('please provide the valid contact');
+                $this->throwCustomException(__('please provide the valid contact'));
 
             }
             $request_params['book_for_other_contact'] = $request->input('contact_no_other');
@@ -270,7 +270,7 @@ class CreateRequestController extends StripeController
                 $request_params['payment_intent_id']=$preAuthorize->id;
                 $request_detail = $this->request->create($request_params);
             }else{
-                $this->throwCustomException('Insufficient Balance Amount');
+                $this->throwCustomException(__('Insufficient Balance Amount'));
             }
         }else{
             $request_detail = $this->request->create($request_params);
@@ -354,7 +354,7 @@ class CreateRequestController extends StripeController
         //     DB::rollBack();
         //     Log::error($e);
         //     Log::error('Error while Create new request. Input params : ' . json_encode($request->all()));
-        //     return $this->respondBadRequest('Unknown error occurred. Please try again later or contact us if it continues.');
+        //     return $this->respondBadRequest(__('Unknown error occurred. Please try again later or contact us if it continues.'));
         // }
         // DB::commit();
         $service_location = $zone_type_detail->zone->serviceLocation;
@@ -564,7 +564,7 @@ class CreateRequestController extends StripeController
                 $request_params['payment_intent_id']=$preAuthorize->id;
                 $request_detail = $this->request->create($request_params);
             }else{
-                $this->throwCustomException('Insufficient Balance Amount');
+                $this->throwCustomException(__('Insufficient Balance Amount'));
             }
         }else{
             $request_detail = $this->request->create($request_params);
@@ -635,7 +635,7 @@ class CreateRequestController extends StripeController
         // Validate the request i,e the request is already accepted by some one and it is a valid request for accept or reject state.
 
         if($request_detail==null){
-            $this->throwCustomException('unauthorized request');
+            $this->throwCustomException(__('unauthorized request'));
         }
 
         $this->validateRequestDetail($request_detail);
@@ -729,10 +729,10 @@ class CreateRequestController extends StripeController
     {
 
         if ($request_detail->is_completed) {
-            $this->throwCustomException('request completed already');
+            $this->throwCustomException(__('request completed already'));
         }
         if ($request_detail->is_cancelled) {
-            $this->throwCustomException('request cancelled');
+            $this->throwCustomException(__('request cancelled'));
         }
     }
 

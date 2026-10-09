@@ -1,13 +1,13 @@
    <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Status</th>
-                <th>signup Date</th>
+                <th>{{ __('exports.no') }}</th>
+                <th>{{ __('exports.id') }}</th>
+                <th>{{ __('exports.name') }}</th>
+                <th>{{ __('exports.email') }}</th>
+                <th>{{ __('exports.mobile') }}</th>
+                <th>{{ __('exports.status') }}</th>
+                <th>{{ __('exports.signup_date') }}</th>
 
             </tr>
         </thead>
@@ -31,9 +31,9 @@
                     <td>{{ $email }}</td>
                     <td>{{ $mobile }}</td>
                     @if ($user->active)
-                        <td><span class="label label-success">Active</span></td>
+                        <td><span class="label label-success">{{ __('exports.active') }}</span></td>
                     @else
-                        <td><span class="label label-danger">InActive</span></td>
+                        <td><span class="label label-danger">{{ __('exports.inactive') }}</span></td>
                     @endif
                     <td>{{ $user->getConvertedCreatedAtAttribute() }}</td>
 
@@ -41,7 +41,7 @@
                 @empty
                 <tr>
                     <td colspan="11">
-                        <h4 class="text-center" style="color:#333;font-size:25px;">No Data Found</h4>
+                        <h4 class="text-center" style="color:#333;font-size:25px;">{{ __('exports.no_data_found') }}</h4>
                     </td>
                 </tr>
             @endforelse

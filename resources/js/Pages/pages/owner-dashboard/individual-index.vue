@@ -392,7 +392,7 @@ const fetchNearbyDrivers = () => {
                               </span>
                           </div>
                           <div class="flex-grow-1 overflow-hidden ms-3">
-                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">Registered</span>  Fleets</h4>
+                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">{{ $t('registered') }}</span>  {{ $t('fleets') }}</h4>
                               <div class="d-flex align-items-center mb-3">
                                   <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="825">{{ total_fleets.total }}</span></h4>
                                   <Link href="/manage-fleet" class="text-decoration-underline">{{ $t("view_all") }}</Link>
@@ -412,7 +412,7 @@ const fetchNearbyDrivers = () => {
                               </span>
                           </div>
                           <div class="flex-grow-1 overflow-hidden ms-3">
-                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">Approved</span>  Fleets</h4>
+                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">{{ $t('approved') }}</span>  {{ $t('fleets') }}</h4>
                               <div class="d-flex align-items-center mb-3">
                                   <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="825">{{ total_fleets.approved }}</span></h4>
                                   <Link href="/manage-fleet" class="text-decoration-underline">{{ $t("view_all") }}</Link>
@@ -432,7 +432,7 @@ const fetchNearbyDrivers = () => {
                               </span>
                           </div>
                           <div class="flex-grow-1 ms-3">
-                              <h4 class="text-uppercase fw-medium text-muted mb-3"><span class="text-danger">Fleets</span> Awaiting Review</h4>
+                              <h4 class="text-uppercase fw-medium text-muted mb-3"><span class="text-danger">{{ $t('fleets') }}</span> {{ $t('awaiting_review') }}</h4>
                               <div class="d-flex align-items-center mb-3">
                                   <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="7522">{{ total_fleets.declined }}</span></h4>
                                   <Link href="/manage-fleet" class="text-decoration-underline">{{ $t("view_all") }}</Link>
@@ -454,7 +454,7 @@ const fetchNearbyDrivers = () => {
                               </span>
                           </div>
                           <div class="flex-grow-1 overflow-hidden ms-3">
-                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">Registered</span>  Drivers</h4>
+                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">{{ $t('registered') }}</span>  {{ $t('drivers') }}</h4>
                               <div class="d-flex align-items-center mb-3">
                                   <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="825">{{ total_drivers.total }}</span></h4>
                                   <Link href="/fleet-drivers" class="text-decoration-underline">{{ $t("view_all") }}</Link>
@@ -474,7 +474,7 @@ const fetchNearbyDrivers = () => {
                               </span>
                           </div>
                           <div class="flex-grow-1 overflow-hidden ms-3">
-                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">Approved</span>  Drivers</h4>
+                              <h4 class="text-uppercase fw-medium text-muted text-truncate mb-3"><span class="text-success">{{ $t('approved') }}</span>  {{ $t('drivers') }}</h4>
                               <div class="d-flex align-items-center mb-3">
                                   <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="825">{{ total_drivers.approved }}</span></h4>
                                   <Link href="/fleet-drivers" class="text-decoration-underline">{{ $t("view_all") }}</Link>
@@ -494,7 +494,7 @@ const fetchNearbyDrivers = () => {
                               </span>
                           </div>
                           <div class="flex-grow-1 ms-3">
-                              <h4 class="text-uppercase fw-medium text-muted mb-3"><span class="text-danger">Drivers</span> Awaiting Review</h4>
+                              <h4 class="text-uppercase fw-medium text-muted mb-3"><span class="text-danger">{{ $t('drivers') }}</span> {{ $t('awaiting_review') }}</h4>
                               <div class="d-flex align-items-center mb-3">
                                   <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="7522">{{ total_drivers.declined }}</span></h4>
                               </div>

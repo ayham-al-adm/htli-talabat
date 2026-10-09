@@ -27,7 +27,9 @@ class DriverWalletHistoryTransformer extends Transformer
     {
 
         $driver = auth()->user();
-        $remarks = custom_remarks_trans($wallet_history->remarks,[],$driver->lang ?? 'en') ;
+        // Mobile apps get the account's language; the admin panel gets the viewer's locale.
+        $remarksLocale = request()->is('api/*') ? ($driver->lang ?? 'en') : app()->getLocale();
+        $remarks = custom_remarks_trans($wallet_history->remarks, [], $remarksLocale);
         $params = [
             'id' => $wallet_history->id,
             'user_id' => $wallet_history->user_id,

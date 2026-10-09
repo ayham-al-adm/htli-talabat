@@ -66,7 +66,7 @@ class IncentiveController extends Controller
     }
 
     // Return a success message or redirect
-    return back()->with('success', 'Incentives updated successfully.');
+    return back()->with('success', __('Incentives updated successfully.'));
 
     } 
 }

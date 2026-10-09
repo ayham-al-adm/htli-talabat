@@ -9,18 +9,18 @@
       :no-close-on-esc="true"
     >
       <div class="modal-body text-center">
-        <h4 class="mb-3">We use cookies</h4>
+        <h4 class="mb-3">{{ $t('we_use_cookies') }}</h4>
         <p class="text-muted mb-4">
-          We use cookies to improve your experience. By continuing, you agree to our cookie policy.
+          {{ $t('we_use_cookies_to_improve_your_experience_by_continuing_you_') }}
         </p>
   
         <div class="hstack gap-2 justify-content-center">
           <BButton variant="secondary" @click="rejectCookies">
-            Reject
+            {{ $t('reject') }}
           </BButton>
   
           <BButton variant="success" @click="acceptCookies">
-            Accept
+            {{ $t('accept') }}
           </BButton>
         </div>
       </div>

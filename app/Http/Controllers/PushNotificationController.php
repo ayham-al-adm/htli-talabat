@@ -55,7 +55,7 @@ class PushNotificationController extends BaseController
 
 
         return response()->json([
-            'successMessage' => 'Notification Listed successfully.',
+            'successMessage' => __('Notification Listed successfully.'),
             'results' => $results,
         ], 201);
     }
@@ -71,7 +71,7 @@ class PushNotificationController extends BaseController
     public function delete(notification $notification) {
         $notification->delete();
         return response()->json([
-            'successMessage' => 'Notification Deleted successfully.',
+            'successMessage' => __('Notification Deleted successfully.'),
         ], 201);
     }
 
@@ -199,7 +199,7 @@ class PushNotificationController extends BaseController
         }
 
         return response()->json([
-            'successMessage' => 'Notification Sent successfully.',
+            'successMessage' => __('Notification Sent successfully.'),
         ], 201);
     }
 

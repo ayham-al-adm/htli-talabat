@@ -7,6 +7,7 @@ import { ref, onMounted,computed } from "vue";
 import axios from "axios";
 import { useSharedState } from '@/composables/useSharedState'; // Import the composable
 import { useI18n } from 'vue-i18n';
+import { i18nT } from '@/i18n';
 
 export default {
     components: {
@@ -397,7 +398,7 @@ export default {
             const { service_location_id, unit } = form;
             const errors = {};
             if (!unit) {
-                errors.unit = 'Unit is required';
+                errors.unit = i18nT('unit_is_required');
             } else {
                 delete errors.unit;
             }
@@ -695,13 +696,13 @@ export default {
                 </div>
             </div>
         </div>
-        <div v-else>{{$t("lodaing")}}</div>
+        <div v-else>{{$t("loading")}}</div>
 
         <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert"
             id="alertMsg">
             <div class="alert-content">
             <i class="ri-notification-off-line me-3 align-middle"></i>
-            <strong>Alert</strong> - {{ alertMessage }}
+            <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
             <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                 aria-label="Close Alert Message"></button>
             </div>

@@ -9,6 +9,7 @@ import Multiselect from "@vueform/multiselect";
 import FormValidation from "@/Components/FormValidation.vue";
 import { useI18n } from 'vue-i18n';
 import Swal from "sweetalert2";
+import { i18nT } from '@/i18n';
 
 export default {
   components: {
@@ -114,8 +115,8 @@ const confirmToggle = async (field, value) => {
           // text: value ? placeholderText : offPlaceholderText,
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes, proceed',
-          cancelButtonText: 'Cancel'
+          confirmButtonText: i18nT('yes_proceed'),
+          cancelButtonText: i18nT('cancel')
         });
 
         if (result.isConfirmed) {
@@ -195,7 +196,7 @@ const confirmToggle = async (field, value) => {
 <template>
   <Layout>
 
-    <Head title="Transport Ride Settings" />
+    <Head :title="$t('transport-ride-settings')" />
     <PageHeader :title="$t('transport-ride-settings')" :pageTitle="$t('transport-ride-settings')" />
     <BRow>
         <BCard v-if="app_for === 'demo'" no-body id="tasksList">
@@ -399,7 +400,7 @@ const confirmToggle = async (field, value) => {
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Confirmation</h5>
+        <h5 class="modal-title">{{ $t('confirmation') }}</h5>
         <button type="button" class="btn-close" @click="showModal = false"></button>
       </div>
       <div class="modal-body">
@@ -407,8 +408,8 @@ const confirmToggle = async (field, value) => {
         <p>{{ modalText }}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" @click="cancelModal">Cancel</button>
-        <button type="button" class="btn btn-primary" @click="enableStatus">OK</button>
+        <button type="button" class="btn btn-secondary" @click="cancelModal">{{ $t('cancel') }}</button>
+        <button type="button" class="btn btn-primary" @click="enableStatus">{{ $t('ok') }}</button>
       </div>
     </div>
   </div>
@@ -421,7 +422,7 @@ const confirmToggle = async (field, value) => {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -431,7 +432,7 @@ const confirmToggle = async (field, value) => {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>

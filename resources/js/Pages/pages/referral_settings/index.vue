@@ -150,7 +150,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="User Referral Settings" />
+    <Head :title="$t('user-referral-settings')" />
     <PageHeader :title="$t('user-referral-settings')" :pageTitle="$t('user-referral-settings')" />
     <BRow>
       <BCol lg="12">
@@ -263,7 +263,7 @@ export default {
                                     <input
                                       type="text"
                                       class="form-control"
-                                      placeholder="Enter the Amount"
+                                      :placeholder="$t('enter_the_amount')"
                                       id="referral_commission_amount_for_user"
                                       :readonly="app_for == 'demo'"
                                       v-model="form.referral_commission_amount_for_user"
@@ -299,7 +299,7 @@ export default {
                                     <input
                                       type="text"
                                       class="form-control"
-                                      placeholder="Enter the Amount"
+                                      :placeholder="$t('enter_the_amount')"
                                       id="referral_commission_for_new_user_from_referer_user"
                                       v-model="form.referral_commission_for_new_user_from_referer_user"
                                     />
@@ -318,7 +318,7 @@ export default {
                                     <input
                                       type="text"
                                       class="form-control"
-                                      placeholder="Enter the Amount"
+                                      :placeholder="$t('enter_the_amount')"
                                       id="referral_commission_for_new_driver_from_referer_user"
                                       v-model="form.referral_commission_for_new_driver_from_referer_user"
                                     />
@@ -342,7 +342,7 @@ export default {
                       @change="onToggleCondition('ride')"
                     />
                     <label class="form-check-label" for="enable_referral_condition_by_ride_count">
-                      Enable Condition by Ride Count
+                      {{ $t('enable_condition_by_ride_count') }}
                     </label>
                   </div>
                   
@@ -363,7 +363,7 @@ export default {
                                       type="number"
                                       class="form-control"
                                       id="referral_condition_user_ride_count"
-                                      placeholder="Enter the Ride Count"
+                                      :placeholder="$t('enter_the_ride_count')"
                                       :readonly="app_for == 'demo'"
                                       v-model="form.referral_condition_user_ride_count"
                                     />
@@ -383,7 +383,7 @@ export default {
                                       type="number"
                                       class="form-control"
                                       :readonly="app_for == 'demo'"
-                                      placeholder="Enter the Ride Count"
+                                      :placeholder="$t('enter_the_ride_count')"
                                       id="referral_condition_driver_ride_count"
                                       v-model="form.referral_condition_driver_ride_count"
                                     />
@@ -401,13 +401,13 @@ export default {
                       @change="onToggleCondition('earning')"
                     />
                     <label class="form-check-label" for="enable_referral_condition_by_earning">
-                      Enable Condition by Earnings
+                      {{ $t('enable_condition_by_earnings') }}
                     </label>
                   </div>
                 </div>
                 <div class="col-lg-6 mt-3" v-if="form.enable_referral_condition_by_earning">
                   <div class="border p-3 rounded bg-light">
-                    <label class="form-label">User Spend Amount</label>
+                    <label class="form-label">{{ $t('user_spend_amount') }}</label>
                     <div class="tooltip-wrapper">
                       <i class="ri-information-line"></i>
                       <div class="tooltip-text">
@@ -420,14 +420,14 @@ export default {
                       class="form-control"
                       :readonly="app_for == 'demo'"
                       id="referral_condition_user_spent_amount"
-                      placeholder="Enter the Amount"
+                      :placeholder="$t('enter_the_amount')"
                       v-model="form.referral_condition_user_spent_amount"
                     />
                   </div>
                 </div>
                 <div class="col-lg-6 mt-3" v-if="form.enable_referral_condition_by_earning">
                   <div class="border p-3 rounded bg-light">
-                    <label class="form-label">Driver Earning Amount</label>
+                    <label class="form-label">{{ $t('driver_earning_amount') }}</label>
                     <div class="tooltip-wrapper">
                       <i class="ri-information-line"></i>
                       <div class="tooltip-text">
@@ -440,7 +440,7 @@ export default {
                       class="form-control"
                       :readonly="app_for == 'demo'"
                       id="referral_condition_driver_earning_amount"
-                      placeholder="Enter the Amount"
+                      :placeholder="$t('enter_the_amount')"
                       v-model="form.referral_condition_driver_earning_amount"
                     />
                   </div>
@@ -471,7 +471,7 @@ export default {
                                     <input
                                       type="text"
                                       class="form-control"
-                                      placeholder="Enter the Amount"
+                                      :placeholder="$t('enter_the_amount')"
                                       id="referral_commission_for_new_user_from_referer_user"
                                       v-model="form.referral_commission_for_new_user_from_referer_user"
                                     />
@@ -490,7 +490,7 @@ export default {
                                     <input
                                       type="text"
                                       class="form-control"
-                                      placeholder="Enter the Amount"
+                                      :placeholder="$t('enter_the_amount')"
                                       id="referral_commission_for_new_driver_from_referer_user"
                                       v-model="form.referral_commission_for_new_driver_from_referer_user"
                                     />

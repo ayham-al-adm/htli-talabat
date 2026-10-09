@@ -282,7 +282,7 @@ $notification->save();
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Mail Template updated successfully.',
+            'successMessage' => __('Mail Template updated successfully.'),
             'notification' => $notification,
         ], 201);
 
@@ -333,7 +333,7 @@ $notification->save();
     
         // Return a response
         return response()->json([
-            'successMessage' => 'Push Template updated successfully.',
+            'successMessage' => __('Push Template updated successfully.'),
             'notification' => $notification,
         ], 201);
     }
@@ -350,7 +350,7 @@ $notification->save();
         ]);
 
     return response()->json([
-        'successMessage' => 'Status updated successfully',
+        'successMessage' => __('Status updated successfully'),
     ]);
 }
 

@@ -121,7 +121,7 @@ class SupportTicketsListController extends BaseController
     public function replyMessage(Request $request, SupportTicket $supportTicket)
     {      // if(env('APP_FOR') == 'demo'){
         //     return response()->json([
-        //         'alertMessage' => 'You are not Authorized'
+        //         'alertMessage' => __('You are not Authorized')
         //     ], 403);
         // }
         // dd($request->all());
@@ -149,7 +149,7 @@ class SupportTicketsListController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Title created successfully.',
+            'successMessage' => __('Title created successfully.'),
             'reply_ticket' => $reply_ticket,
         ], 201);
     }
@@ -165,7 +165,7 @@ class SupportTicketsListController extends BaseController
 
             // Optionally, return a response
             return response()->json([
-                'successMessage' => 'Assing to updated successfully.',
+                'successMessage' => __('Assing to updated successfully.'),
                 'support_ticket' => $support_ticket,
             ], 201);
 
@@ -175,7 +175,7 @@ class SupportTicketsListController extends BaseController
     {
         $category->delete();
         return response()->json([
-            'successMessage' => 'category deleted successfully',
+            'successMessage' => __('category deleted successfully'),
         ]);
     }   
 
@@ -184,7 +184,7 @@ class SupportTicketsListController extends BaseController
         SupportTicket::where('id', $request->id)->update(['status'=> $request->status,'assign_to' => $request->employee_id]);
 
         return response()->json([
-            'successMessage' => 'Ticket status updated successfully',
+            'successMessage' => __('Ticket status updated successfully'),
         ]);
     }
 

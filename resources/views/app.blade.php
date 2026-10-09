@@ -30,6 +30,9 @@
 
         window.defaultLocale = "{{ $default_language->code }}";
         window.direction = "{{ $default_language->direction }}";
+        // Locale resolved by App\Http\Middleware\SetLocale for this response (vue-i18n follows it).
+        window.appLocale = @json(app()->getLocale());
+        window.appDirection = @json(\App\Support\Locale::direction());
 
     </script>
     <!-- Scripts -->
@@ -39,7 +42,7 @@
 
 </head>
 
-<body>
+<body class="{{ \App\Support\Locale::direction() }}">
     @inertia
     <script>
         window.headers = @json($headers);

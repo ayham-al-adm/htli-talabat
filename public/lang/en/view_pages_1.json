@@ -798,5 +798,24 @@
         "dispatcher-chat": "Dispatcher Chat",
         "manage-food-request": "Manage Food Request",
         "direct_download": "Direct Download"
-    }
+    },
+	"complaint_title":"Complaint Title",
+	"add_complaint_title":"Add Complaint Title",
+	"complaint_type":"Complaint Type",
+	"complaint_title_type":"Complaint Title Type",
+	"general_complaint":"General Complaint",
+	"request_complaint":"Request Complaint",
+	"vehicle_model":"Vehicle Model",
+	"vehicle_color":"Vehicle Color",
+	"enter_vehicle_make":"Enter Vehicle Make",
+	"enter_vehicle_model":"Enter Vehicle Model",
+	"enter_vehicle_color":"Enter Vehicle Color",
+	"select_area":"Select Area",
+	"vehicle_number":"Vehicle Number",
+	"enter_vehicle_number":"Enter Vehicle Number",
+	"documents":"Documents",
+	"document_name":"Document Name",
+	"expiry_date":"Expiry Date",
+	"comment":"Comment",
+	"upload":"Upload"
 }

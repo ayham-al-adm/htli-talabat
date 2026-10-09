@@ -72,7 +72,7 @@ class PaytechController extends Controller
             }
 
             if($driver->is_subscribed){
-                $this->throwCustomException('Driver already subscribed');
+                $this->throwCustomException(__('Driver already subscribed'));
             }
 
             $vehicle_types = $driver->driverVehicleTypeDetail->pluck('vehicle_type');
@@ -80,7 +80,7 @@ class PaytechController extends Controller
             $plan = Subscription::active()->where('id',$plan_id)->whereIn('vehicle_type_id',$vehicle_types)->first();
 
             if(!$plan){
-                $this->throwCustomException('Subscription is not Valid or Incorrect');
+                $this->throwCustomException(__('Subscription is not Valid or Incorrect'));
             }
         }
 

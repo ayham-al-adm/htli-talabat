@@ -74,7 +74,7 @@ class SettingController extends BaseController
         // dd($request->all());
        
         return response()->json([
-            'successMessage' => 'status updated successfully',
+            'successMessage' => __('status updated successfully'),
         ]);
     }
     public function updateGeneralSettings(Request $request) 
@@ -154,7 +154,7 @@ class SettingController extends BaseController
     // Update settings
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
             'settings' => $settings,
         ], 200);
     }
@@ -180,7 +180,7 @@ class SettingController extends BaseController
         // dd($settings);
        
         return response()->json([
-            'successMessage' => 'status updated successfully',
+            'successMessage' => __('status updated successfully'),
         ]);
     }
 
@@ -271,7 +271,7 @@ class SettingController extends BaseController
     // Update settings
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
             'settings' => $settings,
         ], 200);
     }
@@ -317,7 +317,7 @@ class SettingController extends BaseController
     // Update settings
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
             'settings' => $settings,
         ], 200);
     }
@@ -333,7 +333,7 @@ class SettingController extends BaseController
         }
        
         return response()->json([
-            'successMessage' => 'status updated successfully',
+            'successMessage' => __('status updated successfully'),
         ]);
     }
 
@@ -369,7 +369,7 @@ class SettingController extends BaseController
     // Update settings
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
             'settings' => $settings,
         ], 200);
     }
@@ -411,7 +411,7 @@ class SettingController extends BaseController
         }
 
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
         ], 201);
 
     }
@@ -538,7 +538,7 @@ class SettingController extends BaseController
 
 
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
         ], 200);
     }
     public function peakZoneSettings()
@@ -569,7 +569,7 @@ class SettingController extends BaseController
     // Update settings
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
             'settings' => $settings,
         ], 200);
     }
@@ -599,7 +599,7 @@ class SettingController extends BaseController
         }
        
         return response()->json([
-            'successMessage' => 'status updated successfully',
+            'successMessage' => __('status updated successfully'),
         ]);
     }
     public function updateTipSettings(Request $request)
@@ -623,7 +623,7 @@ class SettingController extends BaseController
         }
 
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
         ], 201);
 
     }
@@ -772,7 +772,7 @@ class SettingController extends BaseController
             // dd($settings);
         }
         return response()->json([
-            'successMessage' => 'Settings updated successfully.',
+            'successMessage' => __('Settings updated successfully.'),
         ], 200);
     }
     
@@ -830,7 +830,7 @@ class SettingController extends BaseController
             }
         }
         return response()->json([
-            'successMessage' => 'Referral Descriptions updated successfully!',
+            'successMessage' => __('Referral Descriptions updated successfully!'),
         ], 201);
     }
 

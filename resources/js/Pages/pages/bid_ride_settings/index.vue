@@ -196,7 +196,7 @@ export default {
 <template>
   <Layout>
 
-    <Head title="Bid Ride Settings" />
+    <Head :title="$t('bid-ride-settings')" />
     <PageHeader :title="$t('bid-ride-settings')" :pageTitle="$t('bid-ride-settings')" />
     <BRow>
         <BCard v-if="app_for === 'demo'" no-body id="tasksList">
@@ -284,7 +284,7 @@ export default {
                           <BButton variant="text-muted" class="plus hov">+{{ form.bidding_amount_increase_or_decrease  }}</BButton>
                         </div>
                         <div class="hstack gap-2 justify-content-center mt-4">
-                            <button type="button" class="btn" style="background-color: #16ad70;color:white">Create Request</button>
+                            <button type="button" class="btn" style="background-color: #16ad70;color:white">{{ $t('create_request') }}</button>
                         </div>
                       </div>
                     </div>
@@ -373,7 +373,7 @@ export default {
                           <BButton variant="text-muted" class="user-plus hov">+{{ form.user_bidding_amount_increase_or_decrease  }}</BButton>
                         </div>
                         <div class="hstack gap-2 justify-content-center mt-4">
-                            <button type="button" class="btn" style="background-color: #16ad70;color:white">Create Request</button>
+                            <button type="button" class="btn" style="background-color: #16ad70;color:white">{{ $t('create_request') }}</button>
                         </div>
                       </div>
                     </div>
@@ -389,7 +389,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
             aria-label="Close Success Message"></button>
         </div>
@@ -399,7 +399,7 @@ export default {
         id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
             aria-label="Close Alert Message"></button>
         </div>
@@ -410,12 +410,12 @@ export default {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Least Bidding Amount</h5>
+                <h5 class="modal-title" id="myModalLabel">{{ $t('least_bidding_amount') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
             </div>
             <div class="modal-body">
                 <h5 class="fs-15">
-                  Least Bidding Amount Calculation
+                  {{ $t('least_bidding_amount_calculation') }}
                 </h5>
                 <p class="text-muted"> Recommended Price for ride = <strong>$150</strong> </p>
                 <p class="text-muted"> {{$t("bidding_low_percentage")}} = <strong>50 %</strong></p>
@@ -438,12 +438,12 @@ export default {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Highest Bidding Amount</h5>
+                <h5 class="modal-title" id="myModalLabel">{{ $t('highest_bidding_amount') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
             </div>
             <div class="modal-body">
                 <h5 class="fs-15">
-                  Highest Bidding Amount Calculation
+                  {{ $t('highest_bidding_amount_calculation') }}
                 </h5>
                 <p class="text-muted"> Recommended Price for ride = <strong>$150</strong> </p>
                 <p class="text-muted"> {{$t("bidding_high_percentage")}} = <strong>50 %</strong></p>

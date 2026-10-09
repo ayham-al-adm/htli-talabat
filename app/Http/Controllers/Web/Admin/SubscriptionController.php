@@ -57,7 +57,7 @@ class SubscriptionController extends Controller
 
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $params = $request->all();
@@ -85,7 +85,7 @@ class SubscriptionController extends Controller
     public function update(Subscription $plan, Request $request) {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $params = $request->all();
@@ -116,7 +116,7 @@ class SubscriptionController extends Controller
 
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('You are not Authorized')
             ], 403);
         }
         $plan->delete();
@@ -153,7 +153,7 @@ class SubscriptionController extends Controller
         $driver->update(['is_subscribed' => false]);
         
         return response()->json([
-            'successMessage' => 'Expired Subscription Successfully',
+            'successMessage' => __('Expired Subscription Successfully'),
         ]);
     }
 }

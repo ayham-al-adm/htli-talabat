@@ -126,7 +126,7 @@ if ($request->hasFile('firebase_json')) {
 
     
         // Return a success response
-        return response()->json(['message' => 'Firebase details updated successfully'], 201);
+        return response()->json(['message' => __('Firebase details updated successfully')], 201);
     }
     
     
@@ -154,6 +154,6 @@ if ($request->hasFile('firebase_json')) {
         }
   
     
-        return response()->json(['message' => 'Map  Destails updated successfully'], 201);
+        return response()->json(['message' => __('Map  Destails updated successfully')], 201);
     }
 }

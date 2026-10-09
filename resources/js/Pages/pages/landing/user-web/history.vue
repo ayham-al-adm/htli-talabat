@@ -172,7 +172,7 @@ applyFilter() {
 
 <template>
 <BCard>
-<Head title="Taxi Ride" />
+<Head :title="$t('taxi_ride')" />
 <BCardHeader class="border-0">
 <!-- menu Offcanvas -->
 <UserWebMenu :user="user" />
@@ -274,7 +274,7 @@ applyFilter() {
                                     'text-bg-danger': rideStatus(result) === 'Cancelled',
                                     'text-bg-info': rideStatus(result) === 'On Trip',
                                     'text-bg-warning': rideStatus(result) === 'Upcoming' || rideStatus(result) === 'Driver Arrived' || rideStatus(result) === 'Searching',
-                                }">{{ rideStatus(result) }} </BBadge>
+                                }">{{ $st(rideStatus(result)) }} </BBadge>
                             </td>
                             <td>
                                 {{currency}} {{ result.request_eta_amount }}

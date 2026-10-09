@@ -15,6 +15,7 @@ import ImageModal from "@/Components/ImageModal.vue";
 import { mapGetters } from 'vuex';
 import { layoutComputed } from "@/state/helpers";
 import { useI18n } from 'vue-i18n';
+import { i18nT } from '@/i18n';
 
 export default {
     data() {
@@ -124,13 +125,13 @@ export default {
 
         const deleteModal = async (itemId) => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: i18nT('are_you_sure'),
+                text: i18nT('you_wont_be_able_to_revert_this'),
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: i18nT('yes_delete_it'),
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -223,7 +224,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="Landing Home" />
+        <Head :title="$t('landing_home_text')" />
         <PageHeader :title="$t('index')" :pageTitle="$t('landing_home')" />
         <BRow>
             <BCol lg="12">
@@ -312,7 +313,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -323,7 +324,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>
@@ -332,54 +333,54 @@ export default {
         </div>
 
         <!-- filter -->
-        <BOffcanvas v-model="rightOffcanvas" placement="end" title="Vehicle Type Filters" header-class="bg-light"
+        <BOffcanvas v-model="rightOffcanvas" placement="end" :title="$t('vehicle_type_filters')" header-class="bg-light"
             body-class="p-0 overflow-hidden" footer-class="border-top p-3 text-center">
             <BFrom action="" class="d-flex flex-column justify-content-end h-100">
                 <div class="offcanvas-body">
                     <div class="mb-4">
                         <label for="datepicker-range"
-                            class="form-label text-muted text-uppercase fw-semibold mb-3">Transport Type</label>
+                            class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('transport_type') }}</label>
                         <select class="form-control" data-choices data-choices-search-false name="choices-select-status"
                             id="choices-select-status" v-model="filter.transport_type">
-                            <option value="all">All</option>
-                            <option value="taxi">Taxi</option>
-                            <option value="delivery">Delivery</option>
+                            <option value="all">{{ $t('all') }}</option>
+                            <option value="taxi">{{ $t('taxi') }}</option>
+                            <option value="delivery">{{ $t('delivery') }}</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
                         <label for="datepicker-range"
-                            class="form-label text-muted text-uppercase fw-semibold mb-3">Status</label>
+                            class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('status') }}</label>
                         <div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input"  v-model="filter.status" type="radio" name="inlineRadioOptions"
                                     id="active" value='1'>
-                                <label class="form-check-label" for="active">Active</label>
+                                <label class="form-check-label" for="active">{{ $t('active') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" v-model="filter.status" type="radio" name="inlineRadioOptions"
                                     id="inactive" value="0">
-                                <label class="form-check-label" for="inactive">Inactive</label>
+                                <label class="form-check-label" for="inactive">{{ $t('inactive') }}</label>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-4">
                         <label for="status-select"
-                            class="form-label text-muted text-uppercase fw-semibold mb-3">Dispatch Type</label>
+                            class="form-label text-muted text-uppercase fw-semibold mb-3">{{ $t('dispatch_type') }}</label>
                         <BRow class="g-2">
                             <BCol lg="6">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" v-model="filter.dispatch_type" type="radio" id="inlineCheckbox1"
                                         value="bidding" />
-                                    <label class="form-check-label" for="inlineCheckbox1">Bidding</label>
+                                    <label class="form-check-label" for="inlineCheckbox1">{{ $t('bidding') }}</label>
                                 </div>
                             </BCol>
                             <BCol lg="6">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input"  v-model="filter.dispatch_type" type="radio" id="inlineCheckbox2"
                                         value="normal" />
-                                    <label class="form-check-label" for="inlineCheckbox2">Normal</label>
+                                    <label class="form-check-label" for="inlineCheckbox2">{{ $t('normal') }}</label>
                                 </div>
                             </BCol>
                         </BRow>
@@ -389,9 +390,9 @@ export default {
                 </div>
                 <!--end offcanvas-body-->
                 <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
-                    <BButton variant="light" @click="clearFilter" class="w-100">Clear Filter</BButton>
+                    <BButton variant="light" @click="clearFilter" class="w-100">{{ $t('clear_filter') }}</BButton>
                     <BButton type="submit" @click="fetchDatas" variant="success" class="w-100">
-                        Apply
+                        {{ $t('apply') }}
                     </BButton>
                 </div>
                 <!--end offcanvas-footer-->

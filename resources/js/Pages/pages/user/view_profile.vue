@@ -307,7 +307,7 @@ export default {
 <template>
     <Layout>
 
-        <Head title="User Profile" />
+        <Head :title="$t('user_profile')" />
         <PageHeader :title="$t('user_profile')" :pageTitle="$t('user_profile')"  pageLink="/users" />
         <BRow>
             <BCol lg="12">
@@ -485,15 +485,15 @@ export default {
                                                         <td>{{ request.converted_trip_start_time_date }}</td>
                                                         <td>{{ request.user_name }}</td>
                                                         <td>{{ request.driver_name }}</td>
-                                                        <td>{{ request.trip_status }}</td>
-                                                        <td>{{ request.trip_payment }}</td>
+                                                        <td>{{ $st(request.trip_status) }}</td>
+                                                        <td>{{ $st(request.trip_payment) }}</td>
                                                         <!-- <td>Cash</td>                                       -->
                                                         <td>
                                                             <BBadge :class="{
                                                                 'text-uppercase':true,
                                                                 'text-bg-success': request.is_paid,
                                                                 'text-bg-danger': !request.is_paid,
-                                                                }">{{ request.payment_opt == 1 ? 'Cash' : (request.payment_opt == 2 ? 'Wallet' : 'Card') }} </BBadge>
+                                                                }">{{ $t(request.payment_opt == 1 ? 'cash' : (request.payment_opt == 2 ? 'wallet' : 'card')) }} </BBadge>
                                                         </td>  
                                                         <!-- <td>
                                                             <div class="dropdown">
@@ -743,7 +743,7 @@ export default {
             <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Success</strong> - {{
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('success') }}</strong> - {{
                         successMessage }}
                     <button type="button" class="btn-close btn-close-success" @click="dismissMessage"
                         aria-label="Close Success Message"></button>
@@ -754,7 +754,7 @@ export default {
             <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" data="alert"
                 id="alertMsg">
                 <div class="alert-content">
-                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>Alert</strong> - {{ alertMessage
+                    <i class="ri-notification-off-line me-3 align-middle"></i> <strong>{{ $t('alert') }}</strong> - {{ alertMessage
                     }}
                     <button type="button" class="btn-close btn-close-danger" @click="dismissMessage"
                         aria-label="Close Alert Message"></button>

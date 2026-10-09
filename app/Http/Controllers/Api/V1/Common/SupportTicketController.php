@@ -75,7 +75,7 @@ class SupportTicketController extends BaseController
         $translated_results = fractal($result, new SupportTicketTitleTransformer);
 
 
-        return $this->respondSuccess($translated_results, 'Ticket Titles Listed');
+        return $this->respondSuccess($translated_results, __('Ticket Titles Listed'));
     }
 
     //Ticket List
@@ -92,7 +92,7 @@ class SupportTicketController extends BaseController
         }
         // $results = $queryFilter->builder($query)->customFilter(new TicketFilter)->paginate();
         $result  = filter($query)->customFilter(new SupportTicketFilter)->paginate();
-        return $this->respondSuccess($result->items(),'Ticket Listed');
+        return $this->respondSuccess($result->items(),__('Ticket Listed'));
 
     }
 
@@ -153,7 +153,7 @@ class SupportTicketController extends BaseController
                 }
             }else{
             }
-            return $this->respondSuccess($data=null, 'support Ticket Successfully');
+            return $this->respondSuccess($data=null, __('support Ticket Successfully'));
         }
 
             // reply message for support Ticket
@@ -181,7 +181,7 @@ class SupportTicketController extends BaseController
 
                 // Optionally, return a response
                 return response()->json([
-                    'successMessage' => 'Title created successfully.',
+                    'successMessage' => __('Title created successfully.'),
                     'reply_ticket' => $reply_ticket,
                 ], 201);
             }

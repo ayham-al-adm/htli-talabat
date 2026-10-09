@@ -297,7 +297,7 @@ class UserCancelRequestController extends StripeController
             $this->throwAuthorizationException();
         }
         if($request_detail->is_paid){
-            $this->throwCustomException('Already Paid For the ride');
+            $this->throwCustomException(__('Already Paid For the ride'));
         }
 
         if ($this->handlePayment($request_detail) ) {

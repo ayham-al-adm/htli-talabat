@@ -108,7 +108,7 @@ class AirtelController extends Controller
 
 //             if (!$token) {
 //                 Log::error('Airtel auth failed', ['response' => $authBody]);
-//                 return response()->json(['error' => 'Payment gateway authentication failed'], 500);
+//                 return response()->json(['error' => __('Payment gateway authentication failed')], 500);
 //             }
 
 //             /**
@@ -175,7 +175,7 @@ class AirtelController extends Controller
 //             }
 
 //             Log::warning('Airtel Payment Failed', ['body' => $body]);
-//             return response()->json(['error' => 'Payment not successful'], 400);
+//             return response()->json(['error' => __('Payment not successful')], 400);
 
 //         } catch (BadResponseException $e) {
 //             // dd( $e->getResponse()?->getBody()?->getContents());
@@ -183,11 +183,11 @@ class AirtelController extends Controller
 //                 'response' => $e->getResponse()?->getBody()?->getContents()
 //             ]);
 //             dd('Airtel Payment Exception: ' . $e->getMessage());
-//             return response()->json(['error' => 'Payment gateway error'], 500);
+//             return response()->json(['error' => __('Payment gateway error')], 500);
 
 //         } catch (\Exception $e) {
 //             Log::error('Airtel Payment Exception: ' . $e->getMessage());
-//             return response()->json(['error' => 'Payment processing error'], 500);
+//             return response()->json(['error' => __('Payment processing error')], 500);
 //         }
 //     }
 
@@ -244,7 +244,7 @@ class AirtelController extends Controller
 
             if (!$token) {
                 Log::error('Airtel auth failed', ['response' => $authBody]);
-                return response()->json(['error' => 'Payment gateway authentication failed'], 500);
+                return response()->json(['error' => __('Payment gateway authentication failed')], 500);
             }
 
             /**
@@ -317,13 +317,13 @@ class AirtelController extends Controller
             $errorBody = $e->getResponse()?->getBody()?->getContents();
             Log::error('Airtel API BadResponse: ' . $e->getMessage(), ['response' => $errorBody]);
             return response()->json([
-                'error' => 'Payment gateway error',
+                'error' => __('Payment gateway error'),
                 'details' => json_decode($errorBody, true)
             ], 500);
 
         } catch (\Exception $e) {
             Log::error('Airtel Payment Exception: ' . $e->getMessage());
-            return response()->json(['error' => 'Payment processing error'], 500);
+            return response()->json(['error' => __('Payment processing error')], 500);
         }
     }
     /**

@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Admin\ZoneTypePrice;
 use App\Models\Admin\ZoneType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Base\Libraries\QueryFilter\QueryFilterContract;
 use App\Base\Filters\Admin\PriceFilter;
@@ -96,7 +97,7 @@ class SetPriceController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('admin.not_authorized')
             ], 403);
         }
         $transportType = $request->transport_type;
@@ -170,7 +171,7 @@ class SetPriceController extends Controller
         }
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Vehicle Price created successfully.',
+            'successMessage' => __('admin.vehicle_price_created_successfully'),
             'vehiclePrice' => $vehiclePrice,
         ], 201);
     }
@@ -208,7 +209,7 @@ class SetPriceController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('admin.not_authorized')
             ], 403);
         }
     // dd($request->all());
@@ -275,7 +276,7 @@ class SetPriceController extends Controller
   
        // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Vehicle Price created successfully.',
+            'successMessage' => __('admin.vehicle_price_updated_successfully'),
             'vehiclePrice' => $vehiclePrice,
         ], 201);
     
@@ -284,23 +285,35 @@ class SetPriceController extends Controller
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('admin.not_authorized')
             ], 403);
         }
 
-        $zoneTypePrice = ZoneTypePrice::where('zone_type_id', $id)->delete();
+        $zoneType = ZoneType::findOrFail($id);
 
-        $zoneType = ZoneType::where('id', $id)->delete();
+        DB::transaction(function () use ($zoneType) {
+            $zoneType->zoneTypePrice()->delete();
+            $zoneType->zoneTypePackages()->delete();
+            $zoneType->zoneSurge()->delete();
+            $zoneType->preference()->delete();
+            $zoneType->zoneTypeReward()->delete();
+            $zoneType->zoneTypeIncentive()->delete();
+
+            Zone::where('default_vehicle_type', $zoneType->id)->update(['default_vehicle_type' => null]);
+            Zone::where('default_vehicle_type_for_delivery', $zoneType->id)->update(['default_vehicle_type_for_delivery' => null]);
+
+            $zoneType->delete();
+        });
 
         return response()->json([
-            'successMessage' => 'Vehicle Price deleted successfully',
+            'successMessage' => __('admin.vehicle_price_deleted_successfully'),
         ]);
     }  
     public function updateStatus(Request $request)
     {
         if(env('APP_FOR') == 'demo'){
             return response()->json([
-                'alertMessage' => 'You are not Authorized'
+                'alertMessage' => __('admin.not_authorized')
             ], 403);
         }
         // ZoneTypePrice::where('zone_type_id', $request->id)->update(['active'=> $request->status]);
@@ -308,7 +321,7 @@ class SetPriceController extends Controller
         // dd($request->all());
 
         return response()->json([
-            'successMessage' => 'Vehicle Price status updated successfully',
+            'successMessage' => __('admin.vehicle_price_status_updated_successfully'),
         ]);
     }
     public function packageIndex(ZoneType $zoneType)
@@ -419,7 +432,7 @@ class SetPriceController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Vehicle Price created successfully.',
+            'successMessage' => __('admin.package_price_created_successfully'),
             'packagePrice' => $packagePrice,
         ], 201);
     }
@@ -472,7 +485,7 @@ class SetPriceController extends Controller
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Package Price  updated successfully.',
+            'successMessage' => __('admin.package_price_updated_successfully'),
             'vehiclePrice' => $zoneTypePackage,
         ], 201);
     
@@ -482,7 +495,7 @@ class SetPriceController extends Controller
         $zoneTypePackage->delete();
 
         return response()->json([
-            'successMessage' => 'Package Price deleted successfully',
+            'successMessage' => __('admin.package_price_deleted_successfully'),
         ]);
 
     }
@@ -492,7 +505,7 @@ class SetPriceController extends Controller
         ZoneTypePackage::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Package Price status updated successfully',
+            'successMessage' => __('admin.package_price_status_updated_successfully'),
         ]);
     }
 
@@ -532,7 +545,7 @@ class SetPriceController extends Controller
             $surge[$day] = $zoneType->zoneSurge()->where('day',$day)->get()->toArray();
         }
         return response()->json([
-            'successMessage' => 'Set Price Surge updated successfully',
+            'successMessage' => __('admin.surge_price_updated_successfully'),
             'surge' => $surge,
         ],201);
 

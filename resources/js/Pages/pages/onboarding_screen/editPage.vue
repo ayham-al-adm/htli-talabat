@@ -191,7 +191,7 @@ export default {
 
 <template>
   <Layout>
-    <Head title="Onboarding" />
+    <Head :title="$t('onboarding')" />
     <PageHeader :title="$t('edit')" :pageTitle="$t('onboarding_screen')" pageLink="/onboarding-screen"/>
     <BRow>
       <BCard v-if="app_for === 'demo'" no-body id="tasksList">
@@ -295,7 +295,7 @@ export default {
       <div v-if="successMessage" class="custom-alert alert alert-success alert-border-left fade show" role="alert" id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Success</strong> - {{ successMessage }}
+          <strong>{{ $t('success') }}</strong> - {{ successMessage }}
           <button type="button" class="btn-close btn-close-success" @click="dismissMessage" aria-label="Close Success Message"></button>
         </div>
       </div>
@@ -303,7 +303,7 @@ export default {
       <div v-if="alertMessage" class="custom-alert alert alert-danger alert-border-left fade show" role="alert" id="alertMsg">
         <div class="alert-content">
           <i class="ri-notification-off-line me-3 align-middle"></i>
-          <strong>Alert</strong> - {{ alertMessage }}
+          <strong>{{ $t('alert') }}</strong> - {{ alertMessage }}
           <button type="button" class="btn-close btn-close-danger" @click="dismissMessage" aria-label="Close Alert Message"></button>
         </div>
       </div>

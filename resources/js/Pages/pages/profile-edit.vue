@@ -105,6 +105,7 @@ import Layout from "@/Layouts/main.vue";
 import DispatchMenu from "@/Layouts/dispatchHorizontal.vue"
 import Horizontal from "@/Layouts/horizontal.vue";
 import { layoutComputed } from "@/state/helpers";
+import { i18nT } from '@/i18n';
 
 export default {
   components: {
@@ -160,14 +161,14 @@ export default {
       })
         .then(response => {
           Swal.fire({
-            title: 'Success!',
+            title: i18nT('success'),
             text: 'Profile updated successfully.',
             icon: 'success',
           });
         })
         .catch(error => {
           Swal.fire({
-            title: 'Error!',
+            title: i18nT('error'),
             text: 'There was an error updating your profile.',
             icon: 'error',
           });
@@ -177,8 +178,8 @@ export default {
       // Check if password matches confirm password
       if (this.form.password !== this.form.confirm_password) {
         Swal.fire({
-          title: 'Error!',
-          text: 'Passwords do not match!',
+          title: i18nT('error'),
+          text: i18nT('passwords_do_not_match'),
           icon: 'error',
         });
         return;
@@ -191,7 +192,7 @@ export default {
       })
       .then(response => {
         Swal.fire({
-          title: 'Success!',
+          title: i18nT('success'),
           text: 'Password updated successfully!',
           icon: 'success',
         });
@@ -200,7 +201,7 @@ export default {
       })
       .catch(error => {
         Swal.fire({
-          title: 'Error!',
+          title: i18nT('error'),
           text: error.response.data.message || 'An error occurred.',
           icon: 'error',
         });

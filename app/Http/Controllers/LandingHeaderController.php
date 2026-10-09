@@ -109,7 +109,7 @@ class LandingHeaderController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Landing Header created successfully.'
+            'successMessage' => __('Landing Header created successfully.')
         ], 201);
     }
     public function edit($id)
@@ -175,7 +175,7 @@ class LandingHeaderController extends BaseController
 
         // Optionally, return a response
         return response()->json([
-            'successMessage' => 'Header Footer updated successfully.',
+            'successMessage' => __('Header Footer updated successfully.'),
             'landingHeader' => $landingHeader,
         ], 201);
 
@@ -185,7 +185,7 @@ class LandingHeaderController extends BaseController
         $landingHeader->delete();
 
         return response()->json([
-            'successMessage' => 'Header Footer deleted successfully',
+            'successMessage' => __('Header Footer deleted successfully'),
         ]);
     } 
 
@@ -232,7 +232,7 @@ public function updateColorSettings(Request $request)
         Setting::updateOrCreate(['name' => $key], ['value' => $value]);
     }
 
-    return response()->json(['successMessage' => 'Settings updated successfully.']);
+    return response()->json(['successMessage' => __('Settings updated successfully.')]);
 }
 
 }

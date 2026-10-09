@@ -68,7 +68,7 @@ class BankInfoController extends Controller
             ]);
         }
     
-        return response()->json(['message' => 'Data stored successfully'], 201);
+        return response()->json(['message' => __('Data stored successfully')], 201);
     }
     private function formatFieldName($name)
     {
@@ -129,7 +129,7 @@ class BankInfoController extends Controller
             }
         }
     
-        return response()->json(['message' => 'Data updated successfully'], 200);
+        return response()->json(['message' => __('Data updated successfully')], 200);
     }
 
     public function destroy(Method $method)
@@ -137,7 +137,7 @@ class BankInfoController extends Controller
         $method->delete();
 
         return response()->json([
-            'successMessage' => 'Bank Info deleted successfully',
+            'successMessage' => __('Bank Info deleted successfully'),
         ]);
     } 
 
@@ -148,7 +148,7 @@ class BankInfoController extends Controller
         Method::where('id', $request->id)->update(['active'=> $request->status]);
 
         return response()->json([
-            'successMessage' => 'Field status updated successfully',
+            'successMessage' => __('Field status updated successfully'),
         ]);
 
 

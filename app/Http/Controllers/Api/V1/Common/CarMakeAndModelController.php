@@ -170,7 +170,7 @@ class CarMakeAndModelController extends BaseController
         $this->database->getReference('admin-notification/' . $notificationData['id'])
                        ->set($notificationData);
     
-        return response()->json(['message' => 'Notification created successfully'], 201);
+        return response()->json(['message' => __('Notification created successfully')], 201);
     }
     
 }
